@@ -1,0 +1,36 @@
+.button {
+  height: 50px;
+  padding: 0 5px;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 3;
+  transition: all 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &--streched {
+    display: flex;
+  }
+
+  &--accent {
+    background-color: #ea4c88;
+  }
+
+  &--normal {
+    background-color: #89949c;
+  }
+
+  &--s {
+    width: 125px;
+  }
+
+  &--m {
+    width: 250px;
+  }
+
+  &--l {
+    width: 275px;
+  }
+}
