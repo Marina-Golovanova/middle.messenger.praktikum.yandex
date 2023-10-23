@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import './components/avatar/avatar.css';
 @import './components/button/button.css';
+@import './components/button-icon/button-icon.css';
 @import './components/input/input.css';
 @import './components/form-layout/form-layout.css';
 @import './layouts/centred-layout/centred-layout.css';
+@import './layouts/main-layout/main-layout.css';
+@import './layouts/main-content-layout/main-content-layout.css';
 @import './components/error/error.css';
+@import './components/sidebar/sidebar.css';
+@import './pages/profile/profile.css';
+@import './pages/profile/profile-edit.css';
 
 :root {
   font-family: Roboto, sans-serif;
@@ -15,6 +22,8 @@
   --han-solo: #fff;
   --chewbacca: #d2d2d2;
   --yoda: #454545;
+  --darth-vader: #0e1b24;
+  --r2-d2: #2c3338;
 }
 
 html {

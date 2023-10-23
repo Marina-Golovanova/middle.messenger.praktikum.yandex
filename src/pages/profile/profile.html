@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../style.css" />
+    <title>Profile</title>
+  </head>
+  <body>
+    {{#> main-layout}} {{#> sidebar className='sidebar--xs'}}
+    <div class="profile__sidebar__layout">
+      {{#> button-icon}}{{> arrow-back className="profile__sidebar__icon"
+      title="back"}}{{/button-icon}}
+    </div>
+    {{/sidebar}} {{#> main-content-layout}}
+
+    <div class="profile__user-form-layout">
+      {{> user-form}}
+      <div class="profile__user-form-layout__avatar-layout">
+        {{#> avatar}}<img src="/avatar.png" />{{/avatar}}
+      </div>
+    </div>
+
+    {{/main-content-layout}}
+
+    <div class="profile__actions">
+      {{#> button-icon}}{{> edit className="profile__actions__icon"
+      title="edit"}}{{/button-icon}} {{#> button-icon}}{{> exit
+      className="profile__actions__icon" title="exit"}}{{/button-icon}}
+    </div>
+
+    {{/main-layout}}
+  </body>
+</html>

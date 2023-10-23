@@ -7,13 +7,21 @@ export default defineConfig({
   plugins: [
     handlebars({
       partialDirectory: [
+        './src/components/avatar',
         './src/components/button',
+        './src/components/button-icon',
         './src/components/input',
         './src/components/form-layout',
         './src/components/error',
-        './src/pages/authorization/modules/login',
+        './src/components/sidebar',
+        './src/components/icons',
+        './src/pages/authorization/modules/login-form',
         './src/pages/registration/modules/registration-form',
+        './src/pages/profile/modules/user-form',
+        './src/pages/profile/modules/user-form-edit',
         './src/layouts/centred-layout',
+        './src/layouts/main-layout',
+        './src/layouts/main-content-layout',
       ],
       context: {
         loginFields: [
@@ -27,6 +35,14 @@ export default defineConfig({
           { label: 'password' },
           { label: 'repeat password' },
           { label: 'phone', placeholder: '+7-999-888-77-66' },
+        ],
+        userFields: [
+          { label: 'first name', value: 'Ivan' },
+          { label: 'last name', value: 'Ivanov' },
+          { label: 'display name', value: 'ivanko' },
+          { label: 'login', value: 'ivanko545' },
+          { label: 'email', value: 'ivan@yandex.ru' },
+          { label: 'phone', value: '+7-999-888-77-66' },
         ],
       },
     }) as Plugin,

@@ -1,0 +1,12 @@
+.sidebar {
+  background-color: var(--darth-vader);
+  height: 100%;
+
+  &--xs {
+    width: 64px;
+  }
+
+  &--s {
+    width: 330px;
+  }
+}

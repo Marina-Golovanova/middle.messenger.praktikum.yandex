@@ -1,0 +1,9 @@
+.button-icon {
+  > * {
+    transition: all 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
