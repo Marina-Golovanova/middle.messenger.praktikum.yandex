@@ -1,13 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 @import './components/button/button.css';
+@import './components/input/input.css';
+@import './components/form-layout/form-layout.css';
+@import './layouts/authorization-layout/authorization-layout.css';
 
 :root {
   font-family: Roboto, sans-serif;
   background-color: #242424;
+
+  --leia-organa: #ea4c88;
+  --luke-skywalker: #89949c;
+  --obi-van-kenobi: #3b4148;
+  --han-solo: #fff;
+  --chewbacca: #d2d2d2;
+  --yoda: #454545;
+}
+
+html {
+  height: 100%;
 }
 
 body {
   margin: 0;
+  height: 1px;
+  min-height: 100%;
 }
 
 *,
@@ -26,4 +42,14 @@ button {
   &:not(:disabled) {
     cursor: pointer;
   }
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+}
+
+.a {
+  width: 500px;
 }

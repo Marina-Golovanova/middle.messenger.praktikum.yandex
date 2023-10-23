@@ -1,25 +1,25 @@
 .button {
   height: 50px;
   padding: 0 5px;
-  color: #fff;
+  color: var(--han-solo);
   font-size: 20px;
-  border-radius: 3;
+  border-radius: 3px;
   transition: all 0.3s;
 
   &:hover {
     opacity: 0.8;
   }
 
-  &--streched {
-    display: flex;
+  &--stretched {
+    width: 100%;
   }
 
   &--accent {
-    background-color: #ea4c88;
+    background-color: var(--leia-organa);
   }
 
   &--normal {
-    background-color: #89949c;
+    background-color: var(--luke-skywalker);
   }
 
   &--s {
