@@ -2,7 +2,8 @@
 @import './components/button/button.css';
 @import './components/input/input.css';
 @import './components/form-layout/form-layout.css';
-@import './layouts/authorization-layout/authorization-layout.css';
+@import './layouts/centred-layout/centred-layout.css';
+@import './components/error/error.css';
 
 :root {
   font-family: Roboto, sans-serif;

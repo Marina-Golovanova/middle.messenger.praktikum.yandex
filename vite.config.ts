@@ -10,9 +10,10 @@ export default defineConfig({
         './src/components/button',
         './src/components/input',
         './src/components/form-layout',
+        './src/components/error',
         './src/pages/authorization/modules/login',
         './src/pages/registration/modules/registration-form',
-        './src/layouts/authorization-layout',
+        './src/layouts/centred-layout',
       ],
       context: {
         loginFields: [
