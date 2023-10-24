@@ -1,17 +1,5 @@
 .profile {
-  &__sidebar__layout {
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__sidebar__icon {
-    width: 28px;
-    color: var(--leia-organa);
-  }
-
-  &__user-form-layout {
+  &__form-layout {
     align-self: center;
     position: relative;
 

@@ -19,9 +19,11 @@ export default defineConfig({
         './src/pages/registration/modules/registration-form',
         './src/pages/profile/modules/user-form',
         './src/pages/profile/modules/user-form-edit',
+        './src/pages/profile/modules/change-password-form',
         './src/layouts/centred-layout',
         './src/layouts/main-layout',
         './src/layouts/main-content-layout',
+        './src/layouts/profile-layout',
       ],
       context: {
         loginFields: [
@@ -43,6 +45,11 @@ export default defineConfig({
           { label: 'login', value: 'ivanko545' },
           { label: 'email', value: 'ivan@yandex.ru' },
           { label: 'phone', value: '+7-999-888-77-66' },
+        ],
+        changePasswordFields: [
+          { label: 'old password' },
+          { label: 'new password' },
+          { label: 'repeat password' },
         ],
       },
     }) as Plugin,
