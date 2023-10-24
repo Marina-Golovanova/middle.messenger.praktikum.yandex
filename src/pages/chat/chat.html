@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../style.css" />
-    <title>Change password</title>
+    <title>Chat</title>
   </head>
   <body>
-    {{#> profile-layout}}
-    <div class="profile__form-layout">
-      {{> change-password-form}}
-      <div class="profile__form-layout__avatar-layout">
-        {{#> avatar className='avatar--m'}}<img src="/avatar.png" />{{/avatar}}
+    {{#> main-layout}}{{#> sidebar className='sidebar--s'}}
+    <div class="chat__sidebar__content-layout">
+      {{> header}}
+      <div class="chat__sidebar__message-list">
+        {{#each messageList}} {{> message-in-list }} {{/each}}
       </div>
     </div>
-    {{/profile-layout}}
+    {{/sidebar}} {{/main-layout}}
   </body>
 </html>

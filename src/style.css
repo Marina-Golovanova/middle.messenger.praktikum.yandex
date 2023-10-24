@@ -4,15 +4,17 @@
 @import './components/button-icon/button-icon.css';
 @import './components/input/input.css';
 @import './components/form-layout/form-layout.css';
+@import './components/error/error.css';
+@import './components/sidebar/sidebar.css';
 @import './layouts/centred-layout/centred-layout.css';
 @import './layouts/main-layout/main-layout.css';
 @import './layouts/main-content-layout/main-content-layout.css';
 @import './layouts/profile-layout/profile-layout.css';
-@import './components/error/error.css';
-@import './components/sidebar/sidebar.css';
 @import './pages/profile/profile.css';
 @import './pages/profile/profile-edit.css';
 @import './pages/profile/change-password.css';
+@import './pages/chat/chat.css';
+@import './pages/chat/modules/message-in-list/message-in-list.css';
 
 :root {
   font-family: Roboto, sans-serif;
@@ -26,6 +28,8 @@
   --yoda: #454545;
   --darth-vader: #0e1b24;
   --r2-d2: #2c3338;
+  --c3-po: #83919c;
+  --palpatine: #3369f3;
 }
 
 html {

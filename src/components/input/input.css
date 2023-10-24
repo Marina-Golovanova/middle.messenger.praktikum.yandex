@@ -15,6 +15,10 @@
   &--stretched {
     width: 100%;
   }
+
+  &--s {
+    height: 32px;
+  }
 }
 
 .label {
