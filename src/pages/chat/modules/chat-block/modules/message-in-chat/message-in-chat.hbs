@@ -1,0 +1,10 @@
+<div class='message-in-chat {{#if isUserMessage}}message-in-chat__sent{{else}}message-in-chat__received{{/if}} {{#if fileType}}message-in-chat__file{{/if}}'>
+    {{message}}
+    {{#if fileType}}<{{fileType}} src='{{fileSrc}}'></{{fileType}}>{{/if}}
+    <div class='message-in-chat__info {{#if fileType}}message-in-chat__info--file{{/if}} {{#if isUserMessage}}{{#if isRead}}message-in-chat__info--accent{{/if}}{{/if}}'>
+        {{#if isUserMessage}}{{#if isRead}}
+            {{> watched className='message-in-chat__info__icon'}}
+        {{/if}}{{/if}}
+        {{time}}
+    </div>
+</div>

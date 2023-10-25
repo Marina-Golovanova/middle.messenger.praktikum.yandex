@@ -1,0 +1,58 @@
+.message-in-chat {
+  font-size: 12px;
+  color: var(--darth-vader);
+  padding: 11px 11px 20px;
+  width: fit-content;
+  max-width: 90%;
+  position: relative;
+
+  &__received {
+    background-color: var(--qui-gon-jinn);
+    border-radius: 0 20px 20px;
+  }
+
+  &__sent {
+    background-color: var(--padme-amilada);
+    align-self: end;
+    border-radius: 20px 20px 0;
+  }
+
+  &__file {
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+
+    img {
+      border-radius: 10px;
+    }
+  }
+
+  &__info {
+    position: absolute;
+    font-size: 9px;
+    right: 10px;
+    bottom: 5px;
+    color: var(--c3-po);
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 2px;
+
+    &__icon {
+      width: 9px;
+      height: 4px;
+    }
+
+    &--accent {
+      color: var(--leia-organa);
+    }
+
+    &--file {
+      background-color: var(--maul);
+      padding: 2px 7px;
+      border-radius: 30px;
+      color: var(--han-solo);
+      bottom: 10px;
+    }
+  }
+}

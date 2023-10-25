@@ -1,25 +1,25 @@
 <div class='message__layout'>
-    {{#> avatar className='avatar--s'}}<img src="{{imageSrc}}" />{{/avatar}}
-    <div class="message__block">
-        <div class="message__block__chat-name">{{chatName}}</div>
-        <div class="message__block__message">
+    {{#> avatar className='avatar--s'}}<img src='{{imageSrc}}' />{{/avatar}}
+    <div class='message__block'>
+        <div class='message__block__chat-name'>{{chatName}}</div>
+        <div class='message__block__message'>
             {{#if isUserMessage}}
-                <span class="message__block__message--accent">Вы: </span>
+                <span class='message__block__message--accent'>Вы: </span>
             {{/if}} 
 
             {{#if chatUserName}}
-                <span class="message__block__message--accent">{{chatUserName}}: </span>
+                <span class='message__block__message--accent'>{{chatUserName}}: </span>
             {{/if}}
             {{message}}
         </div>
     </div>
 
-    <div class="message__info">
-        <div class="message__info__date">
+    <div class='message__info'>
+        <div class='message__info__date'>
             {{date}}
         </div>
         {{#if numberNewMessages}}
-            <div class="message__info__number-new-messages">+{{numberNewMessages}}</div>
+            <div class='message__info__number-new-messages'>+{{numberNewMessages}}</div>
         {{/if}}
      </div>
 </div>

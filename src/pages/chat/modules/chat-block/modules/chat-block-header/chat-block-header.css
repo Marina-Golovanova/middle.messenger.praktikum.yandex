@@ -1,0 +1,26 @@
+.chat-block-header {
+  &__layout {
+    height: 54px;
+    background-color: var(--r2-d2);
+    border-bottom: 1px solid var(--c3-po);
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__chat-name {
+    color: var(--han-solo);
+    font-size: 14px;
+    font-weight: 500px;
+    margin-left: 10px;
+  }
+
+  &__burger-menu {
+    margin-left: auto;
+
+    &__icon {
+      color: var(--c3-po);
+      width: 3px;
+    }
+  }
+}

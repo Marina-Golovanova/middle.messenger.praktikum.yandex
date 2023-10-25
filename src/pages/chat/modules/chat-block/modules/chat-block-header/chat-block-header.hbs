@@ -1,0 +1,13 @@
+<div class='chat-block-header__layout'>
+    {{#> avatar className='avatar--xs' }}
+        <img src={{imageSrc}} />
+    {{/avatar}}
+
+    <div class='chat-block-header__chat-name'>{{chatName}}</div>
+
+    <div class='chat-block-header__burger-menu'>
+        {{#> button-icon}}
+            {{> burger-menu className='chat-block-header__burger-menu__icon' title='settings'}}
+        {{/button-icon}}
+    </div>
+</div>

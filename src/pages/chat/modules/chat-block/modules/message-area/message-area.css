@@ -1,0 +1,20 @@
+.message-area {
+  &__layout {
+    height: 60px;
+    padding: 11px 0;
+    border-top: 1px solid var(--c3-po);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__icon {
+    width: 28px;
+    height: 28px;
+    color: var(--chewbacca);
+
+    &--accent {
+      color: var(--leia-organa);
+    }
+  }
+}

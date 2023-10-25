@@ -1,0 +1,9 @@
+<div class='chat-block__layout'>
+    {{> chat-block-header chatName=chatName imageSrc=imageSrc}}
+
+    <div class='chat-block__messages'>{{#each messages}}{{> message-in-chat}}{{/each}}</div>
+
+    <div class='chat-block__footer'>
+        {{> message-area}}
+    </div>
+</div>

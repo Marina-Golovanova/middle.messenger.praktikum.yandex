@@ -6,6 +6,7 @@
 @import './components/form-layout/form-layout.css';
 @import './components/error/error.css';
 @import './components/sidebar/sidebar.css';
+@import './components/textarea/textarea.css';
 @import './layouts/centred-layout/centred-layout.css';
 @import './layouts/main-layout/main-layout.css';
 @import './layouts/main-content-layout/main-content-layout.css';
@@ -15,6 +16,10 @@
 @import './pages/profile/change-password.css';
 @import './pages/chat/chat.css';
 @import './pages/chat/modules/message-in-list/message-in-list.css';
+@import './pages/chat/modules/chat-block/chat-block.css';
+@import './pages/chat/modules/chat-block/modules/chat-block-header/chat-block-header.css';
+@import './pages/chat/modules/chat-block/modules/message-area/message-area.css';
+@import './pages/chat/modules/chat-block/modules/message-in-chat/message-in-chat.css';
 
 :root {
   font-family: Roboto, sans-serif;
@@ -30,6 +35,9 @@
   --r2-d2: #2c3338;
   --c3-po: #83919c;
   --palpatine: #3369f3;
+  --padme-amilada: #c3d6e4;
+  --qui-gon-jinn: rgba(195, 214, 228, 0.8);
+  --maul: rgba(82, 82, 82, 0.5);
 }
 
 html {
