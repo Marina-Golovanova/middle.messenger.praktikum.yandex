@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-@import './components/avatar/avatar.css';
-@import './components/button/button.css';
-@import './components/button-icon/button-icon.css';
-@import './components/input/input.css';
-@import './components/form-layout/form-layout.css';
-@import './components/error/error.css';
-@import './components/sidebar/sidebar.css';
-@import './components/textarea/textarea.css';
-@import './layouts/centred-layout/centred-layout.css';
-@import './layouts/main-layout/main-layout.css';
-@import './layouts/main-content-layout/main-content-layout.css';
-@import './layouts/profile-layout/profile-layout.css';
-@import './pages/profile/profile.css';
-@import './pages/profile/profile-edit.css';
-@import './pages/profile/change-password.css';
-@import './pages/chat/chat.css';
-@import './pages/chat/modules/message-in-list/message-in-list.css';
-@import './pages/chat/modules/chat-block/chat-block.css';
-@import './pages/chat/modules/chat-block/modules/chat-block-header/chat-block-header.css';
-@import './pages/chat/modules/chat-block/modules/message-area/message-area.css';
-@import './pages/chat/modules/chat-block/modules/message-in-chat/message-in-chat.css';
+@import url('./components/avatar/avatar.css');
+@import url('./components/button/button.css');
+@import url('./components/button-icon/button-icon.css');
+@import url('./components/input/input.css');
+@import url('./components/form-layout/form-layout.css');
+@import url('./components/error/error.css');
+@import url('./components/sidebar/sidebar.css');
+@import url('./components/textarea/textarea.css');
+@import url('./layouts/centred-layout/centred-layout.css');
+@import url('./layouts/main-layout/main-layout.css');
+@import url('./layouts/main-content-layout/main-content-layout.css');
+@import url('./layouts/profile-layout/profile-layout.css');
+@import url('./pages/profile/profile.css');
+@import url('./pages/profile/profile-edit.css');
+@import url('./pages/profile/change-password.css');
+@import url('./pages/chat/chat.css');
+@import url('./pages/chat/modules/message-in-list/message-in-list.css');
+@import url('./pages/chat/modules/chat-block/chat-block.css');
+@import url('./pages/chat/modules/chat-block/modules/chat-block-header/chat-block-header.css');
+@import url('./pages/chat/modules/chat-block/modules/message-area/message-area.css');
+@import url('./pages/chat/modules/chat-block/modules/message-in-chat/message-in-chat.css');
 
 :root {
   font-family: Roboto, sans-serif;
@@ -36,9 +36,9 @@
   --c3-po: #83919c;
   --palpatine: #3369f3;
   --padme-amilada: #c3d6e4;
-  --qui-gon-jinn: rgba(195, 214, 228, 0.8);
-  --maul: rgba(82, 82, 82, 0.5);
-  --jar-jar-binks: rgba(234, 76, 136, 0.2);
+  --qui-gon-jinn: rgb(195 214 228 / 80%);
+  --maul: rgb(82 82 82 / 50%);
+  --jar-jar-binks: rgba(234 76 136 / 20%);
 }
 
 html {
