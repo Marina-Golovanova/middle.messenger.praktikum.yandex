@@ -4,6 +4,16 @@
     height: 72px;
     padding: 11px 0;
     border-top: 1px solid var(--c3-po);
+    position: relative;
+  }
+
+  &--active {
+    width: calc(100% + 40px);
+    height: 100%;
+    top: 0;
+    left: -20px;
+    background-color: var(--jar-jar-binks);
+    position: absolute;
   }
 
   &__block {

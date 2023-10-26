@@ -2,8 +2,23 @@ import { defineConfig, Plugin } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
 import postcssNested from 'postcss-nested';
 import postcssImport from 'postcss-import';
+// import { createHtmlPlugin } from 'vite-plugin-html';
+import { pages } from './pagesConfig';
+
+const pagesInput = {};
+
+pages.forEach((page) => {
+  pagesInput[page.name] = page.path;
+});
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        ...pagesInput,
+      },
+    },
+  },
   plugins: [
     handlebars({
       partialDirectory: [
@@ -87,6 +102,16 @@ export default defineConfig({
             date: '6:03',
             numberNewMessages: 2,
             isUserMessage: false,
+            isInfoMessage: false,
+            imageSrc: '/avatar.png',
+          },
+          {
+            chatName: 'Вадим',
+            message: 'Круто!',
+            isGroup: false,
+            isActiveChat: true,
+            date: '12:00',
+            isUserMessage: true,
             isInfoMessage: false,
             imageSrc: '/avatar.png',
           },
