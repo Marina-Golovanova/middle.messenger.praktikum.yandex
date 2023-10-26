@@ -1,1 +1,1 @@
-Макет - https://www.figma.com/community/file/1297315874066951102
+Прототип - https://www.figma.com/file/oQ3kyUDR4I6AhTo28O2TUq/chat-(Community)?type=design&node-id=3%3A570&mode=design&t=XPxmtvdhzisHF4EZ-1

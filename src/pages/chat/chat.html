@@ -11,9 +11,9 @@
     {{#> main-layout}}{{#> sidebar className='sidebar--s'}}
     <div class="chat__sidebar__content-layout">
       {{> message-list-header}}
-      <div class="chat__sidebar__message-list">
+      <ul class="chat__sidebar__message-list">
         {{#each messageList}} {{> message-in-list }} {{/each}}
-      </div>
+      </ul>
     </div>
     {{/sidebar}} {{> chat-block chatName=exampleDialog.chatName
     imageSrc=exampleDialog.imageSrc messages=exampleDialog.messages}}

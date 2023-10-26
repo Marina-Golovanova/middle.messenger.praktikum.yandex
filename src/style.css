@@ -75,6 +75,11 @@ input {
   border: none;
 }
 
-.a {
-  width: 500px;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }

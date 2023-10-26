@@ -49,29 +49,49 @@ export default defineConfig({
       ],
       context: {
         loginFields: [
-          { label: 'login', placeholder: 'example@yandex.ru' },
-          { label: 'password' },
+          { label: 'login', placeholder: 'example@yandex.ru', name: 'login' },
+          { label: 'password', name: 'password' },
         ],
         registrationFields: [
-          { label: 'first name', placeholder: 'Anna' },
-          { label: 'last name', placeholder: 'Smith' },
-          { label: 'email', placeholder: 'example@yandex.com' },
-          { label: 'password' },
-          { label: 'repeat password' },
-          { label: 'phone', placeholder: '+7-999-888-77-66' },
+          {
+            label: 'first name',
+            placeholder: 'Anna',
+            name: 'registraion-firstName',
+          },
+          {
+            label: 'last name',
+            placeholder: 'Smith',
+            name: 'registraion-lastName',
+          },
+          {
+            label: 'email',
+            placeholder: 'example@yandex.com',
+            name: 'registraion-email',
+          },
+          { label: 'password', name: 'registraion-password' },
+          { label: 'repeat password', name: 'registraion-password-repeat' },
+          {
+            label: 'phone',
+            placeholder: '+7-999-888-77-66',
+            name: 'registraion-phone-number',
+          },
         ],
         userFields: [
-          { label: 'first name', value: 'Ivan' },
-          { label: 'last name', value: 'Ivanov' },
-          { label: 'display name', value: 'ivanko' },
-          { label: 'login', value: 'ivanko545' },
-          { label: 'email', value: 'ivan@yandex.ru' },
-          { label: 'phone', value: '+7-999-888-77-66' },
+          { label: 'first name', value: 'Ivan', name: 'profile-firstName' },
+          { label: 'last name', value: 'Ivanov', name: 'profile-lastName' },
+          {
+            label: 'display name',
+            value: 'ivanko',
+            name: 'profile-displayName',
+          },
+          { label: 'login', value: 'ivanko545', name: 'profile-login' },
+          { label: 'email', value: 'ivan@yandex.ru', name: 'profile-email' },
+          { label: 'phone', value: '+7-999-888-77-66', name: 'profile-phone' },
         ],
         changePasswordFields: [
-          { label: 'old password' },
-          { label: 'new password' },
-          { label: 'repeat password' },
+          { label: 'old password', name: 'old-password' },
+          { label: 'new password', name: 'new-password' },
+          { label: 'repeat password', name: 'repeat-password' },
         ],
         messageList: [
           {
