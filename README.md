@@ -15,7 +15,7 @@ Runs the app in the development mode.
 Builds the app for production to the `dist` folder.
 
 `npm run server`  
-Runs the app on the port 3000
+After building you can you this command to run the app on the port 3000
 
 ---
 
