@@ -1,0 +1,25 @@
+.profile {
+  &__form-layout {
+    align-self: center;
+    position: relative;
+
+    &__avatar-layout {
+      position: absolute;
+      top: 0;
+      left: -175px;
+    }
+  }
+
+  &__actions {
+    position: absolute;
+    right: 36px;
+    top: 36px;
+    display: flex;
+    gap: 12px;
+
+    &__icon {
+      width: 28px;
+      color: var(--leia-organa);
+    }
+  }
+}

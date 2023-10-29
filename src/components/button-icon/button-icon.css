@@ -1,0 +1,12 @@
+.button-icon {
+  display: flex;
+  align-items: center;
+
+  > * {
+    transition: all 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

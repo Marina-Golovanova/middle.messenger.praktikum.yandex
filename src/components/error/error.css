@@ -1,0 +1,17 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--han-solo);
+  gap: 18px;
+
+  &__number {
+    font-size: 40px;
+  }
+
+  &__message {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+}

@@ -1,0 +1,29 @@
+.chat {
+  &__sidebar {
+    &__content-layout {
+      padding: 0 20px;
+      height: 100%;
+      overflow-y: scroll;
+    }
+
+    &__header {
+      display: flex;
+      padding: 20px 0;
+      gap: 11px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background-color: var(--darth-vader);
+
+      &__icon {
+        width: 20px;
+        height: 20px;
+        color: var(--chewbacca);
+      }
+    }
+
+    &__message-list {
+      /* margin-top: 24px; */
+    }
+  }
+}

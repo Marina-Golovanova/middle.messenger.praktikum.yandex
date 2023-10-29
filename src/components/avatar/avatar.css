@@ -1,0 +1,28 @@
+.avatar {
+  border-radius: 50%;
+  background-color: #fff;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+
+  &--m {
+    width: 130px;
+    height: 130px;
+  }
+
+  &--s {
+    width: 47px;
+    height: 47px;
+  }
+
+  &--xs {
+    width: 34px;
+    height: 34px;
+  }
+
+  > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}

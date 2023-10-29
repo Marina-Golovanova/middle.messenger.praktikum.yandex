@@ -8,18 +8,18 @@ Project is on `development` stage.
 
 In the project directory, you can run:
 
-`npm start`  
+`npm dev`  
 Runs the app in the development mode.
 
 `npm run build`  
 Builds the app for production to the `dist` folder.
 
-`npm run server`  
-After building you can you this command to run the app on the port 3000
+`npm run start`  
+Builds the app and runs it on the port 3000
 
 ---
 
-Prototype - [figma](https://www.figma.com/file/oQ3kyUDR4I6AhTo28O2TUq/chat-(Community)?type=design&node-id=3%3A570&mode=design&t=XPxmtvdhzisHF4EZ-1)
+Prototype - [figma](<https://www.figma.com/file/oQ3kyUDR4I6AhTo28O2TUq/chat-(Community)?type=design&node-id=3%3A570&mode=design&t=XPxmtvdhzisHF4EZ-1>)
 
 ---
 

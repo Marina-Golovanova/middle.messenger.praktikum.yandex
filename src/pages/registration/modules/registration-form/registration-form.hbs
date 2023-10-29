@@ -1,0 +1,9 @@
+{{#> form-layout className='form-layout__with-frame' }} 
+    {{#each registrationFields}}
+        {{> input }}
+    {{/each}}
+
+    <div class='form-layout__buttons-group'>
+        {{> button text='sign up' className='button--accent button--l'}}
+    </div>
+{{/form-layout}}

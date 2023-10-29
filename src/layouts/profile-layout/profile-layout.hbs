@@ -1,0 +1,13 @@
+{{#> main-layout}} 
+    {{#> sidebar className='sidebar--xs'}}
+        <div class='profile-layout__sidebar'>
+            {{#> button-icon}}
+                {{> arrow-left className='profile-layout__icon'title='back'}}
+            {{/button-icon}}
+        </div>
+    {{/sidebar}} 
+
+    {{#> main-content-layout}} 
+        {{> @partial-block}} 
+    {{/main-content-layout}}
+{{/main-layout}}
