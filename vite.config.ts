@@ -2,7 +2,7 @@ import { defineConfig, Plugin } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
 import postcssNested from 'postcss-nested';
 import postcssImport from 'postcss-import';
-// import { createHtmlPlugin } from 'vite-plugin-html';
+import checker from 'vite-plugin-checker';
 import { pages } from './pagesConfig';
 
 const pagesInput = {};
@@ -315,6 +315,9 @@ export default defineConfig({
         },
       },
     }) as Plugin,
+    checker({
+      typescript: true,
+    }),
   ],
   css: {
     postcss: {
