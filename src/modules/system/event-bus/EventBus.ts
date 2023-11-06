@@ -26,7 +26,7 @@ export class EventBus {
     );
   }
 
-  emit<T>(event: string, arg: T) {
+  emit<T>(event: string, arg?: T) {
     if (!this.listeners[event]) {
       throw new Error(`${event} doesn't exist`);
     }
