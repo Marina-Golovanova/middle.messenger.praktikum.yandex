@@ -14,7 +14,6 @@ export const render = <
   }
 
   root.appendChild(block.getContent());
-
   block.dispatchComponentDidMount();
 
   return root;

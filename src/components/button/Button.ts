@@ -17,4 +17,9 @@ export class Button extends Block<IButtonProps, Partial<HTMLButtonElement>> {
   render() {
     return template(this.props);
   }
+
+  setAttributes(attributes?: Partial<HTMLButtonElement>): void {
+    const className = 'button ' + (attributes?.className || '');
+    super.setAttributes({ ...attributes, className });
+  }
 }
