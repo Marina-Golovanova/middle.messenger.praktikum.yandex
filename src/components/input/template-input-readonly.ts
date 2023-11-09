@@ -6,5 +6,6 @@ export const template = compile(`{{label}}
   class='input {{className}}'
   placeholder='{{placeholder}}'
   value='{{value}}'
+  type='{{type}}'
   readonly
 />`);

@@ -1,47 +1,29 @@
 import { Button } from '../../../../components/button';
 import { FormLayout } from '../../../../components/form-layout';
 import { Input } from '../../../../components/input';
-import { SimpleDiv } from '../../../../components/simple-div/SimpleDiv';
-import { IListener } from '../../../../types';
-import { render } from '../../../../utils/render';
+import { loginButtons, loginFields } from './constants';
 
-type ILoginField = {
-  label: string;
-  placeholder?: string;
-  name: string;
-  listeners?: IListener[];
-};
+const inputs = loginFields.map(
+  (field) =>
+    new Input({
+      props: {
+        ...field,
+      },
+      attributes: {
+        className: 'label',
+      },
+    }),
+);
 
-type ILoginButton = {
-  text: string;
-  className?: string;
-  listeners?: IListener[];
-} & Partial<HTMLButtonElement>;
-
-const loginFields: ILoginField[] = [
-  {
-    label: 'login',
-    placeholder: 'example@yandex.ru',
-    name: 'login',
-  },
-  {
-    label: 'password',
-    name: 'password',
-  },
-];
-
-const loginButtons: ILoginButton[] = [
-  {
-    text: 'sign in',
-    className: 'button--accent button--l',
-    type: 'submit',
-  },
-  {
-    text: 'sign up',
-    className: 'button--normal button--l',
-    type: 'button',
-  },
-];
+const buttons = loginButtons.map(
+  (button) =>
+    new Button({
+      props: {
+        text: button.text,
+      },
+      attributes: button,
+    }),
+);
 
 export const loginForm = new FormLayout({
   attributes: {
@@ -68,44 +50,5 @@ export const loginForm = new FormLayout({
       },
     },
   ],
+  children: [...inputs, ...buttons],
 });
-
-loginForm.componentDidMount = () => {
-  loginFields.forEach((field) => {
-    const input = new Input({
-      props: {
-        ...field,
-      },
-      attributes: {
-        className: 'label',
-      },
-      listeners: field.listeners,
-    });
-
-    render('#form-layout', input);
-  });
-
-  const buttonsGroupLayout = new SimpleDiv({
-    attributes: {
-      id: 'buttons-group-layout',
-      className: 'form-layout__buttons-group',
-    },
-  });
-
-  buttonsGroupLayout.componentDidMount = () => {
-    loginButtons.forEach((button) => {
-      const buttonElement = new Button({
-        props: {
-          ...button,
-        },
-        attributes: {
-          ...button,
-        },
-      });
-
-      render('#buttons-group-layout', buttonElement);
-    });
-  };
-
-  render('#form-layout', buttonsGroupLayout);
-};

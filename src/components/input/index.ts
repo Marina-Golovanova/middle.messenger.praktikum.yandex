@@ -1,2 +1,2 @@
-export { Input } from './Input';
-export { InputReadOnly } from './InputReadOnly';
+export * from './Input';
+export * from './InputReadOnly';

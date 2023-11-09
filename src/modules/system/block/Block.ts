@@ -3,14 +3,15 @@ import { isDeepEqual } from '../../../utils/isDeepEqual';
 import { EventBus } from '../event-bus';
 
 import type { IComponentProps, IListener } from '../../../types';
+import { render } from './utils/render';
 
 type IMeta<Props, Attributes> = {
   tagName: string;
 } & IComponentProps<Props, Attributes>;
 
 export abstract class Block<
-  Props extends object,
-  Attributes extends Partial<HTMLElement>,
+  Props extends object = Record<string, unknown>,
+  Attributes extends Partial<HTMLElement> = Partial<HTMLElement>,
 > {
   static EVENTS = {
     INIT: 'init',
@@ -22,6 +23,7 @@ export abstract class Block<
   props?: Props;
   attributes?: Attributes;
   listeners?: IListener[];
+  children?: Block[];
   private _eventBus: () => EventBus;
 
   private _element: HTMLElement = this._createDocumentElement('div');
@@ -29,13 +31,14 @@ export abstract class Block<
 
   constructor(data: IMeta<Props, Attributes>) {
     const eventBus = new EventBus();
-    const { tagName = 'div', props, attributes, listeners } = data;
+    const { tagName = 'div', props, attributes, listeners, children } = data;
 
     this._meta = {
       tagName,
       props,
       attributes,
       listeners,
+      children,
     };
 
     if (props) {
@@ -48,6 +51,10 @@ export abstract class Block<
 
     if (listeners) {
       this.listeners = listeners;
+    }
+
+    if (children) {
+      this.children = children;
     }
 
     this._eventBus = () => eventBus;
@@ -90,9 +97,14 @@ export abstract class Block<
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
+  dispatchComponentDidUpdate() {
+    this._eventBus().emit(Block.EVENTS.FLOW_CDU);
+  }
+
   _componentDidMount() {
     this.setAttributes(this.attributes);
     this.setListeners();
+    this.addChildren(this.children);
     this.componentDidMount();
   }
 
@@ -191,6 +203,20 @@ export abstract class Block<
     );
 
     this.element.addEventListener(updatedListener.event, listener.callback);
+  }
+
+  addChildren(children?: Block[]) {
+    if (!children) {
+      return;
+    }
+
+    children.forEach((child) => {
+      render(this.getContent(), child);
+    });
+  }
+
+  destroy() {
+    this._element.remove();
   }
 
   abstract render(): string;

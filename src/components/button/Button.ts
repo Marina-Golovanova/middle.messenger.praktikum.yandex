@@ -11,15 +11,14 @@ export class Button extends Block<IButtonProps, Partial<HTMLButtonElement>> {
     super({
       tagName: 'button',
       ...data,
+      attributes: {
+        ...data.attributes,
+        className: 'button ' + data.attributes?.className,
+      },
     });
   }
 
   render() {
     return template(this.props);
-  }
-
-  setAttributes(attributes?: Partial<HTMLButtonElement>): void {
-    const className = 'button ' + (attributes?.className || '');
-    super.setAttributes({ ...attributes, className });
   }
 }

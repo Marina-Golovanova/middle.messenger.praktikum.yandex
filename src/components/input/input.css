@@ -7,6 +7,7 @@
   font-weight: 400;
   width: 275px;
   border-radius: 3px;
+  border: 1px solid transparent;
 
   &:focus {
     outline: 1px solid var(--luke-skywalker);
@@ -19,6 +20,10 @@
   &--s {
     height: 32px;
   }
+
+  &--error {
+    border: 1px solid red;
+  }
 }
 
 .label {
@@ -27,4 +32,12 @@
   color: var(--chewbacca);
   font-size: 16px;
   gap: 8px;
+  position: relative;
+}
+
+.input-error-message {
+  position: absolute;
+  top: calc(100% + 2px);
+  font-size: 10px;
+  color: red;
 }
