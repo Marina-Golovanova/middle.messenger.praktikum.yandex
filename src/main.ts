@@ -3,6 +3,7 @@ import { render } from './utils/render';
 import './style.css';
 import { authorizationPage } from './pages/authorization';
 import { registrationPage } from './pages/registration';
+import { notFoundPage } from './pages/not-found';
 
 const linksContainer = document.getElementsByTagName('ul')[0];
 
@@ -19,6 +20,10 @@ for (const link of links) {
 
     if (link.href.includes('registration')) {
       render('#app', registrationPage);
+    }
+
+    if (link.href.includes('not-found')) {
+      render('#app', notFoundPage);
     }
   };
 }

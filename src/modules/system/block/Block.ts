@@ -219,5 +219,7 @@ export abstract class Block<
     this._element.remove();
   }
 
-  abstract render(): string;
+  render() {
+    return '';
+  }
 }

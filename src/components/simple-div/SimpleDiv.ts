@@ -10,8 +10,4 @@ export class SimpleDiv extends Block<ISimpleDivProps, Partial<HTMLDivElement>> {
       ...data,
     });
   }
-
-  render() {
-    return '';
-  }
 }

@@ -13,15 +13,9 @@ export class CentredLayout extends Block<
     super({
       tagName: 'main',
       ...data,
+      attributes: {
+        className: 'centred-layout',
+      },
     });
-  }
-
-  render() {
-    return '';
-  }
-
-  setAttributes(attributes?: Partial<HTMLElement>): void {
-    const className = 'centred-layout';
-    super.setAttributes({ ...attributes, className });
   }
 }

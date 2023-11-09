@@ -8,15 +8,10 @@ export class FormLayout extends Block<IFormProps, Partial<HTMLFormElement>> {
     super({
       tagName: 'form',
       ...data,
+      attributes: {
+        ...data.attributes,
+        className: 'form-layout ' + (data.attributes?.className || ''),
+      },
     });
-  }
-
-  render() {
-    return '';
-  }
-
-  setAttributes(attributes?: Partial<HTMLFormElement>): void {
-    const className = 'form-layout ' + (attributes?.className || '');
-    super.setAttributes({ ...attributes, className });
   }
 }
