@@ -6,6 +6,7 @@ import { registrationPage } from './pages/registration';
 import { notFoundPage } from './pages/not-found';
 import { serverError } from './pages/server-error';
 import { profile } from './pages/profile/profile';
+import { profileEdit } from './pages/profile/profile-edit';
 
 const linksContainer = document.getElementsByTagName('ul')[0];
 
@@ -32,8 +33,12 @@ for (const link of links) {
       render('#app', serverError);
     }
 
-    if (link.href.includes('profile')) {
+    if (link.href.includes('profile-common')) {
       render('#app', profile);
+    }
+
+    if (link.href.includes('profile-edit')) {
+      render('#app', profileEdit);
     }
   };
 }

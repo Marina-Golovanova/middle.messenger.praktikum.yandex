@@ -1,39 +1,40 @@
-import { Button } from '../../../../components/button';
 import { FormLayout } from '../../../../components/form-layout';
-import { InputReadOnly } from '../../../../components/input';
-import { SimpleDiv } from '../../../../components/simple-div/SimpleDiv';
+import { Input, InputReadOnly } from '../../../../components/input';
+import { Block } from '../../../../modules/system/block';
+import { IComponentProps } from '../../../../types';
 import { userFormFields } from './constants';
 
-const fields = userFormFields.map(
-  (it) =>
-    new InputReadOnly({
-      props: {
-        label: it.label,
-        value: it.value,
-      },
-      attributes: {
-        className: 'label',
-      },
-    }),
-);
+type IUserFormProps = {
+  readonly?: boolean;
+};
 
-export const userForm = new FormLayout({
-  children: [
-    ...fields,
-    new SimpleDiv({
-      attributes: {
-        className: 'form-layout__buttons-group',
-      },
+const getFields = (readonly: boolean) => {
+  const InputConstructor = readonly ? InputReadOnly : Input;
+  return userFormFields.map(
+    (it) =>
+      new InputConstructor({
+        props: {
+          label: it.label,
+          value: it.value,
+          placeholder: it.placeholder,
+        },
+        attributes: {
+          className: 'label',
+        },
+      }),
+  );
+};
+
+export class UserForm extends Block<IUserFormProps> {
+  constructor(data: IComponentProps<IUserFormProps, Partial<HTMLElement>>) {
+    super({
+      tagName: 'fragment',
+      ...data,
       children: [
-        new Button({
-          props: {
-            text: 'change password',
-          },
-          attributes: {
-            className: 'button--accent',
-          },
+        new FormLayout({
+          children: getFields(!!data.props?.readonly),
         }),
       ],
-    }),
-  ],
-});
+    });
+  }
+}
