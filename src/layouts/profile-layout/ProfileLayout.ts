@@ -1,5 +1,5 @@
 import { ButtonIcon } from '../../components/button-icon/ButtonIcon';
-import { arrowLeft } from '../../components/icons-templates/arrowLeft';
+import { arrowLeftTemplate } from '../../components/icons-templates/arrowLeftTemplate';
 import { Sidebar } from '../../components/sidebar';
 import { SimpleDiv } from '../../components/simple-div/SimpleDiv';
 import { Block } from '../../modules/system/block';
@@ -33,7 +33,7 @@ export class ProfileLayout extends Block<IProfileLayoutProps> {
                       className: 'profile-layout__icon',
                       title: 'back',
                     },
-                    template: arrowLeft,
+                    template: arrowLeftTemplate,
                   },
                 }),
               ],

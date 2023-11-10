@@ -1,6 +1,6 @@
 import { compile } from 'handlebars';
 
-export const arrowLeft =
+export const arrowLeftTemplate =
   compile(`<svg class='{{className}}' viewBox='0 0 28 28' fill='none'>
 <title>{{title}}</title>
 <circle
