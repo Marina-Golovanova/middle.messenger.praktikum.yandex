@@ -27,7 +27,6 @@ const buttons = loginButtons.map(
 
 export const loginForm = new FormLayout({
   attributes: {
-    id: 'form-layout',
     className: 'form-layout__with-frame',
   },
   listeners: [

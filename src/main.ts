@@ -5,6 +5,7 @@ import { authorizationPage } from './pages/authorization';
 import { registrationPage } from './pages/registration';
 import { notFoundPage } from './pages/not-found';
 import { serverError } from './pages/server-error';
+import { profile } from './pages/profile/profile';
 
 const linksContainer = document.getElementsByTagName('ul')[0];
 
@@ -29,6 +30,10 @@ for (const link of links) {
 
     if (link.href.includes('server-error')) {
       render('#app', serverError);
+    }
+
+    if (link.href.includes('profile')) {
+      render('#app', profile);
     }
   };
 }

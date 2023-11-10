@@ -4,6 +4,7 @@ import { IComponentProps } from '../../types';
 
 type IInputProps = {
   label: string;
+  value: string;
 };
 export class InputReadOnly extends Block<
   IInputProps,
