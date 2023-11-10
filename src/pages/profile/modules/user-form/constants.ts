@@ -23,30 +23,36 @@ export const userFormFields = [
     label: 'first name',
     value: mockUser.firstName,
     placeholder: 'Anna',
+    name: 'first_name',
   },
   {
     label: 'second name',
     value: mockUser.secondName,
     placeholder: 'Smith',
+    name: 'second_name',
   },
   {
     label: 'display name',
     value: mockUser.displayName,
     placeholder: 'anna',
+    name: 'display_name',
   },
   {
     label: 'login',
     value: mockUser.login,
     placeholder: 'anna123',
+    name: 'login',
   },
   {
     label: 'email',
     value: mockUser.email,
     placeholder: 'anna@yandex.ru',
+    name: 'email',
   },
   {
     label: 'phone',
     value: mockUser.login,
     placeholder: '+79998887766',
+    name: 'phone',
   },
 ];

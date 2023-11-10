@@ -7,6 +7,7 @@ import { notFoundPage } from './pages/not-found';
 import { serverError } from './pages/server-error';
 import { profile } from './pages/profile/profile';
 import { profileEdit } from './pages/profile/profile-edit';
+import { changePassword } from './pages/profile/change-password';
 
 const linksContainer = document.getElementsByTagName('ul')[0];
 
@@ -39,6 +40,10 @@ for (const link of links) {
 
     if (link.href.includes('profile-edit')) {
       render('#app', profileEdit);
+    }
+
+    if (link.href.includes('change-password')) {
+      render('#app', changePassword);
     }
   };
 }

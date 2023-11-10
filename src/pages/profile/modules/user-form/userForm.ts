@@ -17,6 +17,7 @@ const getFields = (readonly: boolean) => {
           label: it.label,
           value: it.value,
           placeholder: it.placeholder,
+          name: it.name,
         },
         attributes: {
           className: 'label',

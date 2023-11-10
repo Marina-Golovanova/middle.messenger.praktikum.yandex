@@ -9,6 +9,7 @@ type IInputProps = {
   placeholder?: string;
   value?: string;
   type?: IInputType;
+  name?: string;
 };
 
 export type IInputType = 'text' | 'password';
