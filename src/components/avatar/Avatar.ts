@@ -1,6 +1,6 @@
 import { Block } from '../../modules/system/block';
 import { IComponentProps } from '../../types';
-import { Image } from '../image';
+import { SimpleElement } from '../simple-element';
 
 type IAvatarProps = {
   imgSrc: string;
@@ -12,7 +12,8 @@ export class Avatar extends Block<IAvatarProps, Partial<HTMLDivElement>> {
       tagName: 'div',
       ...data,
       children: [
-        new Image({
+        new SimpleElement<Partial<HTMLImageElement>>({
+          tagName: 'img',
           attributes: {
             src: data.props?.imgSrc,
           },

@@ -13,7 +13,7 @@ export class Button extends Block<IButtonProps, Partial<HTMLButtonElement>> {
       ...data,
       attributes: {
         ...data.attributes,
-        className: 'button ' + data.attributes?.className,
+        className: `button ${data.attributes?.classList || ''}`,
       },
     });
   }

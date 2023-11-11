@@ -1,7 +1,7 @@
 import { ButtonIcon } from '../../components/button-icon/ButtonIcon';
 import { arrowLeftTemplate } from '../../components/icons-templates/arrowLeftTemplate';
 import { Sidebar } from '../../components/sidebar';
-import { SimpleDiv } from '../../components/simple-div/SimpleDiv';
+import { SimpleElement } from '../../components/simple-element/SimpleElement';
 import { Block } from '../../modules/system/block';
 import { IComponentProps } from '../../types';
 
@@ -23,7 +23,7 @@ export class ProfileLayout extends Block<IProfileLayoutProps> {
           },
 
           children: [
-            new SimpleDiv({
+            new SimpleElement({
               attributes: { className: 'profile-layout__sidebar' },
 
               children: [

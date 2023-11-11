@@ -8,6 +8,7 @@ import { serverError } from './pages/server-error';
 import { profile } from './pages/profile/profile';
 import { profileEdit } from './pages/profile/profile-edit';
 import { changePassword } from './pages/profile/change-password';
+import { chat } from './pages/chat/chat';
 
 const linksContainer = document.getElementsByTagName('ul')[0];
 
@@ -44,6 +45,10 @@ for (const link of links) {
 
     if (link.href.includes('change-password')) {
       render('#app', changePassword);
+    }
+
+    if (link.href.includes('chat')) {
+      render('#app', chat);
     }
   };
 }

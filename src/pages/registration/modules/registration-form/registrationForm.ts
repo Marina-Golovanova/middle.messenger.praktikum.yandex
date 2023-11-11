@@ -1,7 +1,7 @@
 import { Button } from '../../../../components/button';
 import { FormLayout } from '../../../../components/form-layout';
 import { Input } from '../../../../components/input';
-import { SimpleDiv } from '../../../../components/simple-div/SimpleDiv';
+import { SimpleElement } from '../../../../components/simple-element/SimpleElement';
 import { registrationsFields } from './constants';
 
 const inputs = registrationsFields.map((field) => {
@@ -32,7 +32,7 @@ const button = new Button({
   },
 });
 
-const buttonsGroupLayout = new SimpleDiv({
+const buttonsGroupLayout = new SimpleElement({
   attributes: {
     id: 'buttons-group-layout',
     className: 'form-layout__buttons-group',

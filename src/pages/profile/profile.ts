@@ -3,7 +3,7 @@ import { Button } from '../../components/button';
 import { ButtonIcon } from '../../components/button-icon/ButtonIcon';
 import { editIconTemplate } from '../../components/icons-templates/editIconTemplate';
 import { exitIconTemplate } from '../../components/icons-templates/exitIconTemplate';
-import { SimpleDiv } from '../../components/simple-div';
+import { SimpleElement } from '../../components/simple-element';
 import { MainContentLayout } from '../../layouts/main-content-layout';
 import { ProfileLayout } from '../../layouts/profile-layout';
 import { UserForm } from './modules/user-form/UserForm';
@@ -12,7 +12,7 @@ export const profile = new ProfileLayout({
   children: [
     new MainContentLayout({
       children: [
-        new SimpleDiv({
+        new SimpleElement({
           attributes: { className: 'profile__form-layout' },
           children: [
             new UserForm({
@@ -20,7 +20,7 @@ export const profile = new ProfileLayout({
                 readonly: true,
               },
             }),
-            new SimpleDiv({
+            new SimpleElement({
               attributes: {
                 className: 'form-layout__buttons-group',
               },
@@ -35,7 +35,7 @@ export const profile = new ProfileLayout({
                 }),
               ],
             }),
-            new SimpleDiv({
+            new SimpleElement({
               attributes: { className: 'profile__form-layout__avatar-layout' },
               children: [
                 new Avatar({
@@ -51,7 +51,7 @@ export const profile = new ProfileLayout({
           ],
         }),
 
-        new SimpleDiv({
+        new SimpleElement({
           attributes: {
             className: 'profile__actions',
           },

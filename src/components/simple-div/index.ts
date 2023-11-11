@@ -1,1 +1,0 @@
-export { SimpleDiv } from './SimpleDiv';

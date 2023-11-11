@@ -1,0 +1,1 @@
+export { MessageInList } from './MessageInList';

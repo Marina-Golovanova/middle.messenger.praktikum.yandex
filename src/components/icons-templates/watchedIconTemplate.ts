@@ -1,4 +1,7 @@
-<svg class='{{className}}' viewBox='0 0 10 5' fill='none'>
+import { compile } from 'handlebars';
+
+export const watchedIconTemplate =
+  compile(`<svg class='{{className}}' viewBox='0 0 10 5' fill='none'>
   <title>{{title}}</title>
   <line
     y1='-0.5'
@@ -21,4 +24,4 @@
     transform='matrix(0.705933 -0.708278 0.705933 0.708278 6.01587 5)'
     stroke='currentColor'
   />
-</svg>
+</svg>`);

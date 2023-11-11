@@ -1,4 +1,7 @@
-<svg class='{{className}}' viewBox='0 0 32 32' fill='none'>
+import { compile } from 'handlebars';
+
+export const attachmentIconTemplate =
+  compile(`<svg class='{{className}}' viewBox='0 0 32 32' fill='none'>
   <title>{{title}}</title>
   <path
     fill-rule='evenodd'
@@ -42,4 +45,4 @@
     d='M9.70093 16.0144C7.95752 17.7578 7.95123 20.5782 9.6869 22.3138C11.4226 24.0495 14.2429 24.0432 15.9863 22.2998L15.0435 21.357C13.8231 22.5774 11.8489 22.5818 10.6339 21.3668C9.41895 20.1518 9.42335 18.1776 10.6437 16.9572L9.70093 16.0144Z'
     fill='currentColor'
   />
-</svg>
+</svg>`);
