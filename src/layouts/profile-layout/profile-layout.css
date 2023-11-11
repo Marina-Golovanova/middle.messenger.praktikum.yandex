@@ -1,9 +1,3 @@
-.main-layout {
-  display: flex;
-  height: 100%;
-  background-color: var(--r2-d2);
-}
-
 .profile-layout {
   &__sidebar {
     display: flex;

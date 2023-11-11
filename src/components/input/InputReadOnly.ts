@@ -1,4 +1,4 @@
-import { template } from './template-input-readonly';
+import { template } from './templates/template-input-readonly';
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 import { IInputType } from './Input';
@@ -19,6 +19,9 @@ export class InputReadOnly extends Block<
     super({
       tagName: 'label',
       ...data,
+      attributes: {
+        className: 'label',
+      },
     });
   }
 

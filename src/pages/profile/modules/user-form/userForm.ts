@@ -19,9 +19,6 @@ const getFields = (readonly: boolean) => {
           placeholder: it.placeholder,
           name: it.name,
         },
-        attributes: {
-          className: 'label',
-        },
       }),
   );
 };

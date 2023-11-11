@@ -21,7 +21,7 @@ export class Avatar extends Block<IAvatarProps, Partial<HTMLDivElement>> {
       ],
       attributes: {
         ...data.attributes,
-        className: 'avatar ' + (data.attributes?.className || ''),
+        className: `avatar ${data.attributes?.className || ''}`,
       },
     });
   }

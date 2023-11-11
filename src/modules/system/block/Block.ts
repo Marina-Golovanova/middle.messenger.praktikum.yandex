@@ -121,6 +121,7 @@ export abstract class Block<
 
     if (!isEqual) {
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      this.setListeners();
     }
     return isEqual;
   }
@@ -147,11 +148,10 @@ export abstract class Block<
     }
 
     const oldProps = deepCopy(this.props) as Props;
-
     if (this.props) {
       Object.assign(this.props, nextProps);
     } else {
-      this.props = nextProps;
+      this.props = this._makePropsProxy(nextProps);
     }
 
     this._eventBus().emit(Block.EVENTS.FLOW_CDU, { oldProps, nextProps });

@@ -1,6 +1,6 @@
 import { Button } from '@components/button';
 import { ErrorMessage } from '@components/error-message';
-import { CentredLayout } from '@layouts/centred-layout/CentredLayout';
+import { CentredLayout } from '@layouts/centred-layout';
 
 export const serverError = new CentredLayout({
   children: [

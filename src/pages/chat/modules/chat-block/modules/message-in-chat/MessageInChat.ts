@@ -1,4 +1,4 @@
-import { Icon } from '@components/icon/Icon';
+import { Icon } from '@components/icon';
 import { watchedIconTemplate } from '@components/icons-templates/watchedIconTemplate';
 import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';

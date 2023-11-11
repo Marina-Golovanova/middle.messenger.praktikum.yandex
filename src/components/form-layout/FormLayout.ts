@@ -10,7 +10,7 @@ export class FormLayout extends Block<IFormProps, Partial<HTMLFormElement>> {
       ...data,
       attributes: {
         ...data.attributes,
-        className: 'form-layout ' + (data.attributes?.className || ''),
+        className: `form-layout ${data.attributes?.className || ''}`,
       },
     });
   }

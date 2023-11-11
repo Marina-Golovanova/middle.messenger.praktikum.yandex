@@ -10,7 +10,7 @@ export class Sidebar extends Block<ISidebarProps, Partial<HTMLDivElement>> {
       ...data,
       attributes: {
         ...data.attributes,
-        className: 'sidebar ' + (data.attributes?.className || ''),
+        className: `sidebar ${data.attributes?.className || ''}`,
       },
     });
   }

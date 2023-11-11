@@ -3,14 +3,11 @@ import { FormLayout } from '@components/form-layout';
 import { Input } from '@components/input';
 import { loginButtons, loginFields } from './constants';
 
-const inputs = loginFields.map(
+const fields = loginFields.map(
   (field) =>
     new Input({
       props: {
         ...field,
-      },
-      attributes: {
-        className: 'label',
       },
     }),
 );
@@ -49,5 +46,5 @@ export const loginForm = new FormLayout({
       },
     },
   ],
-  children: [...inputs, ...buttons],
+  children: [...fields, ...buttons],
 });

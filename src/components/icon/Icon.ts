@@ -8,14 +8,15 @@ type IIconProps = {
 
 export class Icon extends Block<IIconProps> {
   constructor(data: IComponentProps<IIconProps, Partial<SVGElement>>) {
-    super({ tagName: 'fragment', ...data });
+    super({ tagName: 'template', ...data });
   }
 
-  render() {
-    if (this.props) {
-      return this.props.template(this.props);
+  componentDidMount() {
+    if (!this.props?.template) {
+      return;
     }
-
-    return '';
+    this.element.innerHTML = this.props.template(this.props);
+    const stub = (this.element as HTMLTemplateElement).content.children[0];
+    this.element.replaceWith(stub);
   }
 }

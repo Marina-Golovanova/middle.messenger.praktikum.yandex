@@ -17,10 +17,6 @@ export class SimpleElement<T extends Partial<HTMLElement>> extends Block<
   }
 
   render() {
-    if (this.props?.text) {
-      return this.props.text;
-    }
-
-    return '';
+    return this.props?.text || '';
   }
 }

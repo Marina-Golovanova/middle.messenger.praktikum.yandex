@@ -4,21 +4,37 @@ import { Input } from '@components/input';
 import { SimpleElement } from '@components/simple-element/SimpleElement';
 import { registrationsFields } from './constants';
 
-const inputs = registrationsFields.map((field) => {
+const fields = registrationsFields.map((field) => {
+  const { errorMessage, ...props } = field.props;
   const input = new Input({
-    props: {
-      label: field.label,
-      placeholder: field.placeholder,
-      type: field.type,
-      value: field.value,
-    },
-    attributes: {
-      ...field,
-      className: 'label',
-    },
+    props,
+    listeners: [
+      {
+        event: 'blur',
+        callback: (e) => {
+          const target = e.target as HTMLInputElement;
+          const value = target.value;
+
+          if (!field.validate(value)) {
+            input.setProps({
+              ...input.props,
+              value,
+              errorMessage,
+            });
+          } else {
+            console.log(value);
+            input.setProps({
+              ...input.props,
+              errorMessage: undefined,
+              value,
+            });
+          }
+        },
+      },
+    ],
   });
 
-  field.controller = input;
+  field.ref = input;
 
   return input;
 });
@@ -47,26 +63,23 @@ const handleSubmitForm = (e: Event) => {
   let isError = false;
 
   registrationsFields.forEach((field) => {
-    const labelElement = document.getElementsByName(field.name)[0];
-    const inputElement = labelElement.children[0] as HTMLInputElement;
-
-    if (!field.controller) {
+    if (!field.props.name || !field.ref) {
       return;
     }
 
-    if (!inputElement.value || !field.validate(inputElement.value)) {
-      field.controller.setProps({
-        value: inputElement.value,
-        errorMessage: field.errorMessage,
+    if (!field.validate(field.ref.props?.value || '')) {
+      field.ref.setProps({
+        ...field.ref.props,
+        errorMessage: field.props.errorMessage,
       });
       isError = true;
     } else {
-      field.controller.setProps({
+      field.ref.setProps({
+        ...field.ref.props,
         errorMessage: undefined,
-        value: inputElement.value,
       });
     }
-    registrationData[field.name] = inputElement.value;
+    registrationData[field.props.name] = field.ref.props?.value || '';
   });
 
   if (!isError) {
@@ -79,7 +92,7 @@ export const registrationForm = new FormLayout({
     id: 'form-layout',
     className: 'form-layout__with-frame',
   },
-  children: [...inputs, buttonsGroupLayout],
+  children: [...fields, buttonsGroupLayout],
   listeners: [
     {
       event: 'submit',

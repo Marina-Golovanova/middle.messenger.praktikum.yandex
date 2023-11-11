@@ -8,7 +8,6 @@ const fields = changePasswordFields.map(
   (it) =>
     new Input({
       props: { name: it.name, label: it.label },
-      attributes: { className: 'label' },
     }),
 );
 
