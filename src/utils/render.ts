@@ -1,4 +1,4 @@
-import { Block } from '../modules/system/block';
+import { Block } from '@modules/system/block';
 
 export const render = <
   Props extends object,

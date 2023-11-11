@@ -1,7 +1,7 @@
-import { SimpleElement } from '../../../../components/simple-element';
-import { Block } from '../../../../modules/system/block';
-import { IComponentProps } from '../../../../types';
-import { IMessageInChat } from '../../types';
+import { SimpleElement } from '@components/simple-element';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
+import { IMessageInChat } from '@pages/chat/types';
 import { ChatBlockHeader } from './modules/chat-block-header';
 import { MessageArea } from './modules/message-area/MessageArea';
 import { MessageInChat } from './modules/message-in-chat';

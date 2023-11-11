@@ -1,6 +1,6 @@
-import { Button } from '../../../../components/button';
-import { FormLayout } from '../../../../components/form-layout';
-import { Input } from '../../../../components/input';
+import { Button } from '@components/button';
+import { FormLayout } from '@components/form-layout';
+import { Input } from '@components/input';
 import { loginButtons, loginFields } from './constants';
 
 const inputs = loginFields.map(

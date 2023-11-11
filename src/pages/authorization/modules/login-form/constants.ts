@@ -1,4 +1,4 @@
-import { IInputType } from '../../../../components/input';
+import { IInputType } from '@components/input';
 
 type ILoginField = {
   label: string;

@@ -1,5 +1,5 @@
-import { Block } from '../../modules/system/block';
-import { IComponentProps } from '../../types';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 
 type IButtonProps = {
   template: HandlebarsTemplateDelegate<unknown>;
@@ -24,10 +24,6 @@ export class ButtonIcon extends Block<
   }
 
   render() {
-    if (!this.props?.template) {
-      return '';
-    }
-
-    return this.props.template(this.props.iconProps);
+    return this.props?.template(this.props.iconProps) || '';
   }
 }

@@ -1,8 +1,8 @@
-import { Avatar } from '../../components/avatar';
-import { Button } from '../../components/button';
-import { SimpleElement } from '../../components/simple-element';
-import { MainContentLayout } from '../../layouts/main-content-layout';
-import { ProfileLayout } from '../../layouts/profile-layout';
+import { Avatar } from '@components/avatar';
+import { Button } from '@components/button';
+import { SimpleElement } from '@components/simple-element';
+import { MainContentLayout } from '@layouts/main-content-layout';
+import { ProfileLayout } from '@layouts/profile-layout';
 import { ChangePasswordForm } from './modules/change-password-form';
 
 export const changePassword = new ProfileLayout({

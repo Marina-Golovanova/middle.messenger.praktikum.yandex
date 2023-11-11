@@ -1,6 +1,6 @@
-import { Button } from '../../components/button';
-import { ErrorMessage } from '../../components/error-message';
-import { CentredLayout } from '../../layouts/centred-layout/CentredLayout';
+import { Button } from '@components/button';
+import { ErrorMessage } from '@components/error-message';
+import { CentredLayout } from '@layouts/centred-layout/CentredLayout';
 
 export const notFoundPage = new CentredLayout({
   children: [

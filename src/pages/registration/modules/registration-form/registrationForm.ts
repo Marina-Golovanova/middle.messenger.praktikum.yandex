@@ -1,7 +1,7 @@
-import { Button } from '../../../../components/button';
-import { FormLayout } from '../../../../components/form-layout';
-import { Input } from '../../../../components/input';
-import { SimpleElement } from '../../../../components/simple-element/SimpleElement';
+import { Button } from '@components/button';
+import { FormLayout } from '@components/form-layout';
+import { Input } from '@components/input';
+import { SimpleElement } from '@components/simple-element/SimpleElement';
 import { registrationsFields } from './constants';
 
 const inputs = registrationsFields.map((field) => {

@@ -1,9 +1,9 @@
-import { ButtonIcon } from '../../../../../../components/button-icon/ButtonIcon';
-import { arrowRightIconTemplate } from '../../../../../../components/icons-templates/arrowRightIconTemplate';
-import { attachmentIconTemplate } from '../../../../../../components/icons-templates/attachmentIconTemplate';
-import { Textarea } from '../../../../../../components/textarea';
-import { Block } from '../../../../../../modules/system/block';
-import { IComponentProps } from '../../../../../../types';
+import { ButtonIcon } from '@components/button-icon';
+import { arrowRightIconTemplate } from '@components/icons-templates/arrowRightIconTemplate';
+import { attachmentIconTemplate } from '@components/icons-templates/attachmentIconTemplate';
+import { Textarea } from '@components/textarea';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 
 export class MessageArea extends Block {
   constructor(

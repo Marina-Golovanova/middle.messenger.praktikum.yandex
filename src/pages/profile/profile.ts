@@ -1,11 +1,11 @@
-import { Avatar } from '../../components/avatar';
-import { Button } from '../../components/button';
-import { ButtonIcon } from '../../components/button-icon/ButtonIcon';
-import { editIconTemplate } from '../../components/icons-templates/editIconTemplate';
-import { exitIconTemplate } from '../../components/icons-templates/exitIconTemplate';
-import { SimpleElement } from '../../components/simple-element';
-import { MainContentLayout } from '../../layouts/main-content-layout';
-import { ProfileLayout } from '../../layouts/profile-layout';
+import { Avatar } from '@components/avatar';
+import { Button } from '@components/button';
+import { ButtonIcon } from '@components/button-icon';
+import { editIconTemplate } from '@components/icons-templates/editIconTemplate';
+import { exitIconTemplate } from '@components/icons-templates/exitIconTemplate';
+import { SimpleElement } from '@components/simple-element';
+import { MainContentLayout } from '@layouts/main-content-layout';
+import { ProfileLayout } from '@layouts/profile-layout';
 import { UserForm } from './modules/user-form/UserForm';
 
 export const profile = new ProfileLayout({

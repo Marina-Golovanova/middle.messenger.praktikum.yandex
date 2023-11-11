@@ -1,6 +1,6 @@
 import { template } from './template-input';
-import { Block } from '../../modules/system/block';
-import { IComponentProps } from '../../types';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 
 type IInputProps = {
   label?: string;

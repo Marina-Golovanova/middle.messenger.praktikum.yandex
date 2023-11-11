@@ -1,7 +1,7 @@
-import { ButtonIcon } from '../../../../components/button-icon/ButtonIcon';
-import { userIconTemplate } from '../../../../components/icons-templates/userIconTemplate';
-import { Input } from '../../../../components/input';
-import { SimpleElement } from '../../../../components/simple-element';
+import { ButtonIcon } from '@components/button-icon';
+import { userIconTemplate } from '@components/icons-templates/userIconTemplate';
+import { Input } from '@components/input';
+import { SimpleElement } from '@components/simple-element';
 
 export const messageListHeader = new SimpleElement({
   attributes: {

@@ -1,5 +1,5 @@
-import { Block } from '../../modules/system/block';
-import { IComponentProps } from '../../types';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 
 type ICentredLayoutProps = Record<string, never>;
 

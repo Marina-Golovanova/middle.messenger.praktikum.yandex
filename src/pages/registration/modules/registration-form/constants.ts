@@ -5,8 +5,8 @@ import {
   checkPassword,
   checkPhone,
 } from './utils/validations';
-import { IInputType, Input } from '../../../../components/input';
-import { IListener } from '../../../../types';
+import { IInputType, Input } from '@components/input';
+import { IListener } from '@types';
 
 type IRegistrationField = {
   label: string;

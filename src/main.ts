@@ -1,14 +1,14 @@
-import { render } from './utils/render';
+import { render } from '@utils/render';
 
 import './style.css';
-import { authorizationPage } from './pages/authorization';
-import { registrationPage } from './pages/registration';
-import { notFoundPage } from './pages/not-found';
-import { serverError } from './pages/server-error';
-import { profile } from './pages/profile/profile';
-import { profileEdit } from './pages/profile/profile-edit';
-import { changePassword } from './pages/profile/change-password';
-import { chat } from './pages/chat/chat';
+import { authorizationPage } from '@pages/authorization';
+import { registrationPage } from '@pages/registration';
+import { notFoundPage } from '@pages/not-found';
+import { serverError } from '@pages/server-error';
+import { profile } from '@pages/profile/profile';
+import { profileEdit } from '@pages/profile/profile-edit';
+import { changePassword } from '@pages/profile/change-password';
+import { chat } from '@pages/chat/chat';
 
 const linksContainer = document.getElementsByTagName('ul')[0];
 

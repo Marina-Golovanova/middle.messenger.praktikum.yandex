@@ -1,8 +1,8 @@
-import { deepCopy } from '../../../utils/deepCopy';
-import { isDeepEqual } from '../../../utils/isDeepEqual';
-import { EventBus } from '../event-bus';
+import { deepCopy } from '@utils/deepCopy';
+import { isDeepEqual } from '@utils/isDeepEqual';
+import { EventBus } from '@modules/system/event-bus';
 
-import type { IComponentProps, IListener } from '../../../types';
+import type { IComponentProps, IListener } from '@types';
 import { render } from './utils/render';
 
 type IMeta<Props, Attributes> = {

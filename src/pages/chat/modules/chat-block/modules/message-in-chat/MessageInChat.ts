@@ -1,9 +1,9 @@
-import { Icon } from '../../../../../../components/icon/Icon';
-import { watchedIconTemplate } from '../../../../../../components/icons-templates/watchedIconTemplate';
-import { SimpleElement } from '../../../../../../components/simple-element';
-import { Block } from '../../../../../../modules/system/block';
-import { IComponentProps } from '../../../../../../types';
-import { IMessageInChat } from '../../../../types';
+import { Icon } from '@components/icon/Icon';
+import { watchedIconTemplate } from '@components/icons-templates/watchedIconTemplate';
+import { SimpleElement } from '@components/simple-element';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
+import { IMessageInChat } from '@pages/chat/types';
 import { getMessageContent } from './utils/getMessageContents';
 
 export class MessageInChat extends Block<IMessageInChat> {

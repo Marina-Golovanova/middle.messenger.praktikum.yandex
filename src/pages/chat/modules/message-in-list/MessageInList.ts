@@ -1,8 +1,8 @@
-import { Avatar } from '../../../../components/avatar';
-import { SimpleElement } from '../../../../components/simple-element';
-import { Block } from '../../../../modules/system/block';
-import { IComponentProps } from '../../../../types';
-import { IMessageInListProps } from '../../types';
+import { Avatar } from '@components/avatar';
+import { SimpleElement } from '@components/simple-element';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
+import { IMessageInListProps } from '@pages/chat/types';
 
 export class MessageInList extends Block<
   IMessageInListProps,

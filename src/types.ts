@@ -1,4 +1,4 @@
-import { Block } from './modules/system/block';
+import { Block } from '@modules/system/block';
 
 export type IListener = {
   event: keyof HTMLElementEventMap;

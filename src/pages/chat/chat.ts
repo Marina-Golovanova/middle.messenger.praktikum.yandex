@@ -1,6 +1,6 @@
-import { Sidebar } from '../../components/sidebar';
-import { SimpleElement } from '../../components/simple-element';
-import { MainLayout } from '../../layouts/main-layout/MainLayout';
+import { Sidebar } from '@components/sidebar';
+import { SimpleElement } from '@components/simple-element';
+import { MainLayout } from '@layouts/main-layout/MainLayout';
 import { exampleDialog, messageList } from './data';
 import { ChatBlock } from './modules/chat-block';
 import { MessageInList } from './modules/message-in-list';

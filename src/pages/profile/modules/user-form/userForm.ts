@@ -1,7 +1,7 @@
-import { FormLayout } from '../../../../components/form-layout';
-import { Input, InputReadOnly } from '../../../../components/input';
-import { Block } from '../../../../modules/system/block';
-import { IComponentProps } from '../../../../types';
+import { FormLayout } from '@components/form-layout';
+import { Input, InputReadOnly } from '@components/input';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 import { userFormFields } from './constants';
 
 type IUserFormProps = {

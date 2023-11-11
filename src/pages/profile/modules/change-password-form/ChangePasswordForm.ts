@@ -1,8 +1,7 @@
-// import { utimes } from 'fs';
-import { FormLayout } from '../../../../components/form-layout';
-import { Input } from '../../../../components/input';
-import { Block } from '../../../../modules/system/block';
-import { IComponentProps } from '../../../../types';
+import { FormLayout } from '@components/form-layout';
+import { Input } from '@components/input';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 import { changePasswordFields } from './constants';
 
 const fields = changePasswordFields.map(

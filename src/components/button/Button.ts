@@ -1,6 +1,5 @@
-import { template } from './template';
-import { Block } from '../../modules/system/block';
-import { IComponentProps } from '../../types';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 
 type IButtonProps = {
   text: string;
@@ -13,12 +12,12 @@ export class Button extends Block<IButtonProps, Partial<HTMLButtonElement>> {
       ...data,
       attributes: {
         ...data.attributes,
-        className: `button ${data.attributes?.classList || ''}`,
+        className: `button ${data.attributes?.className || ''}`,
       },
     });
   }
 
   render() {
-    return template(this.props);
+    return this.props?.text || '';
   }
 }

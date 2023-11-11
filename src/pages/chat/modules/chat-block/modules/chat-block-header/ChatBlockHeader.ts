@@ -1,9 +1,9 @@
-import { Avatar } from '../../../../../../components/avatar';
-import { ButtonIcon } from '../../../../../../components/button-icon/ButtonIcon';
-import { burgerMenuIconTemplate } from '../../../../../../components/icons-templates/burgerMenuIconTemplate';
-import { SimpleElement } from '../../../../../../components/simple-element';
-import { Block } from '../../../../../../modules/system/block';
-import { IComponentProps } from '../../../../../../types';
+import { Avatar } from '@components/avatar';
+import { ButtonIcon } from '@components/button-icon';
+import { burgerMenuIconTemplate } from '@components/icons-templates/burgerMenuIconTemplate';
+import { SimpleElement } from '@components/simple-element';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 
 type IChatBlockHeaderProps = {
   imgSrc: string;

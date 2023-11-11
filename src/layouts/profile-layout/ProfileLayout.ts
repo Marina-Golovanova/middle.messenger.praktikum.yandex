@@ -1,9 +1,9 @@
-import { ButtonIcon } from '../../components/button-icon/ButtonIcon';
-import { arrowLeftTemplate } from '../../components/icons-templates/arrowLeftTemplate';
-import { Sidebar } from '../../components/sidebar';
-import { SimpleElement } from '../../components/simple-element/SimpleElement';
-import { Block } from '../../modules/system/block';
-import { IComponentProps } from '../../types';
+import { ButtonIcon } from '@components/button-icon';
+import { arrowLeftTemplate } from '@components/icons-templates/arrowLeftTemplate';
+import { Sidebar } from '@components/sidebar';
+import { SimpleElement } from '@components/simple-element/SimpleElement';
+import { Block } from '@modules/system/block';
+import { IComponentProps } from '@types';
 
 type IProfileLayoutProps = {
   children: Block[];

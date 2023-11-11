@@ -1,5 +1,5 @@
-import { SimpleElement } from '../../../../../../../components/simple-element';
-import { IContentType } from '../../../../../types';
+import { SimpleElement } from '@components/simple-element';
+import { IContentType } from '@pages/chat/types';
 
 export const getMessageContent = (
   contentType: IContentType,
