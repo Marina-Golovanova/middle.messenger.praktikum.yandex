@@ -17,7 +17,7 @@ export const profile = new ProfileLayout({
           children: [
             new UserForm({
               props: {
-                readonly: true,
+                readOnly: true,
               },
             }),
             new SimpleElement({

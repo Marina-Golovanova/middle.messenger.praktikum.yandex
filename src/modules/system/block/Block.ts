@@ -11,7 +11,7 @@ type IMeta<Props, Attributes> = {
 
 export abstract class Block<
   Props extends object = Record<string, unknown>,
-  Attributes extends Partial<HTMLElement> = Partial<HTMLElement>,
+  TypeElement extends HTMLElement = HTMLElement,
 > {
   static EVENTS = {
     INIT: 'init',
@@ -21,15 +21,15 @@ export abstract class Block<
   };
 
   props?: Props;
-  attributes?: Attributes;
+  attributes?: Partial<TypeElement>;
   listeners?: IListener[];
   children?: Block[];
   private _eventBus: () => EventBus;
 
-  private _element: HTMLElement = this._createDocumentElement('div');
-  private _meta: IMeta<Props, Attributes> = { tagName: 'div' };
+  private _element: TypeElement = this._createDocumentElement('div');
+  private _meta: IMeta<Props, Partial<TypeElement>> = { tagName: 'div' };
 
-  constructor(data: IMeta<Props, Attributes>) {
+  constructor(data: IMeta<Props, Partial<TypeElement>>) {
     const eventBus = new EventBus();
     const { tagName = 'div', props, attributes, listeners, children } = data;
 
@@ -84,8 +84,8 @@ export abstract class Block<
     this._element = this._createDocumentElement(this._meta.tagName);
   }
 
-  private _createDocumentElement(tagName: string) {
-    return document.createElement(tagName);
+  private _createDocumentElement(tagName: string): TypeElement {
+    return document.createElement(tagName) as TypeElement;
   }
 
   init() {
@@ -118,10 +118,10 @@ export abstract class Block<
 
   componentDidUpdate(oldProps: Props, newProps: Props) {
     const isEqual = isDeepEqual(oldProps, newProps);
-
     if (!isEqual) {
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
-      this.setListeners();
+      this.addChildren(this.children);
+      this.setAttributes();
     }
     return isEqual;
   }
@@ -157,7 +157,7 @@ export abstract class Block<
     this._eventBus().emit(Block.EVENTS.FLOW_CDU, { oldProps, nextProps });
   }
 
-  setAttributes(attributes?: Attributes) {
+  setAttributes(attributes?: Partial<TypeElement>) {
     if (!attributes) {
       return;
     }
@@ -166,6 +166,7 @@ export abstract class Block<
       if (typeof value !== 'string') {
         return;
       }
+
       this._element.setAttribute(key === 'className' ? 'class' : key, value);
     });
   }

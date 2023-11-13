@@ -5,10 +5,10 @@ type IMainContentLayoutProps = Record<string, never>;
 
 export class MainContentLayout extends Block<
   IMainContentLayoutProps,
-  Partial<HTMLElement>
+  HTMLDivElement
 > {
   constructor(
-    data: IComponentProps<IMainContentLayoutProps, Partial<HTMLElement>>,
+    data: IComponentProps<IMainContentLayoutProps, Partial<HTMLDivElement>>,
   ) {
     super({
       tagName: 'div',

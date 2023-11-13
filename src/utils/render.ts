@@ -1,11 +1,8 @@
 import { Block } from '@modules/system/block';
 
-export const render = <
-  Props extends object,
-  Attributes extends Partial<HTMLElement>,
->(
+export const render = <Props extends object, TypeElement extends HTMLElement>(
   query: string,
-  block: Block<Props, Attributes>,
+  block: Block<Props, TypeElement>,
 ) => {
   const root = document.querySelector(query);
 

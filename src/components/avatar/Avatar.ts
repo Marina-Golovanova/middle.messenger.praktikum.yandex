@@ -6,16 +6,16 @@ type IAvatarProps = {
   imgSrc: string;
 };
 
-export class Avatar extends Block<IAvatarProps, Partial<HTMLDivElement>> {
+export class Avatar extends Block<IAvatarProps, HTMLDivElement> {
   constructor(data: IComponentProps<IAvatarProps, Partial<HTMLDivElement>>) {
     super({
       tagName: 'div',
       ...data,
       children: [
-        new SimpleElement<Partial<HTMLImageElement>>({
+        new SimpleElement<HTMLImageElement>({
           tagName: 'img',
           attributes: {
-            src: data.props?.imgSrc,
+            src: data.props?.imgSrc || '',
           },
         }),
       ],

@@ -16,7 +16,7 @@ export const getMessageContent = (
     return new SimpleElement({ tagName: 'span', props: { text: content } });
   }
 
-  return new SimpleElement<Partial<HTMLMediaElement>>({
+  return new SimpleElement<HTMLMediaElement>({
     tagName: tagsByType[contentType],
     attributes: { src: content },
   });

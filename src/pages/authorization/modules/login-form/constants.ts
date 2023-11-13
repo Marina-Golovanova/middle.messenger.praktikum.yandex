@@ -1,10 +1,20 @@
-import { IInputType } from '@components/input';
+import { ILabelInputProps, LabelInput } from '@components/label-input';
+import { IListener } from '@types';
+import { checkLogin, checkPassword } from '@utils/validations';
+
+// type ILoginField = {
+//   label: string;
+//   placeholder?: string;
+//   name: string;
+//   type?: IInputType;
+// };
 
 type ILoginField = {
-  label: string;
-  placeholder?: string;
-  name: string;
-  type?: IInputType;
+  props: ILabelInputProps;
+  attributes: Partial<HTMLInputElement>;
+  listeners?: IListener[];
+  ref?: LabelInput;
+  validate: (value: string) => boolean;
 };
 
 type ILoginButton = {
@@ -14,14 +24,30 @@ type ILoginButton = {
 
 export const loginFields: ILoginField[] = [
   {
-    label: 'login',
-    placeholder: 'example@yandex.ru',
-    name: 'login',
+    props: {
+      label: 'login',
+      inputProps: {
+        errorMessage: 'Login is not correct',
+      },
+    },
+    attributes: {
+      placeholder: 'example@yandex.ru',
+      name: 'login',
+    },
+    validate: checkLogin,
   },
   {
-    label: 'password',
-    name: 'password',
-    type: 'password',
+    props: {
+      label: 'password',
+      inputProps: {
+        errorMessage: 'Password is not correct',
+      },
+    },
+    attributes: {
+      name: 'password',
+      type: 'password',
+    },
+    validate: checkPassword,
   },
 ];
 

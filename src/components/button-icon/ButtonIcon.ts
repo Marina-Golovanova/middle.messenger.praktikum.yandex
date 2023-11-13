@@ -8,10 +8,7 @@ type IButtonProps = {
   };
 };
 
-export class ButtonIcon extends Block<
-  IButtonProps,
-  Partial<HTMLButtonElement>
-> {
+export class ButtonIcon extends Block<IButtonProps, HTMLButtonElement> {
   constructor(data: IComponentProps<IButtonProps, Partial<HTMLButtonElement>>) {
     super({
       tagName: 'button',

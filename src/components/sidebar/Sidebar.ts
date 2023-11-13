@@ -3,7 +3,7 @@ import { IComponentProps } from '@types';
 
 type ISidebarProps = Record<string, never>;
 
-export class Sidebar extends Block<ISidebarProps, Partial<HTMLDivElement>> {
+export class Sidebar extends Block<ISidebarProps, HTMLDivElement> {
   constructor(data: IComponentProps<ISidebarProps, Partial<HTMLDivElement>>) {
     super({
       tagName: 'div',

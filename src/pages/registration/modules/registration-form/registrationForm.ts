@@ -1,13 +1,15 @@
 import { Button } from '@components/button';
 import { FormLayout } from '@components/form-layout';
-import { Input } from '@components/input';
+import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element/SimpleElement';
 import { registrationsFields } from './constants';
 
 const fields = registrationsFields.map((field) => {
-  const { errorMessage, ...props } = field.props;
-  const input = new Input({
+  const { inputProps, ...props } = field.props;
+  const input = new LabelInput({
+    ...field,
     props,
+
     listeners: [
       {
         event: 'blur',
@@ -16,19 +18,22 @@ const fields = registrationsFields.map((field) => {
           const value = target.value;
 
           if (!field.validate(value)) {
-            input.setProps({
-              ...input.props,
-              value,
-              errorMessage,
-            });
+            input.setProps({ ...input.props, inputProps });
           } else {
-            console.log(value);
-            input.setProps({
-              ...input.props,
-              errorMessage: undefined,
-              value,
-            });
+            input.setProps({ ...props, inputProps: undefined });
           }
+          // if (!field.validate(value)) {
+          //   input.setProps({
+          //     ...input.props,
+          //     inputProps: inputProps,
+          //   });
+          // } else {
+          //   console.log(value);
+          //   input.setProps({
+          //     ...input.props,
+          //     inputProps: inputProps,
+          //   });
+          // }
         },
       },
     ],
@@ -63,27 +68,32 @@ const handleSubmitForm = (e: Event) => {
   let isError = false;
 
   registrationsFields.forEach((field) => {
-    if (!field.props.name || !field.ref) {
+    if (!field.attributes.name) {
       return;
     }
 
-    if (!field.validate(field.ref.props?.value || '')) {
-      field.ref.setProps({
+    const value = field.ref?.inputRef?.element?.value || '';
+    if (!field.validate(value)) {
+      field.ref?.setProps({
         ...field.ref.props,
-        errorMessage: field.props.errorMessage,
+        inputProps: field.props.inputProps,
       });
       isError = true;
     } else {
-      field.ref.setProps({
+      field.ref?.setProps({
         ...field.ref.props,
-        errorMessage: undefined,
+        inputProps: { errorMessage: undefined },
       });
+      isError = false;
+      registrationData[field.attributes.name] = value;
     }
-    registrationData[field.props.name] = field.ref.props?.value || '';
+    registrationData[field.attributes.name] = value;
   });
 
   if (!isError) {
     console.log(registrationData);
+  } else {
+    console.error('Something is wrong');
   }
 };
 

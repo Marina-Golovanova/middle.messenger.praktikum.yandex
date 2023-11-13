@@ -4,10 +4,7 @@ import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 import { IMessageInListProps } from '@pages/chat/types';
 
-export class MessageInList extends Block<
-  IMessageInListProps,
-  Partial<HTMLLIElement>
-> {
+export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
   constructor(
     data: IComponentProps<IMessageInListProps, Partial<HTMLLIElement>>,
   ) {

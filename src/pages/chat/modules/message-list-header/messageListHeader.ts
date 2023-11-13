@@ -1,6 +1,6 @@
 import { ButtonIcon } from '@components/button-icon';
 import { userIconTemplate } from '@components/icons-templates/userIconTemplate';
-import { Input } from '@components/input';
+import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element';
 
 export const messageListHeader = new SimpleElement({
@@ -18,13 +18,10 @@ export const messageListHeader = new SimpleElement({
       },
     }),
 
-    new Input({
-      props: {
+    new LabelInput({
+      attributes: {
         className: 'input--s input--stretched',
         placeholder: 'search',
-      },
-      attributes: {
-        className: 'input--stretched',
       },
     }),
   ],

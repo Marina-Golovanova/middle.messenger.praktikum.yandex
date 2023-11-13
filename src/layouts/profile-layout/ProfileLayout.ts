@@ -10,9 +10,9 @@ type IProfileLayoutProps = {
   children: Block[];
 };
 
-export class ProfileLayout extends Block<IProfileLayoutProps> {
+export class ProfileLayout extends Block<IProfileLayoutProps, HTMLDivElement> {
   constructor(
-    data: IComponentProps<IProfileLayoutProps, Partial<HTMLElement>>,
+    data: IComponentProps<IProfileLayoutProps, Partial<HTMLDivElement>>,
   ) {
     super({
       tagName: 'template',

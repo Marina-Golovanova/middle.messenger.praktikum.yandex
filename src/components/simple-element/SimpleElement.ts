@@ -5,12 +5,15 @@ type ISimpleElementProps = {
   text?: string;
 };
 
-export class SimpleElement<T extends Partial<HTMLElement>> extends Block<
+export class SimpleElement<T extends HTMLElement> extends Block<
   ISimpleElementProps,
   T
 > {
   constructor(
-    data: { tagName?: string } & IComponentProps<ISimpleElementProps, T>,
+    data: { tagName?: string } & IComponentProps<
+      ISimpleElementProps,
+      Partial<T>
+    >,
   ) {
     const tagName = data.tagName || 'div';
     super({ tagName, ...data });

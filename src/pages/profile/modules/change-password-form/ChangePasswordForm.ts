@@ -1,13 +1,14 @@
 import { FormLayout } from '@components/form-layout';
-import { Input } from '@components/input';
+import { LabelInput } from '@components/label-input';
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 import { changePasswordFields } from './constants';
 
 const fields = changePasswordFields.map(
   (it) =>
-    new Input({
-      props: { name: it.name, label: it.label },
+    new LabelInput({
+      props: { label: it.label },
+      attributes: { name: it.name },
     }),
 );
 
@@ -20,5 +21,9 @@ export class ChangePasswordForm extends Block {
       ...data,
       children: [new FormLayout({ children: fields })],
     });
+  }
+
+  componentDidMount() {
+    this.element.replaceWith(this.element.children[0]);
   }
 }

@@ -3,7 +3,7 @@ import { IComponentProps } from '@types';
 
 type IFormProps = Record<string, never>;
 
-export class FormLayout extends Block<IFormProps, Partial<HTMLFormElement>> {
+export class FormLayout extends Block<IFormProps, HTMLFormElement> {
   constructor(data: IComponentProps<IFormProps, Partial<HTMLFormElement>>) {
     super({
       tagName: 'form',

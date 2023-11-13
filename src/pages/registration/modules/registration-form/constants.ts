@@ -4,14 +4,15 @@ import {
   checkName,
   checkPassword,
   checkPhone,
-} from './utils/validations';
-import { IInputProps, Input } from '@components/input';
+} from '@utils/validations';
+import { ILabelInputProps, LabelInput } from '@components/label-input';
 import { IListener } from '@types';
 
 type IRegistrationField = {
-  props: IInputProps;
+  props: ILabelInputProps;
+  attributes: Partial<HTMLInputElement>;
   listeners?: IListener[];
-  ref?: Input;
+  ref?: LabelInput;
   validate: (value: string) => boolean;
 };
 
@@ -19,57 +20,78 @@ export const registrationsFields: IRegistrationField[] = [
   {
     props: {
       label: 'first name',
+      inputProps: {
+        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
+      },
+    },
+    attributes: {
       placeholder: 'Anna',
       name: 'first_name',
-      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     validate: checkName,
   },
   {
     props: {
       label: 'second name',
+      inputProps: {
+        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
+      },
+    },
+    attributes: {
       placeholder: 'Smith',
       name: 'second_name',
-      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     validate: checkName,
   },
   {
     props: {
       label: 'login',
+      inputProps: {
+        errorMessage:
+          'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
+      },
+    },
+    attributes: {
       name: 'login',
       placeholder: 'anna',
-      errorMessage:
-        'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
     },
     validate: checkLogin,
   },
   {
     props: {
       label: 'email',
+      inputProps: {
+        errorMessage: 'Invalid email',
+      },
+    },
+    attributes: {
       placeholder: 'example@yandex.com',
       name: 'email',
-      errorMessage: 'Invalid email',
     },
     validate: checkEmail,
   },
   {
     props: {
       label: 'password',
+      inputProps: {
+        errorMessage:
+          '8 to 40 letters, at least one capital letter and one number.',
+      },
+    },
+    attributes: {
       name: 'password',
       type: 'password',
-      errorMessage:
-        '8 to 40 letters, at least one capital letter and one number.',
     },
     validate: checkPassword,
   },
   {
     props: {
       label: 'phone',
-      placeholder: '+79998887766',
-      name: 'phone',
-      errorMessage: 'Invalid phone number',
+      inputProps: {
+        errorMessage: 'Invalid phone number',
+      },
     },
+    attributes: { placeholder: '+79998887766', name: 'phone' },
     validate: checkPhone,
   },
 ];
