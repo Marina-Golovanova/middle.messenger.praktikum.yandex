@@ -1,3 +1,11 @@
+import { IFormField } from '@types';
+import {
+  checkEmail,
+  checkLogin,
+  checkName,
+  checkPhone,
+} from '@utils/user-form/validations';
+
 type IUserData = {
   id: string;
   firstName: string;
@@ -15,44 +23,93 @@ const mockUser: IUserData = {
   displayName: 'ivanko',
   login: 'ivanko545',
   email: 'ivan@yandex.ru',
-  phone: '+7-999-888-77-66',
+  phone: '+79998887766',
 };
 
-export const userFormFields = [
+export const userFormFields: IFormField[] = [
   {
-    label: 'first name',
-    value: mockUser.firstName,
-    placeholder: 'Anna',
-    name: 'first_name',
+    props: {
+      label: 'first name',
+      inputProps: {
+        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
+      },
+    },
+    attributes: {
+      value: mockUser.firstName,
+      placeholder: 'Anna',
+      name: 'first_name',
+    },
+    validate: checkName,
   },
   {
-    label: 'second name',
-    value: mockUser.secondName,
-    placeholder: 'Smith',
-    name: 'second_name',
+    props: {
+      label: 'second name',
+      inputProps: {
+        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
+      },
+    },
+    attributes: {
+      value: mockUser.secondName,
+      placeholder: 'Smith',
+      name: 'second_name',
+    },
+    validate: checkName,
   },
   {
-    label: 'display name',
-    value: mockUser.displayName,
-    placeholder: 'anna',
-    name: 'display_name',
+    props: {
+      label: 'display name',
+      inputProps: {
+        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
+      },
+    },
+    attributes: {
+      value: mockUser.displayName,
+      placeholder: 'anna',
+      name: 'display_name',
+    },
+    validate: checkLogin,
   },
   {
-    label: 'login',
-    value: mockUser.login,
-    placeholder: 'anna123',
-    name: 'login',
+    props: {
+      label: 'login',
+      inputProps: {
+        errorMessage:
+          'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
+      },
+    },
+    attributes: {
+      value: mockUser.login,
+      placeholder: 'anna123',
+      name: 'login',
+    },
+    validate: checkLogin,
   },
   {
-    label: 'email',
-    value: mockUser.email,
-    placeholder: 'anna@yandex.ru',
-    name: 'email',
+    props: {
+      label: 'email',
+      inputProps: {
+        errorMessage: 'Invalid email',
+      },
+    },
+    attributes: {
+      value: mockUser.email,
+      placeholder: 'anna@yandex.ru',
+      name: 'email',
+    },
+    validate: checkEmail,
   },
   {
-    label: 'phone',
-    value: mockUser.login,
-    placeholder: '+79998887766',
-    name: 'phone',
+    props: {
+      label: 'phone',
+      inputProps: {
+        errorMessage: 'Invalid phone number',
+      },
+    },
+    attributes: {
+      value: mockUser.phone,
+      placeholder: '+79998887766',
+      name: 'phone',
+    },
+    validate: checkPhone,
   },
 ];

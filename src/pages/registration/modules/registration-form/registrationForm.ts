@@ -2,6 +2,7 @@ import { Button } from '@components/button';
 import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element/SimpleElement';
+import { handleSubmitForm } from '@utils/user-form/handleSubmitForm';
 import { registrationsFields } from './constants';
 
 const fields = registrationsFields.map((field) => {
@@ -22,18 +23,6 @@ const fields = registrationsFields.map((field) => {
           } else {
             input.setProps({ ...props, inputProps: undefined });
           }
-          // if (!field.validate(value)) {
-          //   input.setProps({
-          //     ...input.props,
-          //     inputProps: inputProps,
-          //   });
-          // } else {
-          //   console.log(value);
-          //   input.setProps({
-          //     ...input.props,
-          //     inputProps: inputProps,
-          //   });
-          // }
         },
       },
     ],
@@ -61,42 +50,6 @@ const buttonsGroupLayout = new SimpleElement({
   children: [button],
 });
 
-const handleSubmitForm = (e: Event) => {
-  e.preventDefault();
-  const registrationData: Record<string, string> = {};
-
-  let isError = false;
-
-  registrationsFields.forEach((field) => {
-    if (!field.attributes.name) {
-      return;
-    }
-
-    const value = field.ref?.inputRef?.element?.value || '';
-    if (!field.validate(value)) {
-      field.ref?.setProps({
-        ...field.ref.props,
-        inputProps: field.props.inputProps,
-      });
-      isError = true;
-    } else {
-      field.ref?.setProps({
-        ...field.ref.props,
-        inputProps: { errorMessage: undefined },
-      });
-      isError = false;
-      registrationData[field.attributes.name] = value;
-    }
-    registrationData[field.attributes.name] = value;
-  });
-
-  if (!isError) {
-    console.log(registrationData);
-  } else {
-    console.error('Something is wrong');
-  }
-};
-
 export const registrationForm = new FormLayout({
   attributes: {
     id: 'form-layout',
@@ -106,7 +59,7 @@ export const registrationForm = new FormLayout({
   listeners: [
     {
       event: 'submit',
-      callback: handleSubmitForm,
+      callback: (e) => handleSubmitForm(e, registrationsFields),
     },
   ],
 });

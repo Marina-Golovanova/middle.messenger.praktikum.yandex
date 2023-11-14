@@ -1,5 +1,5 @@
 import { Avatar } from '@components/avatar';
-import { Button } from '@components/button';
+// import { Button } from '@components/button';
 import { ButtonIcon } from '@components/button-icon';
 import { photoIconTemplate } from '@components/icons-templates/photoIconTemplate';
 import { SimpleElement } from '@components/simple-element';
@@ -14,35 +14,11 @@ export const profileEdit = new ProfileLayout({
         new SimpleElement({
           attributes: { className: 'profile__form-layout' },
           children: [
-            new UserForm({}),
+            new UserForm({ props: { isEditable: true } }),
             new SimpleElement({
               attributes: {
                 className: 'form-layout__buttons-group',
               },
-              children: [
-                new SimpleElement({
-                  attributes: { className: 'profile-edit__buttons' },
-                  children: [
-                    new Button({
-                      props: {
-                        text: 'cancel',
-                      },
-                      attributes: {
-                        className: 'button--normal button--s',
-                      },
-                    }),
-
-                    new Button({
-                      props: {
-                        text: 'save',
-                      },
-                      attributes: {
-                        className: 'button--accent button--s',
-                      },
-                    }),
-                  ],
-                }),
-              ],
             }),
             new SimpleElement({
               attributes: { className: 'profile__form-layout__avatar-layout' },

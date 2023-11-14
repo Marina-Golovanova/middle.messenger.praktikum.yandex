@@ -1,28 +1,12 @@
-import { ILabelInputProps, LabelInput } from '@components/label-input';
-import { IListener } from '@types';
-import { checkLogin, checkPassword } from '@utils/validations';
-
-// type ILoginField = {
-//   label: string;
-//   placeholder?: string;
-//   name: string;
-//   type?: IInputType;
-// };
-
-type ILoginField = {
-  props: ILabelInputProps;
-  attributes: Partial<HTMLInputElement>;
-  listeners?: IListener[];
-  ref?: LabelInput;
-  validate: (value: string) => boolean;
-};
+import { IFormField } from '@types';
+import { checkLogin, checkPassword } from '@utils/user-form/validations';
 
 type ILoginButton = {
   text: string;
   className?: string;
 } & Partial<HTMLButtonElement>;
 
-export const loginFields: ILoginField[] = [
+export const loginFields: IFormField[] = [
   {
     props: {
       label: 'login',

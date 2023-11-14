@@ -1,5 +1,5 @@
 import { Avatar } from '@components/avatar';
-import { Button } from '@components/button';
+// import { Button } from '@components/button';
 import { ButtonIcon } from '@components/button-icon';
 import { editIconTemplate } from '@components/icons-templates/editIconTemplate';
 import { exitIconTemplate } from '@components/icons-templates/exitIconTemplate';
@@ -17,24 +17,10 @@ export const profile = new ProfileLayout({
           children: [
             new UserForm({
               props: {
-                readOnly: true,
+                isEditable: false,
               },
             }),
-            new SimpleElement({
-              attributes: {
-                className: 'form-layout__buttons-group',
-              },
-              children: [
-                new Button({
-                  props: {
-                    text: 'change password',
-                  },
-                  attributes: {
-                    className: 'button--accent',
-                  },
-                }),
-              ],
-            }),
+
             new SimpleElement({
               attributes: { className: 'profile__form-layout__avatar-layout' },
               children: [

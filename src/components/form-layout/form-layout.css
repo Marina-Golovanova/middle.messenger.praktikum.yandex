@@ -6,7 +6,7 @@
   gap: 18px;
 
   &__buttons-group {
-    margin-top: 36px;
+    margin-top: 18px;
     display: flex;
     flex-direction: column;
     gap: 18px;

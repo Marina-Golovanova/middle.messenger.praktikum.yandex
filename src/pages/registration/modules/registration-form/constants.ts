@@ -4,19 +4,10 @@ import {
   checkName,
   checkPassword,
   checkPhone,
-} from '@utils/validations';
-import { ILabelInputProps, LabelInput } from '@components/label-input';
-import { IListener } from '@types';
+} from '@utils/user-form/validations';
+import { IFormField } from '@types';
 
-type IRegistrationField = {
-  props: ILabelInputProps;
-  attributes: Partial<HTMLInputElement>;
-  listeners?: IListener[];
-  ref?: LabelInput;
-  validate: (value: string) => boolean;
-};
-
-export const registrationsFields: IRegistrationField[] = [
+export const registrationsFields: IFormField[] = [
   {
     props: {
       label: 'first name',
