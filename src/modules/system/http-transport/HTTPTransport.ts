@@ -13,6 +13,8 @@ type IOptions = {
   timeout?: number;
 };
 
+type IHTTPMethod = (url: string, options?: IOptions) => Promise<unknown>;
+
 const queryStringify = (data: IData) => {
   const formattedData = data
     ? Object.entries(data).reduce(
@@ -27,10 +29,7 @@ const queryStringify = (data: IData) => {
 };
 
 export class HTTPTransport {
-  get(url: string, options?: IOptions) {
-    if (!options) {
-      return this.request(url, { method: METHODS.GET });
-    }
+  get: IHTTPMethod = (url, options = {}) => {
     const { data } = options;
     const formattedData = queryStringify(data);
 
@@ -39,19 +38,16 @@ export class HTTPTransport {
       { ...options, method: METHODS.GET },
       options.timeout as number,
     );
-  }
+  };
 
-  put(url: string, options?: IOptions) {
-    return this.request(url, { ...options, method: METHODS.PUT });
-  }
+  put: IHTTPMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  post(url: string, options?: IOptions) {
-    return this.request(url, { ...options, method: METHODS.POST });
-  }
+  post: IHTTPMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  delete(url: string, options?: IOptions) {
-    return this.request(url, { ...options, method: METHODS.DELETE });
-  }
+  delete: IHTTPMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   request = (url: string, options: IOptions, timeout?: number) => {
     const { method = METHODS.GET, data } = options;

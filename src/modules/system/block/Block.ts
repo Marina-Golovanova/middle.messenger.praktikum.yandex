@@ -119,9 +119,11 @@ export abstract class Block<
   componentDidUpdate(oldProps: Props, newProps: Props) {
     const isEqual = isDeepEqual(oldProps, newProps);
     if (!isEqual) {
+      this._removeListeners();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
       this.addChildren(this.children);
       this.setAttributes();
+      this.setListeners();
     }
     return isEqual;
   }
@@ -183,6 +185,16 @@ export abstract class Block<
 
   addListener(listener: IListener) {
     this.element.addEventListener(listener.event, listener.callback);
+  }
+
+  private _removeListeners() {
+    if (!this.listeners) {
+      return;
+    }
+
+    this.listeners.forEach(({ event, callback }) => {
+      this.element.removeEventListener(event, callback);
+    });
   }
 
   updateListener(listener: IListener) {
