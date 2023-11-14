@@ -17,23 +17,19 @@ Builds the app for production to the `dist` folder.
 `npm run start`  
 Builds the app and runs it on the port 3000
 
+`npm run lint`  
+Runs the eslint, stylelint and types-checking
+
 ---
 
 Prototype - [figma](<https://www.figma.com/file/oQ3kyUDR4I6AhTo28O2TUq/chat-(Community)?type=design&node-id=3%3A570&mode=design&t=XPxmtvdhzisHF4EZ-1>)
 
 ---
 
-[Deploy](https://radiant-maamoul-3b0646.netlify.app/)
+[Deploy](https://6553c81d7dbd76000886a81c--radiant-maamoul-3b0646.netlify.app/
 
 ---
 
 #### Layout pages:
 
-- [Authorization](https://radiant-maamoul-3b0646.netlify.app/src/pages/authorization/)
-- [Registration](https://radiant-maamoul-3b0646.netlify.app/src/pages/registration/)
-- [Not-fount](https://radiant-maamoul-3b0646.netlify.app/src/pages/not-found/)
-- [Server-error](https://radiant-maamoul-3b0646.netlify.app/src/pages/server-error/)
-- [Profile](https://radiant-maamoul-3b0646.netlify.app/src/pages/profile/profile)
-- [Profile-edit](https://radiant-maamoul-3b0646.netlify.app/src/pages/profile/profile-edit)
-- [Change password](https://radiant-maamoul-3b0646.netlify.app/src/pages/profile/change-password)
-- [Chat](https://radiant-maamoul-3b0646.netlify.app/src/pages/chat/chat)
+Pages currently do not have their own link
