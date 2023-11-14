@@ -1,5 +1,34 @@
-export const changePasswordFields = [
-  { label: 'old password', name: 'oldPassword' },
-  { label: 'new password', name: 'newPassword' },
-  { label: 'repeat password', name: 'repeatPassword' },
+import { IFormField } from '@types';
+import { checkPassword } from '@utils/user-form/validations';
+
+export const changePasswordFields: IFormField[] = [
+  {
+    props: {
+      label: 'old password',
+      inputProps: { errorMessage: 'Password is not correct' },
+    },
+    attributes: { name: 'old_password' },
+    validate: checkPassword,
+  },
+  {
+    props: {
+      label: 'new password',
+      inputProps: {
+        errorMessage:
+          '8 to 40 letters, at least one capital letter and one number.',
+      },
+    },
+    attributes: { name: 'new_password' },
+    validate: checkPassword,
+  },
+  {
+    props: {
+      label: 'repeat password',
+      inputProps: {
+        errorMessage: 'Password mismatch',
+      },
+    },
+    attributes: { name: 'repeat_password' },
+    validate: () => false,
+  },
 ];
