@@ -22,7 +22,7 @@
   }
 
   &--error {
-    border: 1px solid red;
+    border: 1px solid var(--reva);
   }
 }
 
@@ -39,5 +39,5 @@
   position: absolute;
   top: calc(100% + 2px);
   font-size: 10px;
-  color: red;
+  color: var(--reva);
 }
