@@ -1,5 +1,4 @@
 import { Avatar } from '@components/avatar';
-// import { Button } from '@components/button';
 import { ButtonIcon } from '@components/button-icon';
 import { editIconTemplate } from '@components/icons-templates/editIconTemplate';
 import { exitIconTemplate } from '@components/icons-templates/exitIconTemplate';
