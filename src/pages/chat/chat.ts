@@ -35,6 +35,11 @@ export const chat = new MainLayout({
         imgSrc: exampleDialog.imageSrc,
         chatName: exampleDialog.chatName,
         messages: exampleDialog.messages,
+        onSendMessage: (message) => {
+          if (message.length) {
+            console.log(message);
+          }
+        },
       },
     }),
   ],

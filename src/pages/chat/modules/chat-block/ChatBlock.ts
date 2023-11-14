@@ -10,6 +10,7 @@ type IChatBlockProps = {
   imgSrc: string;
   chatName: string;
   messages: IMessageInChat[];
+  onSendMessage: (message: string) => void;
 };
 
 const getMessages = (messages: IMessageInChat[]) =>
@@ -36,7 +37,11 @@ export class ChatBlock extends Block<IChatBlockProps> {
 
         new SimpleElement({
           attributes: { className: 'chat-block__footer' },
-          children: [new MessageArea({})],
+          children: [
+            new MessageArea({
+              props: { onSendMessage: data.props!.onSendMessage },
+            }),
+          ],
         }),
       ],
     });

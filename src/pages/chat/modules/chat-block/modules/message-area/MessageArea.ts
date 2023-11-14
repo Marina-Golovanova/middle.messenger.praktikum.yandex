@@ -5,10 +5,22 @@ import { Textarea } from '@components/textarea';
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 
-export class MessageArea extends Block {
+type IMessageAreaProps = {
+  onSendMessage: (message: string) => void;
+};
+
+export class MessageArea extends Block<IMessageAreaProps, HTMLDivElement> {
   constructor(
-    data: IComponentProps<Record<string, unknown>, Partial<HTMLElement>>,
+    data: IComponentProps<IMessageAreaProps, Partial<HTMLDivElement>>,
   ) {
+    const textarea = new Textarea({
+      props: {
+        needClearAfterKeyPress: true,
+        onKeyPress: data.props!.onSendMessage,
+      },
+      attributes: { placeholder: 'Type text...', name: 'message' },
+    });
+
     super({
       tagName: 'div',
       ...data,
@@ -21,9 +33,7 @@ export class MessageArea extends Block {
           },
         }),
 
-        new Textarea({
-          attributes: { placeholder: 'Type text...', name: 'message' },
-        }),
+        textarea,
 
         new ButtonIcon({
           props: {
@@ -33,6 +43,15 @@ export class MessageArea extends Block {
               title: 'send',
             },
           },
+          listeners: [
+            {
+              event: 'click',
+              callback: () => {
+                data.props?.onSendMessage(textarea.element.value);
+                textarea.clearValue();
+              },
+            },
+          ],
         }),
       ],
     });
