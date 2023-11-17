@@ -2,9 +2,9 @@
 @import url('./components/avatar/avatar.css');
 @import url('./components/button/button.css');
 @import url('./components/button-icon/button-icon.css');
-@import url('./components/input/input.css');
+@import url('./components/label-input/label-input.css');
 @import url('./components/form-layout/form-layout.css');
-@import url('./components/error/error.css');
+@import url('./components/error-message/error-message.css');
 @import url('./components/sidebar/sidebar.css');
 @import url('./components/textarea/textarea.css');
 @import url('./layouts/centred-layout/centred-layout.css');
@@ -39,13 +39,15 @@
   --qui-gon-jinn: rgb(195 214 228 / 80%);
   --maul: rgb(82 82 82 / 50%);
   --jar-jar-binks: rgba(234 76 136 / 20%);
+  --reva: red;
 }
 
 html {
   height: 100%;
 }
 
-body {
+body,
+#app {
   margin: 0;
   height: 1px;
   min-height: 100%;
@@ -82,4 +84,8 @@ input {
 
 li {
   list-style: none;
+}
+
+.hidden {
+  display: none;
 }

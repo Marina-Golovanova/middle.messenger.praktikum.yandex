@@ -1,0 +1,1 @@
+export { MessageInChat } from './MessageInChat';
