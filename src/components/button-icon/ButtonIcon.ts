@@ -15,7 +15,7 @@ export class ButtonIcon extends Block<IButtonProps, HTMLButtonElement> {
       ...data,
       attributes: {
         ...data.attributes,
-        className: 'button-icon',
+        className: `button-icon ${data.attributes?.className || ''}`,
       },
     });
   }

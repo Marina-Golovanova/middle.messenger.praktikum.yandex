@@ -20,3 +20,17 @@ export type IFormField = {
   ref?: LabelInput;
   validate: (value: string) => boolean;
 };
+
+export type IUserSignUpData = {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+};
+
+export type IUserSignInData = {
+  login: string;
+  password: string;
+};

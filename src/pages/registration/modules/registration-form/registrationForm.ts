@@ -50,7 +50,7 @@ const buttonsGroupLayout = new SimpleElement({
   children: [button],
 });
 
-export const registrationForm = new FormLayout({
+export const registrationForm: FormLayout = new FormLayout({
   attributes: {
     id: 'form-layout',
     className: 'form-layout__with-frame',
@@ -59,7 +59,8 @@ export const registrationForm = new FormLayout({
   listeners: [
     {
       event: 'submit',
-      callback: (e) => handleSubmitForm(e, registrationsFields),
+      callback: (e) =>
+        handleSubmitForm(e, registrationsFields, registrationForm),
     },
   ],
 });

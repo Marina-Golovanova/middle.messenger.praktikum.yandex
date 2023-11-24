@@ -1,6 +1,14 @@
-import { IFormField } from '@types';
+import { appRouter } from '@app-router/appRouter';
+import { paths } from '@app-router/paths';
+import { FormLayout } from '@components/form-layout';
+import { api } from '@modules/system/api';
+import { IFormField, IUserSignUpData } from '@types';
 
-export const handleSubmitForm = (e: Event, fields: IFormField[]) => {
+export const handleSubmitForm = (
+  e: Event,
+  fields: IFormField[],
+  ref?: FormLayout,
+) => {
   e.preventDefault();
   const registrationData: Record<string, string> = {};
 
@@ -29,5 +37,15 @@ export const handleSubmitForm = (e: Event, fields: IFormField[]) => {
     registrationData[field.attributes.name] = value;
   }
 
-  console.log(registrationData);
+  const promise = api.signUp(registrationData as IUserSignUpData);
+  promise
+    .then((res) => {
+      if (res.status !== 200) {
+        ref?.setProps({ requestError: JSON.parse(res.responseText).reason });
+      } else {
+        ref?.setProps({ requestError: undefined });
+        appRouter.go(paths.messenger);
+      }
+    })
+    .catch(() => ref?.setProps({ requestError: 'Try again' }));
 };

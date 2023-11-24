@@ -24,6 +24,7 @@ export default defineConfig({
       '@layouts': path.resolve(__dirname, 'src/layouts'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@utils': path.resolve(__dirname, 'src/utils'),
+      '@app-router': path.resolve(__dirname, 'src/app-router'),
       '@types': path.resolve(__dirname, 'src/types.ts'),
     },
   },

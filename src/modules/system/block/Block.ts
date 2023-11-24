@@ -1,5 +1,5 @@
 import { deepCopy } from '@utils/deepCopy';
-import { isDeepEqual } from '@utils/isDeepEqual';
+import { isEqual } from '@utils/isEqual';
 import { EventBus } from '@modules/system/event-bus';
 
 import type { IComponentProps, IListener } from '@types';
@@ -117,15 +117,16 @@ export abstract class Block<
   }
 
   componentDidUpdate(oldProps: Props, newProps: Props) {
-    const isEqual = isDeepEqual(oldProps, newProps);
-    if (!isEqual) {
+    const isPropsEqual = isEqual(oldProps, newProps);
+
+    if (!isPropsEqual) {
       this._removeListeners();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
       this.addChildren(this.children);
       this.setAttributes();
       this.setListeners();
     }
-    return isEqual;
+    return isPropsEqual;
   }
 
   private _render() {
@@ -234,5 +235,21 @@ export abstract class Block<
 
   render() {
     return '';
+  }
+
+  show() {
+    const className = this.attributes?.className?.replace('hidden', '');
+
+    this.setAttributes({
+      ...this.attributes,
+      className,
+    } as Partial<TypeElement>);
+  }
+
+  hide() {
+    this.setAttributes({
+      ...this.attributes,
+      className: 'hidden',
+    } as Partial<TypeElement>);
   }
 }

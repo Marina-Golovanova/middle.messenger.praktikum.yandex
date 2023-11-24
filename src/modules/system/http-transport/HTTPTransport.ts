@@ -11,6 +11,7 @@ type IOptions = {
   method?: METHODS;
   data?: IData;
   timeout?: number;
+  headers?: Record<string, string>;
 };
 
 type IHTTPMethod = (url: string, options?: IOptions) => Promise<unknown>;
@@ -65,6 +66,12 @@ export class HTTPTransport {
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
+
+      if (options.headers) {
+        Object.entries(options.headers).forEach(([key, value]) => {
+          xhr.setRequestHeader(key, value);
+        });
+      }
 
       if (method === METHODS.GET || !data) {
         xhr.send();

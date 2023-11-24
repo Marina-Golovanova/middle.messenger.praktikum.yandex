@@ -1,6 +1,7 @@
 .sidebar {
   background-color: var(--darth-vader);
   height: 100%;
+  position: relative;
 
   &--xs {
     width: 64px;
