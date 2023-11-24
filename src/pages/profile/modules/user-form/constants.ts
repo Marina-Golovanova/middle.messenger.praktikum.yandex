@@ -6,26 +6,6 @@ import {
   checkPhone,
 } from '@utils/user-form/validations';
 
-type IUserData = {
-  id: string;
-  firstName: string;
-  secondName: string;
-  displayName: string;
-  login: string;
-  email: string;
-  phone: string;
-};
-
-const mockUser: IUserData = {
-  id: '1',
-  firstName: 'Ivan',
-  secondName: 'Ivanov',
-  displayName: 'ivanko',
-  login: 'ivanko545',
-  email: 'ivan@yandex.ru',
-  phone: '+79998887766',
-};
-
 export const userFormFields: IFormField[] = [
   {
     props: {
@@ -35,7 +15,7 @@ export const userFormFields: IFormField[] = [
       },
     },
     attributes: {
-      value: mockUser.firstName,
+      value: '',
       placeholder: 'Anna',
       name: 'first_name',
     },
@@ -49,7 +29,7 @@ export const userFormFields: IFormField[] = [
       },
     },
     attributes: {
-      value: mockUser.secondName,
+      value: '',
       placeholder: 'Smith',
       name: 'second_name',
     },
@@ -63,7 +43,7 @@ export const userFormFields: IFormField[] = [
       },
     },
     attributes: {
-      value: mockUser.displayName,
+      value: '',
       placeholder: 'anna',
       name: 'display_name',
     },
@@ -78,7 +58,7 @@ export const userFormFields: IFormField[] = [
       },
     },
     attributes: {
-      value: mockUser.login,
+      value: '',
       placeholder: 'anna123',
       name: 'login',
     },
@@ -92,7 +72,7 @@ export const userFormFields: IFormField[] = [
       },
     },
     attributes: {
-      value: mockUser.email,
+      value: '',
       placeholder: 'anna@yandex.ru',
       name: 'email',
     },
@@ -106,7 +86,7 @@ export const userFormFields: IFormField[] = [
       },
     },
     attributes: {
-      value: mockUser.phone,
+      value: '',
       placeholder: '+79998887766',
       name: 'phone',
     },

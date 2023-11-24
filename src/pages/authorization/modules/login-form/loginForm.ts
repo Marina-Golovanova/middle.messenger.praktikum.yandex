@@ -68,7 +68,6 @@ export const loginForm = new FormLayout({
         });
 
         if (!isError) {
-          console.log(loginData);
           const promise = api.signIn(loginData as IUserSignInData);
 
           promise
@@ -78,7 +77,7 @@ export const loginForm = new FormLayout({
                   requestError: JSON.parse(res.responseText).reason,
                 });
               } else {
-                loginForm?.setProps({ requestError: undefined });
+                loginForm.setProps({ requestError: undefined });
                 appRouter.go(paths.messenger);
               }
             })

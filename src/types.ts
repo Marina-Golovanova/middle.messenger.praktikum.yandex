@@ -34,3 +34,8 @@ export type IUserSignInData = {
   login: string;
   password: string;
 };
+
+export type IUserData = IUserSignUpData & {
+  id: string;
+  display_name: string;
+};

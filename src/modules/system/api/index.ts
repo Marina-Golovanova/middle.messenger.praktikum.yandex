@@ -29,4 +29,8 @@ export const api = {
       `${baseUrl}/auth/chats`,
     ) as Promise<XMLHttpRequest>;
   },
+
+  getUserData: () => {
+    return httpTransport.get(`${baseUrl}/auth/user`);
+  },
 };

@@ -62,6 +62,7 @@ export class HTTPTransport {
       };
 
       xhr.timeout = timeout || 5000;
+      xhr.withCredentials = true;
 
       xhr.onabort = reject;
       xhr.onerror = reject;

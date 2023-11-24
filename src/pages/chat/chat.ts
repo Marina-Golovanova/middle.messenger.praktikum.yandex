@@ -3,7 +3,7 @@ import { plusIconTemplate } from '@components/icons-templates/plusIconTemplate';
 import { Sidebar } from '@components/sidebar';
 import { SimpleElement } from '@components/simple-element';
 import { MainLayout } from '@layouts/main-layout/MainLayout';
-import { api } from '@modules/system/api';
+// import { api } from '@modules/system/api';
 import { exampleDialog, messageList } from './data';
 import { ChatBlock } from './modules/chat-block';
 import { MessageInList } from './modules/message-in-list';
@@ -17,14 +17,14 @@ const messageListElement = new SimpleElement({
   children: messageList.map((it) => new MessageInList({ props: it })),
 });
 
-const messageListPromise = api.getChats();
+// const messageListPromise = api.getChats();
 
-messageListPromise.then((res) => {
-  if (res.status === 200) {
-    console.log(res);
-    messageListElement.addChildren([new MessageInList({})]);
-  }
-});
+// messageListPromise.then((res) => {
+//   if (res.status === 200) {
+//     console.log(res);
+//     messageListElement.addChildren([new MessageInList({})]);
+//   }
+// });
 
 export const chat = new MainLayout({
   children: [

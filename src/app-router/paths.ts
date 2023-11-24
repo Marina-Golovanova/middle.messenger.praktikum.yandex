@@ -3,4 +3,6 @@ export const paths = {
   signUp: '/sign-up',
   settings: '/settings',
   messenger: '/messenger',
+  notFound: '/not-found',
+  error: '/error',
 };

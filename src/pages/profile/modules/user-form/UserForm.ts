@@ -3,15 +3,16 @@ import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';
-import { IComponentProps } from '@types';
+import { IComponentProps, IUserData, IFormField } from '@types';
 import { handleSubmitForm } from '@utils/user-form/handleSubmitForm';
 import { userFormFields } from './constants';
 
 type IUserFormProps = {
   isEditable: boolean;
+  userData: IUserData;
 };
 
-const getFields = (isEditable: boolean) => {
+const getFields = (userFormFields: IFormField[], isEditable: boolean) => {
   return userFormFields.map((field) => {
     const { inputProps, ...props } = field.props;
 
@@ -28,6 +29,10 @@ const getFields = (isEditable: boolean) => {
         {
           event: 'blur',
           callback: (e) => {
+            if (!isEditable) {
+              return;
+            }
+
             const target = e.target as HTMLInputElement;
             const value = target.value;
 
@@ -55,7 +60,19 @@ export class UserForm extends Block<IUserFormProps> {
       children: [
         new FormLayout({
           children: [
-            ...getFields(!!data.props?.isEditable),
+            ...getFields(
+              userFormFields.map((field) => ({
+                ...field,
+                attributes: {
+                  ...field.attributes,
+                  value:
+                    data.props?.userData?.[
+                      field.attributes.name as keyof IUserData
+                    ] || '',
+                },
+              })),
+              !!data.props?.isEditable,
+            ),
             data.props?.isEditable
               ? new SimpleElement({
                   attributes: { className: 'profile-edit__buttons' },
@@ -96,7 +113,6 @@ export class UserForm extends Block<IUserFormProps> {
                   ],
                 }),
           ],
-
           listeners: [
             {
               event: 'submit',

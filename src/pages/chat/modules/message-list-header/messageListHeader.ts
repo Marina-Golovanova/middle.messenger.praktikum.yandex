@@ -1,3 +1,5 @@
+import { appRouter } from '@app-router/appRouter';
+import { paths } from '@app-router/paths';
 import { ButtonIcon } from '@components/button-icon';
 import { userIconTemplate } from '@components/icons-templates/userIconTemplate';
 import { LabelInput } from '@components/label-input';
@@ -16,6 +18,12 @@ export const messageListHeader = new SimpleElement({
           className: 'chat__sidebar__header__icon',
         },
       },
+      listeners: [
+        {
+          event: 'click',
+          callback: () => appRouter.go(paths.settings),
+        },
+      ],
     }),
 
     new LabelInput({
