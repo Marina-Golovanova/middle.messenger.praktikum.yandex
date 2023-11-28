@@ -69,10 +69,10 @@ export const loginForm = new FormLayout({
 
         if (!isError) {
           const promise = api.signIn(loginData as IUserSignInData);
-
           promise
             .then((res) => {
               if (res.status !== 200) {
+                loginForm.setProps({ requestError: '' });
                 loginForm.setProps({
                   requestError: JSON.parse(res.responseText).reason,
                 });
@@ -90,3 +90,12 @@ export const loginForm = new FormLayout({
   ],
   children: [...fields, ...buttons],
 });
+
+loginForm.componentDidMount = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  api.getUserData().then((res: any) => {
+    if (res.status === 200) {
+      appRouter.go(paths.messenger);
+    }
+  });
+};

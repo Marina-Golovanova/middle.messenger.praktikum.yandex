@@ -36,6 +36,5 @@ export type IUserSignInData = {
 };
 
 export type IUserData = IUserSignUpData & {
-  id: string;
   display_name: string;
 };

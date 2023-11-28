@@ -25,8 +25,13 @@ export class Input extends Block<IInputProps, HTMLInputElement> {
   setAttributes(attributes?: Partial<HTMLInputElement> | undefined): void {
     const className = this.props?.errorMessage
       ? this.attributes?.className + 'input--error'
-      : this.attributes?.className;
+      : this.attributes?.className?.replace('input--error', '');
 
     super.setAttributes({ ...attributes, className });
+  }
+
+  setProps(props: IInputProps) {
+    super.setProps(props);
+    this.element.readOnly = !!props.readOnly;
   }
 }

@@ -2,7 +2,10 @@ import { Button } from '@components/button';
 import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element/SimpleElement';
-import { handleSubmitForm } from '@utils/user-form/handleSubmitForm';
+import {
+  handleSubmitForm,
+  SubmitFormEvents,
+} from '@utils/user-form/handleSubmitForm';
 import { registrationsFields } from './constants';
 
 const fields = registrationsFields.map((field) => {
@@ -22,6 +25,7 @@ const fields = registrationsFields.map((field) => {
             input.setProps({ ...input.props, inputProps });
           } else {
             input.setProps({ ...props, inputProps: undefined });
+            input.setAttributes({ ...input.attributes, value });
           }
         },
       },
@@ -60,7 +64,12 @@ export const registrationForm: FormLayout = new FormLayout({
     {
       event: 'submit',
       callback: (e) =>
-        handleSubmitForm(e, registrationsFields, registrationForm),
+        handleSubmitForm({
+          e,
+          fields: registrationsFields,
+          eventType: SubmitFormEvents.signUp,
+          ref: registrationForm,
+        }),
     },
   ],
 });

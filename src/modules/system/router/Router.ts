@@ -66,10 +66,18 @@ export class Router {
   }
 
   back() {
+    if (this._currentRoute) {
+      this._currentRoute.leave();
+    }
+
     this.history.back();
   }
 
   forward() {
+    if (this._currentRoute) {
+      this._currentRoute.leave();
+    }
+
     this.history.forward();
   }
 

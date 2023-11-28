@@ -123,7 +123,7 @@ export abstract class Block<
       this._removeListeners();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
       this.addChildren(this.children);
-      this.setAttributes();
+      this.setAttributes(this.attributes);
       this.setListeners();
     }
     return isPropsEqual;
@@ -171,7 +171,12 @@ export abstract class Block<
       }
 
       this._element.setAttribute(key === 'className' ? 'class' : key, value);
+      if (!this.attributes) {
+        this.attributes = {};
+      }
     });
+
+    this.attributes = { ...this.attributes, ...attributes };
   }
 
   setListeners() {
@@ -239,7 +244,6 @@ export abstract class Block<
 
   show() {
     const className = this.attributes?.className?.replace('hidden', '');
-
     this.setAttributes({
       ...this.attributes,
       className,
@@ -249,7 +253,7 @@ export abstract class Block<
   hide() {
     this.setAttributes({
       ...this.attributes,
-      className: 'hidden',
+      className: `${this.attributes?.className || ''} hidden`,
     } as Partial<TypeElement>);
   }
 }

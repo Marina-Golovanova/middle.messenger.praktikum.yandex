@@ -13,7 +13,7 @@ export const serverError = new CentredLayout({
       children: [
         new Button({
           props: {
-            text: 'back to main page',
+            text: 'back',
           },
           attributes: {
             className: 'button--accent button--m',

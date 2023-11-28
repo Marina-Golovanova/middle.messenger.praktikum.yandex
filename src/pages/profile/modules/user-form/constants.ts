@@ -47,7 +47,7 @@ export const userFormFields: IFormField[] = [
       placeholder: 'anna',
       name: 'display_name',
     },
-    validate: checkLogin,
+    validate: () => true,
   },
   {
     props: {
