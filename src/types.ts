@@ -38,3 +38,8 @@ export type IUserSignInData = {
 export type IUserData = IUserSignUpData & {
   display_name: string;
 };
+
+export type IChangePasswordData = {
+  oldPassword: string;
+  newPassword: string;
+};

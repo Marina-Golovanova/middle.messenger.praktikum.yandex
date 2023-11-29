@@ -11,9 +11,7 @@ export const registrationsFields: IFormField[] = [
   {
     props: {
       label: 'first name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
       placeholder: 'Anna',
@@ -24,9 +22,7 @@ export const registrationsFields: IFormField[] = [
   {
     props: {
       label: 'second name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
       placeholder: 'Smith',
@@ -37,10 +33,8 @@ export const registrationsFields: IFormField[] = [
   {
     props: {
       label: 'login',
-      inputProps: {
-        errorMessage:
-          'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
-      },
+      errorMessage:
+        'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
     },
     attributes: {
       name: 'login',
@@ -51,9 +45,7 @@ export const registrationsFields: IFormField[] = [
   {
     props: {
       label: 'email',
-      inputProps: {
-        errorMessage: 'Invalid email',
-      },
+      errorMessage: 'Invalid email',
     },
     attributes: {
       placeholder: 'example@yandex.com',
@@ -64,10 +56,8 @@ export const registrationsFields: IFormField[] = [
   {
     props: {
       label: 'password',
-      inputProps: {
-        errorMessage:
-          '8 to 40 letters, at least one capital letter and one number.',
-      },
+      errorMessage:
+        '8 to 40 letters, at least one capital letter and one number.',
     },
     attributes: {
       name: 'password',
@@ -78,9 +68,7 @@ export const registrationsFields: IFormField[] = [
   {
     props: {
       label: 'phone',
-      inputProps: {
-        errorMessage: 'Invalid phone number',
-      },
+      errorMessage: 'Invalid phone number',
     },
     attributes: { placeholder: '+79998887766', name: 'phone' },
     validate: checkPhone,

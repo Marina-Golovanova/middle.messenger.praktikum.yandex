@@ -1,4 +1,9 @@
-import { IUserData, IUserSignInData, IUserSignUpData } from '@types';
+import {
+  IChangePasswordData,
+  IUserData,
+  IUserSignInData,
+  IUserSignUpData,
+} from '@types';
 import { HTTPTransport } from '../http-transport/HTTPTransport';
 
 const baseUrl = 'https://ya-praktikum.tech/api/v2';
@@ -48,12 +53,18 @@ export const api = {
   },
 
   changeAvatar: (avatar: FormData) => {
-    console.log(avatar);
-    return fetch('https://ya-praktikum.tech/api/v2/user/profile/avatar', {
-      method: 'PUT',
-      body: avatar,
-      credentials: 'include',
-      mode: 'cors',
+    return httpTransport.put(`${baseUrl}/user/profile/avatar`, {
+      data: avatar,
+    });
+  },
+
+  changePassword: (data: IChangePasswordData) => {
+    console.log(data);
+    return httpTransport.put(`${baseUrl}/user/password`, {
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   },
 };

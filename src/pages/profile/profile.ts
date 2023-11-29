@@ -10,6 +10,7 @@ import { SimpleElement } from '@components/simple-element';
 import { MainContentLayout } from '@layouts/main-content-layout';
 import { ProfileLayout } from '@layouts/profile-layout';
 import { api } from '@modules/system/api';
+import { ChangePasswordForm } from './modules/change-password-form';
 import { UserForm } from './modules/user-form/UserForm';
 
 const handleLogOut = () => {
@@ -66,26 +67,6 @@ const profileActions = new SimpleElement({
   ],
 });
 
-const userForm = new UserForm({
-  props: {
-    isEditable: false,
-    onSaveChanges: () => {
-      profileActions.show();
-      userForm.setProps({ ...userForm.props, isEditable: false });
-    },
-    onCancel: () => {
-      profileActions.show();
-      userForm.setProps({ ...userForm.props, isEditable: false });
-    },
-  },
-  attributes: { className: 'hidden' },
-});
-
-const formLayout = new SimpleElement({
-  attributes: { className: 'profile__form-layout' },
-  children: [loader, userForm],
-});
-
 const avatar = new Avatar({
   props: {
     imgSrc: '/avatar.png',
@@ -93,6 +74,46 @@ const avatar = new Avatar({
   attributes: {
     className: 'avatar--m',
   },
+});
+
+const changePasswordForm = new ChangePasswordForm({});
+
+const userForm = new UserForm({
+  props: {
+    isEditable: false,
+    onSaveChanges: () => {
+      profileActions.show();
+      userForm.setProps({ ...userForm.props, isEditable: false });
+      changeAvatarButton.hide();
+    },
+    onCancel: () => {
+      profileActions.show();
+      userForm.setProps({ ...userForm.props, isEditable: false });
+      changeAvatarButton.hide();
+    },
+    onChangePasswordClick: () => {
+      userForm.hide();
+      profileActions.hide();
+      changePasswordForm.show();
+    },
+  },
+  attributes: { className: 'hidden' },
+});
+
+changePasswordForm.setProps({
+  onSuccess: () => {
+    console.log('onSuccess');
+  },
+  onCancel: () => {
+    changePasswordForm.hide();
+    userForm.show();
+    profileActions.show();
+  },
+});
+
+const formLayout = new SimpleElement({
+  attributes: { className: 'profile__form-layout' },
+  children: [loader, userForm, changePasswordForm],
 });
 
 const loadAvatarErrorMessage = new SimpleElement({
@@ -122,18 +143,17 @@ const changeAvatarButton = new ButtonIcon({
 
       api
         .changeAvatar(formData)
-        .then((res) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .then((res: any) => {
           if (res.status === 200) {
             loadAvatarErrorMessage.hide();
 
-            res.text().then((data) => {
-              loader.hide();
-              avatar.setProps({
-                ...avatar.props,
-                imgSrc: `https://ya-praktikum.tech/api/v2/resources${
-                  JSON.parse(data).avatar
-                }`,
-              });
+            loader.hide();
+            avatar.setProps({
+              ...avatar.props,
+              imgSrc: `https://ya-praktikum.tech/api/v2/resources${
+                JSON.parse(res.responseText).avatar
+              }`,
             });
           }
         })
@@ -167,6 +187,8 @@ export const profile = new ProfileLayout({
 });
 
 profile.componentDidMount = () => {
+  changePasswordForm.hide();
+
   api
     .getUserData()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

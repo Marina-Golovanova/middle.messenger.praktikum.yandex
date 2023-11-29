@@ -15,14 +15,14 @@ type IUserFormProps = {
   userData?: IUserData;
   onSaveChanges?: () => void;
   onCancel?: () => void;
+  onChangePasswordClick?: () => void;
 };
 
 const fields = userFormFields.map((field) => {
-  const { inputProps } = field.props;
-
   const input = new LabelInput({
     props: {
       ...field.props,
+      errorMessage: undefined,
       inputProps: {
         readOnly: true,
       },
@@ -50,9 +50,15 @@ const fields = userFormFields.map((field) => {
           }
 
           if (!field.validate(value)) {
-            input.setProps({ ...input.props, inputProps });
+            input.setProps({
+              ...input.props,
+              errorMessage: field.props.errorMessage,
+            });
           } else {
-            input.inputRef.setProps({ ...inputProps, errorMessage: undefined });
+            input.setProps({
+              ...input.props,
+              errorMessage: undefined,
+            });
           }
         },
       },
@@ -98,24 +104,33 @@ const getEditableButtons = (onCancel: () => void) =>
     ],
   });
 
-const notEditableFormButtons = new SimpleElement({
-  attributes: {
-    className: 'form-layout__buttons-group',
-  },
-  children: [
-    new Button({
-      props: {
-        text: 'change password',
-      },
-      attributes: {
-        className: 'button--accent',
-      },
-    }),
-  ],
-});
+const getNotEditableFormButtons = (onChangePasswordClick: () => void) =>
+  new SimpleElement({
+    attributes: {
+      className: 'form-layout__buttons-group',
+    },
+    children: [
+      new Button({
+        props: {
+          text: 'change password',
+        },
+        attributes: {
+          className: 'button--accent',
+          type: 'button',
+        },
+        listeners: [
+          {
+            event: 'click',
+            callback: onChangePasswordClick,
+          },
+        ],
+      }),
+    ],
+  });
 
 export class UserForm extends FormLayout<IUserFormProps> {
   editableFormButtons: Block;
+  notEditableFormButtons: Block;
 
   constructor(
     data: IComponentProps<IFormProps<IUserFormProps>, Partial<HTMLFormElement>>,
@@ -128,6 +143,9 @@ export class UserForm extends FormLayout<IUserFormProps> {
     });
 
     const editableButton = getEditableButtons(() => data.props?.onCancel?.());
+    const notEditableFormButtons = getNotEditableFormButtons(() =>
+      data.props?.onChangePasswordClick?.(),
+    );
 
     super({
       ...data,
@@ -149,6 +167,7 @@ export class UserForm extends FormLayout<IUserFormProps> {
     });
 
     this.editableFormButtons = editableButton;
+    this.notEditableFormButtons = notEditableFormButtons;
   }
 
   setProps(props: IUserFormProps) {
@@ -157,9 +176,9 @@ export class UserForm extends FormLayout<IUserFormProps> {
     fields.forEach((field) => {
       if (props.isEditable) {
         this.editableFormButtons.show();
-        notEditableFormButtons.hide();
+        this.notEditableFormButtons.hide();
       } else {
-        notEditableFormButtons.show();
+        this.notEditableFormButtons.show();
         this.editableFormButtons.hide();
       }
 

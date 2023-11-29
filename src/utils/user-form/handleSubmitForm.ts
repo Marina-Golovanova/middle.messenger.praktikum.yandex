@@ -40,7 +40,7 @@ export const handleSubmitForm = (props: IHandleSubmitForm) => {
     } else {
       field.ref?.setProps({
         ...field.ref.props,
-        inputProps: { ...field.ref.props?.inputProps, errorMessage: undefined },
+        errorMessage: undefined,
       });
     }
 

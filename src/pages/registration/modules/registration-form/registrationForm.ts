@@ -9,10 +9,12 @@ import {
 import { registrationsFields } from './constants';
 
 const fields = registrationsFields.map((field) => {
-  const { inputProps, ...props } = field.props;
   const input = new LabelInput({
     ...field,
-    props,
+    props: {
+      ...field.props,
+      errorMessage: undefined,
+    },
 
     listeners: [
       {
@@ -22,9 +24,12 @@ const fields = registrationsFields.map((field) => {
           const value = target.value;
 
           if (!field.validate(value)) {
-            input.setProps({ ...input.props, inputProps });
+            input.setProps({
+              ...input.props,
+              errorMessage: field.props.errorMessage,
+            });
           } else {
-            input.setProps({ ...props, inputProps: undefined });
+            input.setProps({ ...field.props, errorMessage: undefined });
             input.setAttributes({ ...input.attributes, value });
           }
         },

@@ -10,9 +10,7 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'first name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
       value: '',
@@ -24,9 +22,7 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'second name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
       value: '',
@@ -38,9 +34,7 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'display name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
       value: '',
@@ -52,10 +46,8 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'login',
-      inputProps: {
-        errorMessage:
-          'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
-      },
+      errorMessage:
+        'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
     },
     attributes: {
       value: '',
@@ -67,9 +59,7 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'email',
-      inputProps: {
-        errorMessage: 'Invalid email',
-      },
+      errorMessage: 'Invalid email',
     },
     attributes: {
       value: '',
@@ -81,9 +71,7 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'phone',
-      inputProps: {
-        errorMessage: 'Invalid phone number',
-      },
+      errorMessage: 'Invalid phone number',
     },
     attributes: {
       value: '',

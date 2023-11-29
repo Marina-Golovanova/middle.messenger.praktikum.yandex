@@ -2,9 +2,14 @@ import { Button } from '@components/button';
 import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element';
-import { Block } from '@modules/system/block';
+import { api } from '@modules/system/api';
 import { IComponentProps } from '@types';
 import { changePasswordFields } from './constants';
+
+type IChangePasswordProps = {
+  onSuccess: () => void;
+  onCancel: () => void;
+};
 
 const fields = changePasswordFields.map((field) => {
   const input = new LabelInput({
@@ -19,8 +24,13 @@ const fields = changePasswordFields.map((field) => {
   return input;
 });
 
-const handleSubmitNewPassword = (e: Event) => {
-  e.preventDefault();
+export type IHandleSubmitNewPassword = {
+  event: Event;
+  onSuccess: () => void;
+};
+
+const handleSubmitNewPassword = (props: IHandleSubmitNewPassword) => {
+  props.event.preventDefault();
   const passwordData: Record<string, string> = {};
 
   for (const field of changePasswordFields) {
@@ -33,7 +43,7 @@ const handleSubmitNewPassword = (e: Event) => {
     if (field.attributes.name !== 'repeat_password' && !field.validate(value)) {
       field.ref?.setProps({
         ...field.ref.props,
-        inputProps: field.props.inputProps,
+        errorMessage: field.props.errorMessage,
       });
 
       console.error('Something is wrong');
@@ -45,7 +55,7 @@ const handleSubmitNewPassword = (e: Event) => {
     ) {
       field.ref?.setProps({
         ...field.ref.props,
-        inputProps: field.props.inputProps,
+        errorMessage: field.props.errorMessage,
       });
 
       return;
@@ -53,69 +63,119 @@ const handleSubmitNewPassword = (e: Event) => {
 
     field.ref?.setProps({
       ...field.ref.props,
-      inputProps: { errorMessage: undefined },
+      errorMessage: undefined,
     });
 
     passwordData[field.attributes.name] = value;
   }
 
-  console.log(passwordData);
+  api
+    .changePassword({
+      oldPassword: passwordData.old_password,
+      newPassword: passwordData.new_password,
+    })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .then((res: any) => {
+      if (res.status === 200) {
+        props.onSuccess();
+      } else {
+        console.error(res.responseText);
+      }
+    })
+    .catch((e) => console.error(e));
 };
 
-export class ChangePasswordForm extends Block {
+export class ChangePasswordForm extends FormLayout<IChangePasswordProps> {
+  cancelButton: Button;
+  saveButton: Button;
+
   constructor(
-    data: IComponentProps<Record<string, unknown>, Partial<HTMLElement>>,
+    data: IComponentProps<IChangePasswordProps, Partial<HTMLFormElement>>,
   ) {
+    const cancelButton = new Button({
+      props: {
+        text: 'cancel',
+      },
+      attributes: {
+        className: 'button--normal button--s',
+        type: 'button',
+      },
+    });
+
+    const saveButton = new Button({
+      props: {
+        text: 'save',
+      },
+      attributes: {
+        className: 'button--accent button--s',
+      },
+      listeners: [
+        {
+          event: 'submit',
+          callback: (e) => {
+            handleSubmitNewPassword({
+              event: e,
+              onSuccess: () => data.props?.onSuccess(),
+            });
+          },
+        },
+      ],
+    });
+
     super({
-      tagName: 'fragment',
       ...data,
       children: [
-        new FormLayout({
+        ...fields,
+        new SimpleElement({
+          attributes: {
+            className: 'form-layout__buttons-group',
+          },
           children: [
-            ...fields,
             new SimpleElement({
               attributes: {
-                className: 'form-layout__buttons-group',
+                className: 'change-password__buttons',
               },
               children: [
-                new SimpleElement({
-                  attributes: {
-                    className: 'change-password__buttons',
+                cancelButton,
+                new Button({
+                  props: {
+                    text: 'save',
                   },
-                  children: [
-                    new Button({
-                      props: {
-                        text: 'cancel',
+                  attributes: {
+                    className: 'button--accent button--s',
+                  },
+                  listeners: [
+                    {
+                      event: 'submit',
+                      callback: (e) => {
+                        handleSubmitNewPassword({
+                          event: e,
+                          onSuccess: () => data.props?.onSuccess(),
+                        });
                       },
-                      attributes: {
-                        className: 'button--normal button--s',
-                      },
-                    }),
-                    new Button({
-                      props: {
-                        text: 'save',
-                      },
-                      attributes: {
-                        className: 'button--accent button--s',
-                      },
-                    }),
+                    },
                   ],
                 }),
               ],
             }),
           ],
-          listeners: [
-            {
-              event: 'submit',
-              callback: handleSubmitNewPassword,
-            },
-          ],
         }),
       ],
     });
+
+    this.cancelButton = cancelButton;
+    this.saveButton = saveButton;
   }
 
-  componentDidMount() {
-    this.element.replaceWith(this.element.children[0]);
+  setProps(props: IChangePasswordProps) {
+    super.setProps(props);
+    this.saveButton.addListener({
+      event: 'click',
+      callback: () => this.props?.onSuccess(),
+    });
+    this.cancelButton.addListener({
+      event: 'click',
+      callback: () => this.props?.onCancel(),
+    });
   }
 }

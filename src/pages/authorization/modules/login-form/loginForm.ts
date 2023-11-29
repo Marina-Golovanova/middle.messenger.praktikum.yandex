@@ -54,13 +54,13 @@ export const loginForm = new FormLayout({
           if (!field.validate(value)) {
             field.ref?.setProps({
               ...field.ref.props,
-              inputProps: field.props.inputProps,
+              errorMessage: field.props.errorMessage,
             });
             isError = true;
           } else {
             field.ref?.setProps({
               ...field.ref.props,
-              inputProps: { errorMessage: undefined },
+              errorMessage: undefined,
             });
             isError = false;
             loginData[field.attributes.name] = value;

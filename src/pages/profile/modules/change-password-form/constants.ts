@@ -5,7 +5,7 @@ export const changePasswordFields: IFormField[] = [
   {
     props: {
       label: 'old password',
-      inputProps: { errorMessage: 'Password is not correct' },
+      errorMessage: 'Password is not correct',
     },
     attributes: { name: 'old_password' },
     validate: checkPassword,
@@ -13,10 +13,8 @@ export const changePasswordFields: IFormField[] = [
   {
     props: {
       label: 'new password',
-      inputProps: {
-        errorMessage:
-          '8 to 40 letters, at least one capital letter and one number.',
-      },
+      errorMessage:
+        '8 to 40 letters, at least one capital letter and one number.',
     },
     attributes: { name: 'new_password' },
     validate: checkPassword,
@@ -24,9 +22,7 @@ export const changePasswordFields: IFormField[] = [
   {
     props: {
       label: 'repeat password',
-      inputProps: {
-        errorMessage: 'Password mismatch',
-      },
+      errorMessage: 'Password mismatch',
     },
     attributes: { name: 'repeat_password' },
     validate: () => false,

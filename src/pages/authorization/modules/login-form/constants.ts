@@ -13,9 +13,7 @@ export const loginFields: IFormField[] = [
   {
     props: {
       label: 'login',
-      inputProps: {
-        errorMessage: 'Login is not correct',
-      },
+      errorMessage: 'Login is not correct',
     },
     attributes: {
       placeholder: 'example@yandex.ru',
@@ -26,9 +24,7 @@ export const loginFields: IFormField[] = [
   {
     props: {
       label: 'password',
-      inputProps: {
-        errorMessage: 'Password is not correct',
-      },
+      errorMessage: 'Password is not correct',
     },
     attributes: {
       name: 'password',
