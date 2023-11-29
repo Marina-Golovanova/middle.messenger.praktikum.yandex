@@ -14,7 +14,6 @@
 @import url('./layouts/profile-layout/profile-layout.css');
 @import url('./layouts/popup-layout/popup-layout.css');
 @import url('./pages/profile/profile.css');
-@import url('./pages/profile/change-password.css');
 @import url('./pages/chat/chat.css');
 @import url('./pages/chat/modules/message-in-list/message-in-list.css');
 @import url('./pages/chat/modules/chat-block/chat-block.css');

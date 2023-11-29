@@ -133,7 +133,7 @@ export class ChangePasswordForm extends FormLayout<IChangePasswordProps> {
           children: [
             new SimpleElement({
               attributes: {
-                className: 'change-password__buttons',
+                className: 'profile__form-layout__change-password__buttons',
               },
               children: [
                 cancelButton,

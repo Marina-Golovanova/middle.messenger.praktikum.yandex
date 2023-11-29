@@ -24,6 +24,12 @@
       transform: translateX(-50%) translateY(-50%);
       color: var(--darth-vader);
     }
+
+    &__change-password__buttons {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 
   &__actions {
