@@ -7,10 +7,12 @@
 @import url('./components/error-message/error-message.css');
 @import url('./components/sidebar/sidebar.css');
 @import url('./components/textarea/textarea.css');
+@import url('./components/popup/popup.css');
 @import url('./layouts/centred-layout/centred-layout.css');
 @import url('./layouts/main-layout/main-layout.css');
 @import url('./layouts/main-content-layout/main-content-layout.css');
 @import url('./layouts/profile-layout/profile-layout.css');
+@import url('./layouts/popup-layout/popup-layout.css');
 @import url('./pages/profile/profile.css');
 @import url('./pages/profile/change-password.css');
 @import url('./pages/chat/chat.css');

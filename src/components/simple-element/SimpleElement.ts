@@ -22,10 +22,4 @@ export class SimpleElement<T extends HTMLElement> extends Block<
   render() {
     return this.props?.text || '';
   }
-
-  // setAttributes(attributes?: Partial<T> | undefined): void {
-  //   console.log(attributes);
-  //   console.log(1);
-  //   super.setAttributes(attributes);
-  // }
 }

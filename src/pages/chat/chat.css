@@ -26,11 +26,19 @@
       position: absolute;
       right: 0;
       bottom: 0;
+      color: var(--han-solo);
 
       &__icon {
         width: 48px;
         height: 48px;
       }
+    }
+  }
+
+  &__create-popup {
+    &__controls {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
