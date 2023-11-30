@@ -224,13 +224,13 @@ export abstract class Block<
     this.element.addEventListener(updatedListener.event, listener.callback);
   }
 
-  addChildren(children?: Block[]) {
+  addChildren(children?: Block[], addToTop?: boolean) {
     if (!children) {
       return;
     }
 
     children.forEach((child) => {
-      render(this.getContent(), child);
+      render(this.getContent(), child, addToTop);
     });
   }
 

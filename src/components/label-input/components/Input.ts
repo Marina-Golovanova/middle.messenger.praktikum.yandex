@@ -23,6 +23,10 @@ export class Input extends Block<IInputProps, HTMLInputElement> {
   }
 
   setAttributes(attributes?: Partial<HTMLInputElement> | undefined): void {
+    if (attributes?.value !== undefined) {
+      this.element.value = attributes.value;
+    }
+
     const className = this.props?.error
       ? `${this.attributes?.className} input--error`
       : this.attributes?.className?.replace('input--error', '');

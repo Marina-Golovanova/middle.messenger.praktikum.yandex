@@ -5,25 +5,29 @@ import { IComponentProps } from '@types';
 import { IMessageInListProps } from '@pages/chat/types';
 
 export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
+  messageActiveBlur: Block;
+
   constructor(
     data: IComponentProps<IMessageInListProps, Partial<HTMLLIElement>>,
   ) {
+    const messageActiveBlur = new SimpleElement({
+      attributes: {
+        className: data.props?.isActiveChat ? 'message--active' : '',
+      },
+    });
+
     super({
       tagName: 'li',
       ...data,
       attributes: { className: 'message__layout' },
       children: [
-        new SimpleElement({
-          attributes: {
-            className: data.props?.isActiveChat ? 'message--active' : '',
-          },
-        }),
+        messageActiveBlur,
         new Avatar({
           attributes: {
             className: 'avatar--s',
           },
           props: {
-            imgSrc: data.props?.imageSrc || '',
+            imgSrc: data.props?.avatar || '/chat-avatar.png',
           },
         }),
         new SimpleElement({
@@ -32,7 +36,7 @@ export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
             new SimpleElement({
               attributes: { className: 'message__block__chat-name' },
               props: {
-                text: data.props?.chatName,
+                text: data.props?.title,
               },
             }),
 
@@ -83,6 +87,27 @@ export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
           ],
         }),
       ],
+      listeners: [
+        {
+          event: 'click',
+          callback: () => this.props?.onClick?.(this.props?.id),
+        },
+      ],
     });
+
+    messageActiveBlur.setAttributes({
+      ...messageActiveBlur.attributes,
+      className: this.props?.isActiveChat ? 'message--active' : '',
+    });
+
+    this.messageActiveBlur = messageActiveBlur;
+  }
+
+  setProps(props: IMessageInListProps) {
+    this.messageActiveBlur.setAttributes({
+      ...this.messageActiveBlur.attributes,
+      className: props?.isActiveChat ? 'message--active' : '',
+    });
+    super.setProps(props);
   }
 }

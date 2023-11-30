@@ -30,9 +30,7 @@ export const api = {
   },
 
   getChats: () => {
-    return httpTransport.get(
-      `${baseUrl}/auth/chats`,
-    ) as Promise<XMLHttpRequest>;
+    return httpTransport.get(`${baseUrl}/chats`) as Promise<XMLHttpRequest>;
   },
 
   getUserData: () => {
@@ -59,12 +57,24 @@ export const api = {
   },
 
   changePassword: (data: IChangePasswordData) => {
-    console.log(data);
     return httpTransport.put(`${baseUrl}/user/password`, {
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
       },
     });
+  },
+
+  createChat: (chatName: string) => {
+    return httpTransport.post(`${baseUrl}/chats`, {
+      data: JSON.stringify({ title: chatName }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  },
+
+  getToken: (chatId: string) => {
+    return httpTransport.post(`${baseUrl}/chats/token/${chatId}`);
   },
 };

@@ -28,4 +28,13 @@ export default defineConfig({
       '@types': path.resolve(__dirname, 'src/types.ts'),
     },
   },
+  // server: {
+  //   port: 3000,
+  //   proxy: {
+  //     'https://ya-praktikum.tech/api/v2': {
+  //       target: 'http://localhost:5173',
+  //       changeOrigin: true,
+  //     },
+  //   },
+  // },
 });
