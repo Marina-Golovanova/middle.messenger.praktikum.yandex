@@ -39,7 +39,7 @@ export class FormLayout<T = Record<string, string | undefined>> extends Block<
 
   setProps(props: IFormProps<T>) {
     super.setProps(props);
-    this.errorMessage.setProps({ text: props.requestError });
+    this.errorMessage.setProps({ text: props?.requestError });
   }
 
   setAttributes(attributes?: Partial<HTMLFormElement>) {

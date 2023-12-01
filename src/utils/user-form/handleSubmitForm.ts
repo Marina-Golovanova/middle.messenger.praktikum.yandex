@@ -2,6 +2,7 @@ import { appRouter } from '@app-router/appRouter';
 import { paths } from '@app-router/paths';
 import { FormLayout } from '@components/form-layout';
 import { api } from '@modules/system/api';
+import { store } from '@modules/system/store/Store';
 import { IFormField, IUserData, IUserSignUpData } from '@types';
 
 export enum SubmitFormEvents {
@@ -57,6 +58,17 @@ export const handleSubmitForm = (props: IHandleSubmitForm) => {
           });
         } else {
           props.ref?.setProps({ requestError: undefined });
+
+          api.getUserData().then((res) => {
+            if (res.status === 200) {
+              const userData = JSON.parse(res.responseText);
+
+              Object.entries(userData).forEach(([key, value]) => {
+                store.set(`user.userData.${key}`, value);
+              });
+            }
+          });
+
           appRouter.go(paths.messenger);
         }
       })

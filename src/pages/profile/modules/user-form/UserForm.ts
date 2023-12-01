@@ -11,7 +11,7 @@ import {
 import { userFormFields } from './constants';
 
 type IUserFormProps = {
-  isEditable: boolean;
+  isEditable?: boolean;
   userData?: IUserData;
   onSaveChanges?: () => void;
   onCancel?: () => void;
@@ -166,36 +166,57 @@ export class UserForm extends FormLayout<IUserFormProps> {
       ],
     });
 
+    fields.forEach((field) => {
+      field.inputRef.setProps({
+        ...field.inputRef.props,
+        readOnly: !this.props?.isEditable,
+      });
+
+      field.inputRef.setAttributes({
+        value:
+          this.props?.userData?.[field.attributes?.name as keyof IUserData] ||
+          '',
+      });
+    });
+
     this.editableFormButtons = editableButton;
     this.notEditableFormButtons = notEditableFormButtons;
+
+    if (this.props?.isEditable) {
+      this.editableFormButtons.show();
+      this.notEditableFormButtons.hide();
+    } else {
+      this.notEditableFormButtons.show();
+      this.editableFormButtons.hide();
+    }
   }
 
   setProps(props: IUserFormProps) {
     super.setProps(props);
 
-    fields.forEach((field) => {
-      if (props.isEditable) {
-        this.editableFormButtons.show();
-        this.notEditableFormButtons.hide();
-      } else {
-        this.notEditableFormButtons.show();
-        this.editableFormButtons.hide();
-      }
+    if (props?.isEditable) {
+      this.editableFormButtons.show();
+      this.notEditableFormButtons.hide();
+    } else {
+      this.notEditableFormButtons.show();
+      this.editableFormButtons.hide();
+    }
 
+    fields.forEach((field) => {
       field.inputRef.setProps({
         ...field.inputRef.props,
-        readOnly: !props.isEditable,
+        readOnly: !props?.isEditable,
       });
 
       field.inputRef.setAttributes({
         value:
           props?.userData?.[field.attributes?.name as keyof IUserData] || '',
       });
+    });
 
-      userFormFields.forEach((field) => {
-        field.attributes.value =
-          props?.userData?.[field.attributes?.name as keyof IUserData] || '';
-      });
+    userFormFields.forEach((field) => {
+      field.attributes.value =
+        props?.userData?.[field.attributes?.name as keyof IUserData] || '';
     });
   }
 }

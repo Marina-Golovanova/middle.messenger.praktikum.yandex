@@ -10,13 +10,16 @@ import { SimpleElement } from '@components/simple-element';
 import { MainContentLayout } from '@layouts/main-content-layout';
 import { ProfileLayout } from '@layouts/profile-layout';
 import { api } from '@modules/system/api';
+import { store } from '@modules/system/store/Store';
+import { IUserData } from '@types';
 import { ChangePasswordForm } from './modules/change-password-form';
-import { UserForm } from './modules/user-form/UserForm';
+import { userFormController } from './modules/user-form/userFormController';
 
 const handleLogOut = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   api.logOut().then((res: any) => {
     if (res.status === 200) {
+      store.removeState();
       appRouter.go(paths.signIn);
     } else {
       appRouter.go(paths.error);
@@ -78,8 +81,10 @@ const avatar = new Avatar({
 
 const changePasswordForm = new ChangePasswordForm({});
 
-const userForm = new UserForm({
+const userForm = new userFormController({
+  tagName: 'form',
   props: {
+    userData: (store.getState()?.user as { userData: IUserData })?.userData,
     isEditable: false,
     onSaveChanges: () => {
       profileActions.show();
@@ -97,7 +102,6 @@ const userForm = new UserForm({
       changePasswordForm.show();
     },
   },
-  attributes: { className: 'hidden' },
 });
 
 changePasswordForm.setProps({
@@ -113,7 +117,7 @@ changePasswordForm.setProps({
 
 const formLayout = new SimpleElement({
   attributes: { className: 'profile__form-layout' },
-  children: [loader, userForm, changePasswordForm],
+  children: [userForm, changePasswordForm],
 });
 
 const loadAvatarErrorMessage = new SimpleElement({
@@ -186,42 +190,4 @@ export const profile = new ProfileLayout({
   },
 });
 
-profile.componentDidMount = () => {
-  changePasswordForm.hide();
-
-  api
-    .getUserData()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .then((res: any) => {
-      if (res.status === 200) {
-        const userData = JSON.parse(res.responseText);
-        loader.hide();
-        userForm.show();
-        userForm.setProps({
-          isEditable: false,
-          userData,
-        });
-
-        if (userData.avatar) {
-          avatar.setProps({
-            ...avatar.props,
-            imgSrc: `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`,
-          });
-        }
-
-        formLayout.addChildren([
-          new SimpleElement({
-            attributes: {
-              className: 'profile__form-layout__avatar-layout',
-            },
-            children: [avatar, changeAvatarButton, loadAvatarErrorMessage],
-          }),
-        ]);
-      } else {
-        appRouter.go(paths.error);
-      }
-    })
-    .catch(() => {
-      appRouter.go(paths.error);
-    });
-};
+changePasswordForm.hide();

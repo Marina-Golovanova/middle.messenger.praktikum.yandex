@@ -1,7 +1,8 @@
 import { Button } from '@components/button';
-import { FormLayout } from '@components/form-layout';
+import { FormLayout, IFormProps } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element/SimpleElement';
+import { IComponentProps } from '@types';
 import {
   handleSubmitForm,
   SubmitFormEvents,
@@ -59,22 +60,32 @@ const buttonsGroupLayout = new SimpleElement({
   children: [button],
 });
 
-export const registrationForm: FormLayout = new FormLayout({
-  attributes: {
-    id: 'form-layout',
-    className: 'form-layout__with-frame',
-  },
-  children: [...fields, buttonsGroupLayout],
-  listeners: [
-    {
-      event: 'submit',
-      callback: (e) =>
-        handleSubmitForm({
-          e,
-          fields: registrationsFields,
-          eventType: SubmitFormEvents.signUp,
-          ref: registrationForm,
-        }),
-    },
-  ],
-});
+export class RegistrationForm extends FormLayout {
+  constructor(
+    data: IComponentProps<
+      IFormProps<Record<string, string | undefined>>,
+      Partial<HTMLFormElement>
+    >,
+  ) {
+    super({
+      ...data,
+      attributes: {
+        id: 'form-layout',
+        className: 'form-layout__with-frame',
+      },
+      children: [...fields, buttonsGroupLayout],
+      listeners: [
+        {
+          event: 'submit',
+          callback: (e) =>
+            handleSubmitForm({
+              e,
+              fields: registrationsFields,
+              eventType: SubmitFormEvents.signUp,
+              ref: this,
+            }),
+        },
+      ],
+    });
+  }
+}

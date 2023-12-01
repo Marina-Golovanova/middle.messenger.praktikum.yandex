@@ -34,11 +34,13 @@ export const api = {
   },
 
   getUserData: () => {
-    return httpTransport.get(`${baseUrl}/auth/user`);
+    return httpTransport.get(`${baseUrl}/auth/user`) as Promise<XMLHttpRequest>;
   },
 
   logOut: () => {
-    return httpTransport.post(`${baseUrl}/auth/logout`);
+    return httpTransport.post(
+      `${baseUrl}/auth/logout`,
+    ) as Promise<XMLHttpRequest>;
   },
 
   editUser: (userData: IUserData) => {
@@ -47,13 +49,13 @@ export const api = {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    }) as Promise<XMLHttpRequest>;
   },
 
   changeAvatar: (avatar: FormData) => {
     return httpTransport.put(`${baseUrl}/user/profile/avatar`, {
       data: avatar,
-    });
+    }) as Promise<XMLHttpRequest>;
   },
 
   changePassword: (data: IChangePasswordData) => {
@@ -62,7 +64,7 @@ export const api = {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    }) as Promise<XMLHttpRequest>;
   },
 
   createChat: (chatName: string) => {
@@ -71,10 +73,12 @@ export const api = {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    }) as Promise<XMLHttpRequest>;
   },
 
   getToken: (chatId: string) => {
-    return httpTransport.post(`${baseUrl}/chats/token/${chatId}`);
+    return httpTransport.post(
+      `${baseUrl}/chats/token/${chatId}`,
+    ) as Promise<XMLHttpRequest>;
   },
 };

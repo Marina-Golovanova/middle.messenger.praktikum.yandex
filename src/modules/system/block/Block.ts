@@ -157,7 +157,10 @@ export abstract class Block<
       this.props = this._makePropsProxy(nextProps);
     }
 
-    this._eventBus().emit(Block.EVENTS.FLOW_CDU, { oldProps, nextProps });
+    this._eventBus().emit(Block.EVENTS.FLOW_CDU, {
+      oldProps,
+      nextProps: this.props,
+    });
   }
 
   setAttributes(attributes?: Partial<TypeElement>) {

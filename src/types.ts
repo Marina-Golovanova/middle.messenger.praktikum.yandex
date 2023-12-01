@@ -21,6 +21,13 @@ export type IFormField = {
   validate: (value: string) => boolean;
 };
 
+// export type ILoginFormField = {
+//   props: ILabelInputProps;
+//   attributes: Partial<HTMLInputElement>;
+//   listeners?: IListener[];
+//   ref?: LabelInput;
+// };
+
 export type IUserSignUpData = {
   first_name: string;
   second_name: string;
@@ -36,10 +43,15 @@ export type IUserSignInData = {
 };
 
 export type IUserData = IUserSignUpData & {
+  id?: string;
   display_name: string;
 };
 
 export type IChangePasswordData = {
   oldPassword: string;
   newPassword: string;
+};
+
+export type Indexed<T = unknown> = {
+  [key in string]: T;
 };

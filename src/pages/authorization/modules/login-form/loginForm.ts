@@ -2,10 +2,8 @@ import { Button } from '@components/button';
 import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { loginButtons, loginFields } from './constants';
-import { api } from '@modules/system/api';
 import { IUserSignInData } from '@types';
-import { appRouter } from '@app-router/appRouter';
-import { paths } from '@app-router/paths';
+import { loginFormController } from './LoginFormController';
 
 const fields = loginFields.map((field) => {
   const inputField = new LabelInput({
@@ -41,8 +39,6 @@ export const loginForm = new FormLayout({
       callback: (e) => {
         e.preventDefault();
 
-        let isError = false;
-
         const loginData: Record<string, string> = {};
 
         loginFields.forEach((field) => {
@@ -51,40 +47,23 @@ export const loginForm = new FormLayout({
           }
 
           const value = field.ref?.inputRef?.element?.value || '';
-          if (!field.validate(value)) {
-            field.ref?.setProps({
-              ...field.ref.props,
-              errorMessage: field.props.errorMessage,
-            });
-            isError = true;
-          } else {
-            field.ref?.setProps({
-              ...field.ref.props,
-              errorMessage: undefined,
-            });
-            isError = false;
-            loginData[field.attributes.name] = value;
-          }
+          loginData[field.attributes.name] = value;
         });
 
-        if (!isError) {
-          const promise = api.signIn(loginData as IUserSignInData);
-          promise
-            .then((res) => {
-              if (res.status !== 200) {
-                loginForm.setProps({ requestError: '' });
-                loginForm.setProps({
-                  requestError: JSON.parse(res.responseText).reason,
-                });
-              } else {
-                loginForm.setProps({ requestError: undefined });
-                appRouter.go(paths.messenger);
-              }
-            })
-            .catch(() => loginForm?.setProps({ requestError: 'Try again' }));
-        } else {
-          console.error('Something is wrong');
-        }
+        loginFormController.login(loginData as IUserSignInData, {
+          onSuccess: () => {
+            fields.forEach((field) => {
+              field.inputRef.setAttributes({ value: '' });
+              console.log(field);
+            });
+          },
+          onError: (errorMessage: string) => {
+            loginForm.setProps({ requestError: '' });
+            loginForm.setProps({
+              requestError: errorMessage,
+            });
+          },
+        });
       },
     },
   ],
@@ -92,10 +71,5 @@ export const loginForm = new FormLayout({
 });
 
 loginForm.componentDidMount = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  api.getUserData().then((res: any) => {
-    if (res.status === 200) {
-      appRouter.go(paths.messenger);
-    }
-  });
+  loginFormController.checkIsUserAuthorized();
 };
