@@ -1,1 +1,1 @@
-export { RegistrationForm } from './RegistrationForm';
+export { registrationFormConnector } from './registrationFormConnector';

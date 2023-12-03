@@ -10,7 +10,7 @@ export type ILoginFormHandleProps = {
   onError: (errorMessage: string) => void;
 };
 
-class LoginFormController {
+export class LoginFormController {
   async login(data: IUserSignInData, handleProps: ILoginFormHandleProps) {
     try {
       if (!validate(data)) {
@@ -51,5 +51,3 @@ class LoginFormController {
     }
   }
 }
-
-export const loginFormController = new LoginFormController();

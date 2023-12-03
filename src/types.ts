@@ -21,13 +21,6 @@ export type IFormField = {
   validate: (value: string) => boolean;
 };
 
-// export type ILoginFormField = {
-//   props: ILabelInputProps;
-//   attributes: Partial<HTMLInputElement>;
-//   listeners?: IListener[];
-//   ref?: LabelInput;
-// };
-
 export type IUserSignUpData = {
   first_name: string;
   second_name: string;

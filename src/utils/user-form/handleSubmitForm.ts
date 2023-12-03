@@ -1,8 +1,6 @@
-import { appRouter } from '@app-router/appRouter';
-import { paths } from '@app-router/paths';
 import { FormLayout } from '@components/form-layout';
 import { api } from '@modules/system/api';
-import { store } from '@modules/system/store/Store';
+import { RegistrationFormController } from '@pages/registration/modules/registration-form/RegistrationFormController';
 import { IFormField, IUserData, IUserSignUpData } from '@types';
 
 export enum SubmitFormEvents {
@@ -28,51 +26,21 @@ export const handleSubmitForm = (props: IHandleSubmitForm) => {
     }
 
     const value = field.ref?.attributes?.value || field.attributes.value || '';
-
-    if (!field.validate(value)) {
-      field.ref?.setProps({
-        ...field.ref.props,
-        inputProps: field.props.inputProps,
-      });
-
-      console.error('Something is wrong');
-
-      return;
-    } else {
-      field.ref?.setProps({
-        ...field.ref.props,
-        errorMessage: undefined,
-      });
-    }
-
     userData[field.attributes.name] = value;
   }
 
   if (props.eventType === SubmitFormEvents.signUp) {
-    const promise = api.signUp(userData as IUserSignUpData);
-    promise
-      .then((res) => {
-        if (res.status !== 200) {
-          props.ref?.setProps({
-            requestError: JSON.parse(res.responseText).reason,
-          });
-        } else {
-          props.ref?.setProps({ requestError: undefined });
+    const registrationFormController = new RegistrationFormController();
 
-          api.getUserData().then((res) => {
-            if (res.status === 200) {
-              const userData = JSON.parse(res.responseText);
-
-              Object.entries(userData).forEach(([key, value]) => {
-                store.set(`user.userData.${key}`, value);
-              });
-            }
-          });
-
-          appRouter.go(paths.messenger);
-        }
-      })
-      .catch(() => props.ref?.setProps({ requestError: 'Try again' }));
+    registrationFormController.signUp(userData as IUserSignUpData, {
+      onSuccess: () => {
+        props.fields.forEach((field) => {
+          field.ref?.inputRef?.setAttributes({ value: '' });
+        });
+      },
+      onError: (errorMessage) =>
+        props.ref?.setProps({ requestError: errorMessage }),
+    });
   } else {
     const promise = api.editUser(userData as IUserData);
 

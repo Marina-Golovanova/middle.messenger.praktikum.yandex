@@ -3,7 +3,7 @@ import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { loginButtons, loginFields } from './constants';
 import { IUserSignInData } from '@types';
-import { loginFormController } from './LoginFormController';
+import { LoginFormController } from './LoginFormController';
 
 const fields = loginFields.map((field) => {
   const inputField = new LabelInput({
@@ -28,6 +28,8 @@ const buttons = loginButtons.map(
       listeners: button.listeners,
     }),
 );
+
+const loginFormController = new LoginFormController();
 
 export const loginForm = new FormLayout({
   attributes: {
