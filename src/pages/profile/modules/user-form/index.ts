@@ -1,1 +1,1 @@
-export { userFormController } from './userFormController';
+export { userFormConnector } from './userFormConnector';

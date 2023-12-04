@@ -7,36 +7,20 @@ import { Sidebar } from '@components/sidebar';
 import { SimpleElement } from '@components/simple-element';
 import { MainLayout } from '@layouts/main-layout/MainLayout';
 import { PopupLayout } from '@layouts/popup-layout';
-import { api } from '@modules/system/api';
 import { Block } from '@modules/system/block';
+import { store } from '@modules/system/store/Store';
+import { IStoreState } from '@types';
 import { exampleDialog } from './data';
 import { ChatBlock } from './modules/chat-block';
-import { MessageInList } from './modules/message-in-list';
-import { MessageList } from './modules/message-list';
+import { messageListConnector } from './modules/message-list';
 import { messageListHeader } from './modules/message-list-header';
-import { IMessageInListProps } from './types';
+import { MessageListController } from './modules/message-list/MessageListController';
 
-const messageListElement = new MessageList({ props: { messages: [] } });
-
-const messageListPromise = api.getChats();
-
-messageListPromise.then((res) => {
-  if (res.status === 200) {
-    const messages = JSON.parse(res.responseText);
-    messageListElement.setProps({
-      messages,
-      onMessageClick: (id) => {
-        const updatedMessages = messages.map((message: IMessageInListProps) =>
-          message.id === id ? { ...message, isActiveChat: true } : message,
-        );
-        messageListElement.setProps({
-          ...messageListElement.props,
-          messages: updatedMessages,
-        });
-        api.getToken(id).then((res) => console.log(res));
-      },
-    });
-  }
+const messageListElement = new messageListConnector({
+  tagName: 'ul',
+  props: {
+    messages: (store.getState() as IStoreState)?.user?.messages || [],
+  },
 });
 
 const newChatTitleInput = new LabelInput({
@@ -83,23 +67,14 @@ const createChatPopup: Block = new PopupLayout({
                   callback: () => {
                     const title =
                       newChatTitleInput.inputRef.attributes?.value || '';
-                    if (!title.length) {
-                      console.error('Empty name');
 
-                      return;
-                    }
-
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    api.createChat(title).then((res: any) => {
-                      if (res.status === 200) {
-                        const { id } = JSON.parse(res.responseText);
-                        const newChat = new MessageInList({
-                          props: { id, title },
-                        });
-                        messageListElement.addChildren([newChat], true);
+                    const messageListController = new MessageListController();
+                    messageListController.createChat(title, {
+                      onSuccess: () => {
                         newChatTitleInput.inputRef.setAttributes({ value: '' });
                         createChatPopup.destroy();
-                      }
+                      },
+                      onError: () => console.error('Something went wrong'),
                     });
                   },
                 },

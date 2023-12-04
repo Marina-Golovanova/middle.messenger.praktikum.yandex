@@ -1,5 +1,6 @@
 import { ILabelInputProps, LabelInput } from '@components/label-input';
 import { Block } from '@modules/system/block';
+import { IMessageInListProps } from '@pages/chat/types';
 
 export type IListener = {
   event: keyof HTMLElementEventMap;
@@ -47,4 +48,11 @@ export type IChangePasswordData = {
 
 export type Indexed<T = unknown> = {
   [key in string]: T;
+};
+
+export type IStoreState = {
+  user: {
+    userData: IUserData;
+    messages: IMessageInListProps[];
+  };
 };

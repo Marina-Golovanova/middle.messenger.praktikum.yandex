@@ -56,7 +56,6 @@ export const loginForm = new FormLayout({
           onSuccess: () => {
             fields.forEach((field) => {
               field.inputRef.setAttributes({ value: '' });
-              console.log(field);
             });
           },
           onError: (errorMessage: string) => {

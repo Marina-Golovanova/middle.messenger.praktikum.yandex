@@ -2,7 +2,8 @@ import { appRouter } from '@app-router/appRouter';
 import { paths } from '@app-router/paths';
 import { api } from '@modules/system/api';
 import { store } from '@modules/system/store/Store';
-import { IUserData, IUserSignInData } from '@types';
+import { MessageListController } from '@pages/chat/modules/message-list/MessageListController';
+import { IStoreState, IUserSignInData } from '@types';
 import { validate } from './utils/validate';
 
 export type ILoginFormHandleProps = {
@@ -28,6 +29,10 @@ export class LoginFormController {
 
       const userDataRes = await api.getUserData();
       store.set('user.userData', JSON.parse(userDataRes.responseText));
+      const messageListController = new MessageListController();
+
+      await messageListController.setChats();
+
       handleProps.onSuccess();
 
       appRouter.go(paths.messenger);
@@ -38,7 +43,7 @@ export class LoginFormController {
   }
 
   async checkIsUserAuthorized() {
-    if ((store.getState()?.user as { userData: IUserData })?.userData?.id) {
+    if ((store.getState() as IStoreState)?.user?.userData?.id) {
       appRouter.go(paths.messenger);
 
       return;

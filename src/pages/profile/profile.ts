@@ -11,9 +11,9 @@ import { MainContentLayout } from '@layouts/main-content-layout';
 import { ProfileLayout } from '@layouts/profile-layout';
 import { api } from '@modules/system/api';
 import { store } from '@modules/system/store/Store';
-import { IUserData } from '@types';
+import { IStoreState } from '@types';
 import { ChangePasswordForm } from './modules/change-password-form';
-import { userFormController } from './modules/user-form/userFormController';
+import { userFormConnector } from './modules/user-form/userFormConnector';
 
 const handleLogOut = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,10 +81,10 @@ const avatar = new Avatar({
 
 const changePasswordForm = new ChangePasswordForm({});
 
-const userForm = new userFormController({
+const userForm = new userFormConnector({
   tagName: 'form',
   props: {
-    userData: (store.getState()?.user as { userData: IUserData })?.userData,
+    userData: (store.getState() as IStoreState)?.user?.userData,
     isEditable: false,
     onSaveChanges: () => {
       profileActions.show();

@@ -1,1 +1,1 @@
-export { MessageList } from './MessageList';
+export { messageListConnector } from './messageListConnector';

@@ -19,7 +19,6 @@ export class Route {
   }
 
   navigate(pathname: string) {
-    console.log('navigate');
     if (this.match(pathname)) {
       this._pathname = pathname;
       this.render();

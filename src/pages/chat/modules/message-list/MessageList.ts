@@ -47,7 +47,10 @@ export class MessageList extends SimpleElement<HTMLElement, IMessageListProps> {
   }
 
   setProps(props: IMessageListProps) {
-    this.children = getMessagesInList(props.messages, props.onMessageClick);
+    this.children = getMessagesInList(
+      props.messages || [],
+      props.onMessageClick,
+    );
     super.setProps(props);
   }
 }
