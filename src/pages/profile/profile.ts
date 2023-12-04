@@ -14,18 +14,9 @@ import { store } from '@modules/system/store/Store';
 import { IStoreState } from '@types';
 import { ChangePasswordForm } from './modules/change-password-form';
 import { userFormConnector } from './modules/user-form/userFormConnector';
+import { ProfileController } from './ProfileController';
 
-const handleLogOut = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  api.logOut().then((res: any) => {
-    if (res.status === 200) {
-      store.removeState();
-      appRouter.go(paths.signIn);
-    } else {
-      appRouter.go(paths.error);
-    }
-  });
-};
+const profileController = new ProfileController();
 
 const profileActions = new SimpleElement({
   attributes: {
@@ -63,7 +54,7 @@ const profileActions = new SimpleElement({
       listeners: [
         {
           event: 'click',
-          callback: handleLogOut,
+          callback: profileController.logOut,
         },
       ],
     }),
