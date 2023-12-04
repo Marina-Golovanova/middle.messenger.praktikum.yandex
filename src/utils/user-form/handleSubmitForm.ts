@@ -1,5 +1,5 @@
 import { FormLayout } from '@components/form-layout';
-import { api } from '@modules/system/api';
+import { ProfileController } from '@pages/profile/ProfileController';
 import { RegistrationFormController } from '@pages/registration/modules/registration-form/RegistrationFormController';
 import { IFormField, IUserData, IUserSignUpData } from '@types';
 
@@ -13,7 +13,8 @@ export type IHandleSubmitForm = {
   fields: IFormField[];
   eventType: SubmitFormEvents;
   ref?: FormLayout;
-  callback?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 };
 
 export const handleSubmitForm = (props: IHandleSubmitForm) => {
@@ -42,12 +43,10 @@ export const handleSubmitForm = (props: IHandleSubmitForm) => {
         props.ref?.setProps({ requestError: errorMessage }),
     });
   } else {
-    const promise = api.editUser(userData as IUserData);
-
-    promise
-      .then(() => {
-        props?.callback?.();
-      })
-      .catch(() => props.ref?.setProps({ requestError: 'Try again' }));
+    const profileController = new ProfileController();
+    profileController.editUser(userData as IUserData, {
+      onSuccess: () => props?.onSuccess?.(),
+      onError: () => props?.onError?.(),
+    });
   }
 };

@@ -158,8 +158,8 @@ export class UserForm extends FormLayout<IUserFormProps> {
               e,
               fields: userFormFields,
               eventType: SubmitFormEvents.edit,
-              callback: () => {
-                this.props?.onSaveChanges?.();
+              onSuccess: () => {
+                data.props?.onSaveChanges?.();
               },
             }),
         },
@@ -183,10 +183,8 @@ export class UserForm extends FormLayout<IUserFormProps> {
     this.notEditableFormButtons = notEditableFormButtons;
 
     if (this.props?.isEditable) {
-      this.editableFormButtons.show();
       this.notEditableFormButtons.hide();
     } else {
-      this.notEditableFormButtons.show();
       this.editableFormButtons.hide();
     }
   }
@@ -194,29 +192,30 @@ export class UserForm extends FormLayout<IUserFormProps> {
   setProps(props: IUserFormProps) {
     super.setProps(props);
 
-    if (props?.isEditable) {
+    if (this.props?.isEditable) {
       this.editableFormButtons.show();
       this.notEditableFormButtons.hide();
     } else {
-      this.notEditableFormButtons.show();
       this.editableFormButtons.hide();
+      this.notEditableFormButtons.show();
     }
 
     fields.forEach((field) => {
       field.inputRef.setProps({
         ...field.inputRef.props,
-        readOnly: !props?.isEditable,
+        readOnly: !this.props?.isEditable,
       });
 
       field.inputRef.setAttributes({
         value:
-          props?.userData?.[field.attributes?.name as keyof IUserData] || '',
+          this.props?.userData?.[field.attributes?.name as keyof IUserData] ||
+          '',
       });
     });
 
     userFormFields.forEach((field) => {
       field.attributes.value =
-        props?.userData?.[field.attributes?.name as keyof IUserData] || '';
+        this.props?.userData?.[field.attributes?.name as keyof IUserData] || '';
     });
   }
 }

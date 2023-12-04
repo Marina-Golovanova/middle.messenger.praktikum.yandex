@@ -14,7 +14,10 @@ export const connect = (
         Partial<HTMLElement>
       >,
     ) {
-      super({ ...data, props: { ...mapStateToProps(store.getState()) } });
+      super({
+        ...data,
+        props: { ...data.props, ...mapStateToProps(store.getState()) },
+      });
 
       store.on(StoreEvents.Updated, () => {
         const newState = mapStateToProps(store.getState());
@@ -23,8 +26,6 @@ export const connect = (
           if (!isEqual(this.props, newState)) {
             this.setProps(newState);
           }
-        } else {
-          this.setProps(newState);
         }
       });
     }

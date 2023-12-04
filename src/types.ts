@@ -39,6 +39,7 @@ export type IUserSignInData = {
 export type IUserData = IUserSignUpData & {
   id?: string;
   display_name: string;
+  avatar: string | null;
 };
 
 export type IChangePasswordData = {
