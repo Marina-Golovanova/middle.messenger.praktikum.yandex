@@ -1,5 +1,5 @@
 import {
-  IChangePasswordData,
+  IChangePasswordApiData,
   IUserData,
   IUserSignInData,
   IUserSignUpData,
@@ -58,7 +58,7 @@ export const api = {
     }) as Promise<XMLHttpRequest>;
   },
 
-  changePassword: (data: IChangePasswordData) => {
+  changePassword: (data: IChangePasswordApiData) => {
     return httpTransport.put(`${baseUrl}/user/password`, {
       data: JSON.stringify(data),
       headers: {

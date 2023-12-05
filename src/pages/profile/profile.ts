@@ -96,7 +96,9 @@ const userForm = new userFormConnector({
 
 changePasswordForm.setProps({
   onSuccess: () => {
-    console.log('onSuccess');
+    changePasswordForm.hide();
+    userForm.show();
+    profileActions.show();
   },
   onCancel: () => {
     changePasswordForm.hide();

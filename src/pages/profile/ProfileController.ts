@@ -2,11 +2,20 @@ import { appRouter } from '@app-router/appRouter';
 import { paths } from '@app-router/paths';
 import { api } from '@modules/system/api';
 import { store } from '@modules/system/store/Store';
-import { IStoreState, IUserData } from '@types';
+import { IChangePasswordData, IStoreState, IUserData } from '@types';
+import { ChangePasswordError, validate } from './utils/validate';
 
 export type IHandleProps = {
   onSuccess: () => void;
   onError: () => void;
+};
+
+export type IChangePasswordHandleProps = {
+  onSuccess: () => void;
+  onError: (message: string) => void;
+  onOldPasswordError: (message: string) => void;
+  onNewPasswordError: (message: string) => void;
+  onRepeatPasswordError: (message: string) => void;
 };
 
 const avatarBasePath = 'https://ya-praktikum.tech/api/v2/resources';
@@ -77,5 +86,36 @@ export class ProfileController {
     }
     handleProps.onSuccess();
     store.set('user.userData', userData);
+  }
+
+  async changePassword(
+    data: IChangePasswordData,
+    handleProps: IChangePasswordHandleProps,
+  ) {
+    try {
+      validate(data);
+
+      const changePasswordRes = await api.changePassword({
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+      });
+
+      if (changePasswordRes.status !== 200) {
+        handleProps.onError(JSON.parse(changePasswordRes.responseText).reason);
+        return;
+      }
+
+      handleProps.onSuccess();
+    } catch (e) {
+      if (e === ChangePasswordError.OldPasswordError) {
+        handleProps.onOldPasswordError(e);
+      } else if (e === ChangePasswordError.NewPasswordError) {
+        handleProps.onNewPasswordError(e);
+      } else if (e === ChangePasswordError.RepeatPasswordError) {
+        handleProps.onRepeatPasswordError(e);
+      } else {
+        handleProps.onError('Something went wrong');
+      }
+    }
   }
 }

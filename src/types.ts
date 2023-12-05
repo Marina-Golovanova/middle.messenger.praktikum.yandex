@@ -45,6 +45,12 @@ export type IUserData = IUserSignUpData & {
 export type IChangePasswordData = {
   oldPassword: string;
   newPassword: string;
+  repeatPassword: string;
+};
+
+export type IChangePasswordApiData = {
+  oldPassword: string;
+  newPassword: string;
 };
 
 export type Indexed<T = unknown> = {

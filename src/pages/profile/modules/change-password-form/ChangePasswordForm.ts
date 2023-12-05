@@ -2,8 +2,9 @@ import { Button } from '@components/button';
 import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element';
-import { api } from '@modules/system/api';
-import { IComponentProps } from '@types';
+import { ProfileController } from '@pages/profile/ProfileController';
+import { IChangePasswordData, IComponentProps } from '@types';
+import { snakeCaseToCamelCase } from '@utils/snakeCaseToCamelCase';
 import { changePasswordFields } from './constants';
 
 type IChangePasswordProps = {
@@ -27,6 +28,7 @@ const fields = changePasswordFields.map((field) => {
 export type IHandleSubmitNewPassword = {
   event: Event;
   onSuccess: () => void;
+  onError: (message: string) => void;
 };
 
 const handleSubmitNewPassword = (props: IHandleSubmitNewPassword) => {
@@ -40,49 +42,51 @@ const handleSubmitNewPassword = (props: IHandleSubmitNewPassword) => {
 
     const value = field.ref?.inputRef?.element?.value || '';
 
-    if (field.attributes.name !== 'repeat_password' && !field.validate(value)) {
-      field.ref?.setProps({
-        ...field.ref.props,
-        errorMessage: field.props.errorMessage,
-      });
-
-      console.error('Something is wrong');
-
-      return;
-    } else if (
-      field.attributes.name === 'repeat_password' &&
-      value !== passwordData['new_password']
-    ) {
-      field.ref?.setProps({
-        ...field.ref.props,
-        errorMessage: field.props.errorMessage,
-      });
-
-      return;
-    }
-
-    field.ref?.setProps({
-      ...field.ref.props,
-      errorMessage: undefined,
-    });
-
-    passwordData[field.attributes.name] = value;
+    passwordData[snakeCaseToCamelCase(field.attributes.name)] = value;
   }
 
-  api
-    .changePassword({
-      oldPassword: passwordData.old_password,
-      newPassword: passwordData.new_password,
-    })
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .then((res: any) => {
-      if (res.status === 200) {
-        props.onSuccess();
-      } else {
-        console.error(res.responseText);
+  const profileController = new ProfileController();
+  profileController.changePassword(passwordData as IChangePasswordData, {
+    onOldPasswordError: (message) => {
+      const oldPasswordField = changePasswordFields.find(
+        (field) => field.attributes?.name === 'old_password',
+      );
+
+      if (oldPasswordField) {
+        oldPasswordField.ref?.setProps({ errorMessage: message });
       }
-    })
-    .catch((e) => console.error(e));
+    },
+    onNewPasswordError: (message) => {
+      const newPasswordField = changePasswordFields.find(
+        (field) => field.attributes?.name === 'new_password',
+      );
+
+      if (newPasswordField) {
+        newPasswordField.ref?.setProps({ errorMessage: message });
+      }
+    },
+    onRepeatPasswordError: (message) => {
+      const repeatPasswordField = changePasswordFields.find(
+        (field) => field.attributes?.name === 'repeat_password',
+      );
+
+      if (repeatPasswordField) {
+        repeatPasswordField.ref?.setProps({ errorMessage: message });
+      }
+    },
+    onSuccess: () => {
+      changePasswordFields.forEach((field) => {
+        field.ref?.setProps({ errorMessage: undefined });
+      });
+      props.onSuccess();
+    },
+    onError: (message) => {
+      changePasswordFields.forEach((field) => {
+        field.ref?.setProps({ errorMessage: undefined });
+      });
+      props.onError(message);
+    },
+  });
 };
 
 export class ChangePasswordForm extends FormLayout<IChangePasswordProps> {
@@ -107,15 +111,20 @@ export class ChangePasswordForm extends FormLayout<IChangePasswordProps> {
         text: 'save',
       },
       attributes: {
+        type: 'submit',
         className: 'button--accent button--s',
       },
       listeners: [
         {
-          event: 'submit',
+          event: 'click',
           callback: (e) => {
             handleSubmitNewPassword({
               event: e,
               onSuccess: () => data.props?.onSuccess(),
+              onError: (message: string) =>
+                (this as unknown as FormLayout).setProps({
+                  requestError: message,
+                }),
             });
           },
         },
@@ -135,31 +144,18 @@ export class ChangePasswordForm extends FormLayout<IChangePasswordProps> {
               attributes: {
                 className: 'profile__form-layout__change-password__buttons',
               },
-              children: [
-                cancelButton,
-                new Button({
-                  props: {
-                    text: 'save',
-                  },
-                  attributes: {
-                    className: 'button--accent button--s',
-                  },
-                  listeners: [
-                    {
-                      event: 'submit',
-                      callback: (e) => {
-                        handleSubmitNewPassword({
-                          event: e,
-                          onSuccess: () => data.props?.onSuccess(),
-                        });
-                      },
-                    },
-                  ],
-                }),
-              ],
+              children: [cancelButton, saveButton],
             }),
           ],
         }),
+      ],
+      listeners: [
+        {
+          event: 'submit',
+          callback: (e) => {
+            e.preventDefault();
+          },
+        },
       ],
     });
 

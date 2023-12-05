@@ -5,6 +5,7 @@
   justify-content: center;
   gap: 18px;
   position: relative;
+  padding: 30px 28px;
 
   &__buttons-group {
     margin-top: 18px;
@@ -23,7 +24,6 @@
 
   &__with-frame {
     width: 331px;
-    padding: 30px 28px;
     border: 2px solid var(--yoda);
     border-radius: 8px;
   }
