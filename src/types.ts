@@ -61,5 +61,7 @@ export type IStoreState = {
   user: {
     userData: IUserData;
     messages: IMessageInListProps[];
+    users: IUserData[];
+    activeChatId: string;
   };
 };

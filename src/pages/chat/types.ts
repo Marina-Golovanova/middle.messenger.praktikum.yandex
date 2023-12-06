@@ -1,6 +1,6 @@
 export type IMessageInListProps = {
   id: string;
-  isActiveChat?: boolean;
+  activeChatId?: string;
   title: string;
   isUserMessage?: boolean;
   chatUserName?: string;

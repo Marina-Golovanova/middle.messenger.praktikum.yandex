@@ -1,7 +1,9 @@
 import { SimpleElement } from '@components/simple-element';
+import { store } from '@modules/system/store/Store';
 import { IMessageInListProps } from '@pages/chat/types';
 import { IComponentProps } from '@types';
-import { MessageInList } from '../message-in-list';
+import { messageInListConnector } from '../message-in-list';
+import { MessageInList } from '../message-in-list/MessageInList';
 
 export type IMessageListProps = {
   messages: IMessageInListProps[];
@@ -13,10 +15,14 @@ const getMessagesInList = (
   onMessageClick?: (id: string) => void,
 ) =>
   messages.map((message) => {
-    const messageInList = new MessageInList({
+    const messageInList = new messageInListConnector({
+      tagName: 'div',
       props: {
         ...message,
-        onClick: (id) => onMessageClick?.(id),
+        onClick: (id: string) => {
+          store.set('user.activeChatId', id);
+          onMessageClick?.(id);
+        },
       },
     });
 
@@ -43,13 +49,13 @@ export class MessageList extends SimpleElement<HTMLElement, IMessageListProps> {
       children: messages,
     });
 
-    this.messages = messages || [];
+    this.messages = (messages as MessageInList[]) || [];
   }
 
   setProps(props: IMessageListProps) {
     this.children = getMessagesInList(
       props.messages || [],
-      props.onMessageClick,
+      this?.props?.onMessageClick,
     );
     super.setProps(props);
   }

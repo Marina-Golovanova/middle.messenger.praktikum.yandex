@@ -1,0 +1,1 @@
+export { chatConnector } from './chatConnector';

@@ -81,4 +81,33 @@ export const api = {
       `${baseUrl}/chats/token/${chatId}`,
     ) as Promise<XMLHttpRequest>;
   },
+
+  getUserByLogin: (userLogin: string) => {
+    return httpTransport.post(`${baseUrl}/user/search`, {
+      data: JSON.stringify({
+        login: userLogin,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }) as Promise<XMLHttpRequest>;
+  },
+
+  addUserToChat: (users: string[], chatId: string) => {
+    return httpTransport.put(`${baseUrl}/chats/users`, {
+      data: JSON.stringify({
+        users,
+        chatId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }) as Promise<XMLHttpRequest>;
+  },
+
+  getChatUsers: (id: string) => {
+    return httpTransport.get(
+      `${baseUrl}/chats/${id}/users`,
+    ) as Promise<XMLHttpRequest>;
+  },
 };

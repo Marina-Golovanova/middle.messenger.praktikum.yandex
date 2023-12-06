@@ -26,6 +26,7 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@app-router': path.resolve(__dirname, 'src/app-router'),
       '@types': path.resolve(__dirname, 'src/types.ts'),
+      '@constants': path.resolve(__dirname, 'src/constants.ts'),
     },
   },
 });

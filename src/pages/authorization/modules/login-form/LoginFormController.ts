@@ -2,7 +2,7 @@ import { appRouter } from '@app-router/appRouter';
 import { paths } from '@app-router/paths';
 import { api } from '@modules/system/api';
 import { store } from '@modules/system/store/Store';
-import { MessageListController } from '@pages/chat/modules/message-list/MessageListController';
+import { ChatController } from '@pages/chat/ChatController';
 import { IStoreState, IUserSignInData } from '@types';
 import { validate } from './utils/validate';
 
@@ -29,9 +29,9 @@ export class LoginFormController {
 
       const userDataRes = await api.getUserData();
       store.set('user.userData', JSON.parse(userDataRes.responseText));
-      const messageListController = new MessageListController();
+      const chatController = new ChatController();
 
-      await messageListController.setChats();
+      await chatController.setChats();
 
       handleProps.onSuccess();
 

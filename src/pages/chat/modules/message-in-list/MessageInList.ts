@@ -3,6 +3,7 @@ import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 import { IMessageInListProps } from '@pages/chat/types';
+// import { store } from '@modules/system/store/Store';
 
 export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
   messageActiveBlur: Block;
@@ -12,7 +13,8 @@ export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
   ) {
     const messageActiveBlur = new SimpleElement({
       attributes: {
-        className: data.props?.isActiveChat ? 'message--active' : '',
+        className:
+          data.props?.activeChatId === data.props?.id ? 'message--active' : '',
       },
     });
 
@@ -95,19 +97,14 @@ export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
       ],
     });
 
-    messageActiveBlur.setAttributes({
-      ...messageActiveBlur.attributes,
-      className: this.props?.isActiveChat ? 'message--active' : '',
-    });
-
     this.messageActiveBlur = messageActiveBlur;
   }
 
   setProps(props: IMessageInListProps) {
-    this.messageActiveBlur.setAttributes({
-      ...this.messageActiveBlur.attributes,
-      className: props?.isActiveChat ? 'message--active' : '',
-    });
     super.setProps(props);
+    this.messageActiveBlur.setAttributes({
+      className:
+        props?.activeChatId === this?.props?.id ? 'message--active' : '',
+    });
   }
 }

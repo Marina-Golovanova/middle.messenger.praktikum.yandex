@@ -3,6 +3,7 @@ import { paths } from '@app-router/paths';
 import { api } from '@modules/system/api';
 import { store } from '@modules/system/store/Store';
 import { IChangePasswordData, IStoreState, IUserData } from '@types';
+import { avatarBasePath, avatarDefaultUrl } from '@constants';
 import { ChangePasswordError, validate } from './utils/validate';
 
 export type IHandleProps = {
@@ -17,8 +18,6 @@ export type IChangePasswordHandleProps = {
   onNewPasswordError: (message: string) => void;
   onRepeatPasswordError: (message: string) => void;
 };
-
-const avatarBasePath = 'https://ya-praktikum.tech/api/v2/resources';
 
 export class ProfileController {
   async logOut() {
@@ -37,7 +36,6 @@ export class ProfileController {
 
   getAvatarUrl() {
     const avatarUrl = (store.getState() as IStoreState)?.user?.userData?.avatar;
-    const avatarDefaultUrl = '/avatar.png';
 
     if ((store.getState() as IStoreState)?.user?.userData?.avatar) {
       return `${avatarBasePath}${avatarUrl}`;

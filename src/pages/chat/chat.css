@@ -19,6 +19,10 @@
         width: 20px;
         height: 20px;
         color: var(--chewbacca);
+
+        &--accent {
+          color: var(--leia-organa);
+        }
       }
     }
 
@@ -40,5 +44,14 @@
       display: flex;
       justify-content: space-between;
     }
+  }
+
+  &__chat-block__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: var(--c3-po);
+    font-size: 12;
   }
 }

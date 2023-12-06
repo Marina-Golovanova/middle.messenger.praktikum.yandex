@@ -28,7 +28,8 @@
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
       "@app-router/*": ["src/app-router/*"],
-      "@types": ["src/types.ts"]
+      "@types": ["src/types.ts"],
+      "@constants": ["src/constants.ts"]
     }
   },
   "include": ["src"]
