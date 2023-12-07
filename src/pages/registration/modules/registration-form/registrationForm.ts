@@ -1,15 +1,21 @@
 import { Button } from '@components/button';
-import { FormLayout } from '@components/form-layout';
+import { FormLayout, IFormProps } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { SimpleElement } from '@components/simple-element/SimpleElement';
-import { handleSubmitForm } from '@utils/user-form/handleSubmitForm';
+import { IComponentProps } from '@types';
+import {
+  handleSubmitForm,
+  SubmitFormEvents,
+} from '@utils/user-form/handleSubmitForm';
 import { registrationsFields } from './constants';
 
 const fields = registrationsFields.map((field) => {
-  const { inputProps, ...props } = field.props;
   const input = new LabelInput({
     ...field,
-    props,
+    props: {
+      ...field.props,
+      errorMessage: undefined,
+    },
 
     listeners: [
       {
@@ -19,9 +25,13 @@ const fields = registrationsFields.map((field) => {
           const value = target.value;
 
           if (!field.validate(value)) {
-            input.setProps({ ...input.props, inputProps });
+            input.setProps({
+              ...input.props,
+              errorMessage: field.props.errorMessage,
+            });
           } else {
-            input.setProps({ ...props, inputProps: undefined });
+            input.setProps({ ...field.props, errorMessage: undefined });
+            input.setAttributes({ ...input.attributes, value });
           }
         },
       },
@@ -50,16 +60,32 @@ const buttonsGroupLayout = new SimpleElement({
   children: [button],
 });
 
-export const registrationForm = new FormLayout({
-  attributes: {
-    id: 'form-layout',
-    className: 'form-layout__with-frame',
-  },
-  children: [...fields, buttonsGroupLayout],
-  listeners: [
-    {
-      event: 'submit',
-      callback: (e) => handleSubmitForm(e, registrationsFields),
-    },
-  ],
-});
+export class RegistrationForm extends FormLayout {
+  constructor(
+    data: IComponentProps<
+      IFormProps<Record<string, string | undefined>>,
+      Partial<HTMLFormElement>
+    >,
+  ) {
+    super({
+      ...data,
+      attributes: {
+        id: 'form-layout',
+        className: 'form-layout__with-frame',
+      },
+      children: [...fields, buttonsGroupLayout],
+      listeners: [
+        {
+          event: 'submit',
+          callback: (e) =>
+            handleSubmitForm({
+              e,
+              fields: registrationsFields,
+              eventType: SubmitFormEvents.signUp,
+              ref: this,
+            }),
+        },
+      ],
+    });
+  }
+}

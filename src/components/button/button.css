@@ -22,6 +22,10 @@
     background-color: var(--luke-skywalker);
   }
 
+  &--dark {
+    background-color: var(--r2-d2);
+  }
+
   &--s {
     width: 125px;
   }

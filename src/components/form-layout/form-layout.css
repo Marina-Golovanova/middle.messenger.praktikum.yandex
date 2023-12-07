@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: center;
   gap: 18px;
+  position: relative;
+  padding: 30px 28px;
 
   &__buttons-group {
     margin-top: 18px;
@@ -13,10 +15,23 @@
     width: 100%;
   }
 
+  &__buttons-group-flex {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   &__with-frame {
     width: 331px;
-    padding: 30px 28px;
     border: 2px solid var(--yoda);
     border-radius: 8px;
+  }
+
+  &__request-error {
+    position: absolute;
+    color: red;
+    bottom: 7px;
+    font-size: 12px;
   }
 }

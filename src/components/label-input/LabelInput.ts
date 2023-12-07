@@ -6,6 +6,7 @@ import { IInputProps, Input } from './components/Input';
 export type ILabelInputProps = {
   label?: string;
   inputProps?: IInputProps;
+  errorMessage?: string;
 };
 
 export type IInputType = 'text' | 'password';
@@ -43,10 +44,10 @@ export class LabelInput extends Block<ILabelInputProps, HTMLInputElement> {
   }
 
   addChildren(children?: Block[]): void {
-    const currentChildren = this.props?.inputProps?.errorMessage
+    const currentChildren = this.props?.errorMessage
       ? children?.concat(
           new SimpleElement({
-            props: { text: this.props.inputProps.errorMessage },
+            props: { text: this.props.errorMessage },
             attributes: { className: 'input-error-message' },
           }),
         )
@@ -56,8 +57,11 @@ export class LabelInput extends Block<ILabelInputProps, HTMLInputElement> {
   }
 
   setProps(newProps: ILabelInputProps) {
+    this.inputRef.setProps({
+      ...this.inputRef.props,
+      ...newProps.inputProps,
+      error: !!newProps.errorMessage,
+    });
     super.setProps(newProps);
-
-    this.inputRef.setProps({ errorMessage: newProps.inputProps?.errorMessage });
   }
 }

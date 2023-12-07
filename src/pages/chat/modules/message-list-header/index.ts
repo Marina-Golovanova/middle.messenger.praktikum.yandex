@@ -1,1 +1,1 @@
-export { messageListHeader } from './messageListHeader';
+export { MessageListHeader } from './MessageListHeader';

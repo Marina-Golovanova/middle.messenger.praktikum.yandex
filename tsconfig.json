@@ -27,7 +27,9 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
-      "@types": ["src/types.ts"]
+      "@app-router/*": ["src/app-router/*"],
+      "@types": ["src/types.ts"],
+      "@constants": ["src/constants.ts"]
     }
   },
   "include": ["src"]

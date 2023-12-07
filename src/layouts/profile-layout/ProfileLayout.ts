@@ -1,56 +1,54 @@
 import { ButtonIcon } from '@components/button-icon';
-import { arrowLeftTemplate } from '@components/icons-templates/arrowLeftTemplate';
+import { arrowLeftIconTemplate } from '@components/icons-templates/arrowLeftIconTemplate';
 import { Sidebar } from '@components/sidebar';
 import { SimpleElement } from '@components/simple-element/SimpleElement';
 import { MainLayout } from '@layouts/main-layout/MainLayout';
-import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 
 type IProfileLayoutProps = {
-  children: Block[];
+  onClickBack?: () => void;
 };
 
-export class ProfileLayout extends Block<IProfileLayoutProps, HTMLDivElement> {
+export class ProfileLayout extends MainLayout<IProfileLayoutProps> {
   constructor(
     data: IComponentProps<IProfileLayoutProps, Partial<HTMLDivElement>>,
   ) {
     super({
-      tagName: 'template',
       ...data,
       children: [
-        new MainLayout({
+        new Sidebar({
+          attributes: {
+            className: 'sidebar--xs',
+          },
+
           children: [
-            new Sidebar({
-              attributes: {
-                className: 'sidebar--xs',
-              },
+            new SimpleElement({
+              attributes: { className: 'profile-layout__sidebar' },
 
               children: [
-                new SimpleElement({
-                  attributes: { className: 'profile-layout__sidebar' },
-
-                  children: [
-                    new ButtonIcon({
-                      props: {
-                        iconProps: {
-                          className: 'profile-layout__icon',
-                          title: 'back',
-                        },
-                        template: arrowLeftTemplate,
+                new ButtonIcon({
+                  props: {
+                    iconProps: {
+                      className: 'profile-layout__icon',
+                      title: 'back',
+                    },
+                    template: arrowLeftIconTemplate,
+                  },
+                  listeners: [
+                    {
+                      event: 'click',
+                      callback: () => {
+                        data?.props?.onClickBack?.();
                       },
-                    }),
+                    },
                   ],
                 }),
               ],
             }),
-            ...(data?.children ? data.children : []),
           ],
         }),
+        ...(data?.children ? data.children : []),
       ],
     });
-  }
-
-  componentDidMount() {
-    this.element.replaceWith(this.element.children[0]);
   }
 }
