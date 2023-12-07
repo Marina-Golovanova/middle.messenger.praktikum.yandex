@@ -26,10 +26,10 @@ Prototype - [figma](<https://www.figma.com/file/oQ3kyUDR4I6AhTo28O2TUq/chat-(Com
 
 ---
 
-[Deploy](https://6553c81d7dbd76000886a81c--radiant-maamoul-3b0646.netlify.app/
+[Deploy](https://deploy--radiant-maamoul-3b0646.netlify.app/)
 
 ---
 
-#### Layout pages:
+#### What doesn't work
 
-Pages currently do not have their own link
+If you have been added to the chat, you will only be able to see this by logging out and logging in again. The same problem with receiving new messages.
