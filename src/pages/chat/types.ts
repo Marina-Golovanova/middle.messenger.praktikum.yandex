@@ -19,6 +19,7 @@ export type IMessageInChat = {
   isRead: boolean;
   content: string;
   contentType: IContentType;
+  chatId: string;
 };
 
 export type IDialog = {

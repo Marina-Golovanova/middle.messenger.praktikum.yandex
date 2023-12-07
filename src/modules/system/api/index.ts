@@ -110,4 +110,15 @@ export const api = {
       `${baseUrl}/chats/${id}/users`,
     ) as Promise<XMLHttpRequest>;
   },
+
+  deleteChat: (id: string) => {
+    return httpTransport.delete(`${baseUrl}/chats`, {
+      data: JSON.stringify({
+        chatId: id,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }) as Promise<XMLHttpRequest>;
+  },
 };

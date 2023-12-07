@@ -1,16 +1,18 @@
 import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';
-import { IComponentProps } from '@types';
+import { IComponentProps, IStoreState } from '@types';
 import { IMessageInChat } from '@pages/chat/types';
 import { ChatBlockHeader } from './modules/chat-block-header';
 import { MessageArea } from './modules/message-area/MessageArea';
 import { MessageInChat } from './modules/message-in-chat';
+import { store } from '@modules/system/store/Store';
 
 type IChatBlockProps = {
   imgSrc: string;
   chatName: string;
-  messages: IMessageInChat[];
+  chatMessages: IMessageInChat[];
   onSendMessage: (message: string) => void;
+  onDeleteChat: (chatId: string) => void;
 };
 
 const getMessages = (messages: IMessageInChat[]) =>
@@ -18,22 +20,25 @@ const getMessages = (messages: IMessageInChat[]) =>
 
 export class ChatBlock extends Block<IChatBlockProps> {
   chatBlockHeader: ChatBlockHeader;
-  chatBlockMessages: SimpleElement<HTMLElement, { messages: MessageInChat[] }>;
+  chatBlockContainer: SimpleElement<HTMLElement, { messages: MessageInChat[] }>;
 
   constructor(data: IComponentProps<IChatBlockProps, Partial<HTMLElement>>) {
     const chatBlockHeader = new ChatBlockHeader({
       props: {
         imgSrc: data.props?.imgSrc || '',
         chatName: data.props?.chatName || '',
+        onDelete: () =>
+          data.props?.onDeleteChat(
+            (store.getState() as IStoreState)?.user?.activeChatId,
+          ),
       },
     });
 
-    const chatBlockMessages = new SimpleElement<
+    const chatBlockContainer = new SimpleElement<
       HTMLElement,
       { messages: MessageInChat[] }
     >({
       attributes: { className: 'chat-block__messages' },
-      children: getMessages(data.props?.messages || []),
     });
 
     super({
@@ -43,10 +48,7 @@ export class ChatBlock extends Block<IChatBlockProps> {
       children: [
         chatBlockHeader,
 
-        new SimpleElement<HTMLElement, { messages: MessageInChat[] }>({
-          attributes: { className: 'chat-block__messages' },
-          children: getMessages(data.props?.messages || []),
-        }),
+        chatBlockContainer,
 
         new SimpleElement({
           attributes: { className: 'chat-block__footer' },
@@ -63,14 +65,28 @@ export class ChatBlock extends Block<IChatBlockProps> {
     });
 
     this.chatBlockHeader = chatBlockHeader;
-    this.chatBlockMessages = chatBlockMessages;
+    this.chatBlockContainer = chatBlockContainer;
   }
 
   setProps(props: IChatBlockProps) {
-    this.chatBlockHeader.setProps({
-      imgSrc: props.imgSrc,
-      chatName: props.chatName,
-    });
     super.setProps(props);
+
+    this.chatBlockHeader.setProps({
+      imgSrc: this?.props?.imgSrc || '',
+      chatName: this?.props?.chatName || '',
+      onDelete: () => {
+        this.props?.onDeleteChat(
+          (store.getState() as IStoreState)?.user?.activeChatId,
+        );
+      },
+    });
+
+    this.chatBlockContainer.children?.forEach((child) => {
+      child.destroy();
+    });
+
+    this.chatBlockContainer.addChildren(
+      getMessages(this?.props?.chatMessages || []),
+    );
   }
 }

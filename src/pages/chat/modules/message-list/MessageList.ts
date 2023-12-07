@@ -2,6 +2,7 @@ import { SimpleElement } from '@components/simple-element';
 import { store } from '@modules/system/store/Store';
 import { IMessageInListProps } from '@pages/chat/types';
 import { IComponentProps } from '@types';
+import { isEqual } from '@utils/isEqual';
 import { messageInListConnector } from '../message-in-list';
 import { MessageInList } from '../message-in-list/MessageInList';
 
@@ -53,10 +54,16 @@ export class MessageList extends SimpleElement<HTMLElement, IMessageListProps> {
   }
 
   setProps(props: IMessageListProps) {
-    this.children = getMessagesInList(
-      props.messages || [],
-      this?.props?.onMessageClick,
-    );
-    super.setProps(props);
+    if (!this.props?.messages) {
+      return;
+    }
+
+    if (!isEqual(props.messages, this.props?.messages)) {
+      this.children = getMessagesInList(
+        props.messages || [],
+        this?.props?.onMessageClick,
+      );
+      super.setProps(props);
+    }
   }
 }

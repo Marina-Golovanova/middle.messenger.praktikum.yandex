@@ -1,1 +1,1 @@
-export { chatConnector } from './chatConnector';
+export { chat } from './chat';

@@ -1,6 +1,6 @@
 import { ILabelInputProps, LabelInput } from '@components/label-input';
 import { Block } from '@modules/system/block';
-import { IMessageInListProps } from '@pages/chat/types';
+import { IMessageInChat, IMessageInListProps } from '@pages/chat/types';
 
 export type IListener = {
   event: keyof HTMLElementEventMap;
@@ -63,5 +63,6 @@ export type IStoreState = {
     messages: IMessageInListProps[];
     users: IUserData[];
     activeChatId: string;
+    chatMessages: IMessageInChat[];
   };
 };

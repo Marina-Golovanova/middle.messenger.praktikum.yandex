@@ -2,6 +2,7 @@ import { appRouter } from '@app-router/appRouter';
 import { paths } from '@app-router/paths';
 import { avatarBasePath } from '@constants';
 import { api } from '@modules/system/api';
+import { Socket } from '@modules/system/api/Socket';
 import { store } from '@modules/system/store/Store';
 import { IStoreState, IUserData } from '@types';
 import { IMessageInListProps } from './types';
@@ -20,15 +21,32 @@ export type ISearchHandleProps = {
 };
 
 export class ChatController {
+  socket?: Socket;
+
   async setChats() {
     const chatsRes = await api.getChats();
 
     if (chatsRes.status === 200) {
       const chats = JSON.parse(chatsRes.responseText);
-      const currentUserId = (store.getState() as IStoreState).user.userData.id;
+      const currentUserData = (store.getState() as IStoreState)?.user?.userData;
+
+      if (!currentUserData) {
+        console.error('something went wrong');
+
+        return;
+      }
+
+      const currentUserId = currentUserData.id;
 
       for (const chat of chats) {
-        const { id } = chat;
+        console.log(chat);
+        const { id, last_message, unread_count } = chat;
+        chat.message = last_message?.content || '';
+        chat.date = last_message?.time;
+        chat.numberNewMessages = unread_count;
+
+        chat.isUserMessage =
+          last_message?.user?.login === currentUserData.login;
 
         const chatUsersRes = await api.getChatUsers(id);
         if (chatUsersRes.status === 200) {
@@ -78,16 +96,45 @@ export class ChatController {
       return;
     }
     const { id } = JSON.parse(createChatRes.responseText);
-
     const updatedMessages = [
       { id, title },
-      ...(store.getState() as IStoreState).user.messages,
+      ...((store.getState() as IStoreState)?.user?.messages || []),
     ];
 
     store.set('user.messages', updatedMessages);
     handleProps?.onSuccess?.();
 
     return id;
+  }
+
+  async connectToSocket(chatId: string) {
+    try {
+      const userId = (store.getState() as IStoreState)?.user?.userData?.id;
+
+      if (!userId) {
+        console.error('Something went wrong');
+
+        return;
+      }
+
+      const tokenRes = await api.getToken(chatId);
+
+      if (tokenRes.status !== 200) {
+        console.error('Something went wrong');
+
+        return;
+      }
+
+      const socket = new Socket();
+      socket.setConnection({
+        chatId,
+        userId,
+        token: JSON.parse(tokenRes.responseText).token,
+      });
+      this.socket = socket;
+    } catch (e) {
+      console.error('Something went wrong');
+    }
   }
 
   async addUserByLogin(userLogin: string, handleProps: ISearchHandleProps) {
@@ -99,7 +146,7 @@ export class ChatController {
       }
 
       if (
-        (store.getState() as IStoreState).user?.users?.find(
+        ((store.getState() as IStoreState).user?.users || []).find(
           (user) => user.login === userLogin,
         )
       ) {
@@ -146,6 +193,36 @@ export class ChatController {
       }
     } catch (e) {
       handleProps.onError();
+    }
+  }
+
+  sendMessage(message: string) {
+    if (!this.socket) {
+      return;
+    }
+
+    this.socket.sendMessage(message);
+  }
+
+  async deleteChat(id: string) {
+    try {
+      const deleteChatRes = await api.deleteChat(id);
+
+      if (deleteChatRes.status !== 200) {
+        console.error('something went wrong');
+
+        return;
+      }
+
+      const updatedMessages = (
+        (store.getState() as IStoreState)?.user?.messages || []
+      ).filter((it) => it.id !== id);
+
+      store.set('user.messages', updatedMessages);
+      store.set('user.activeChat', null);
+      store.set('user.chatMessages', null);
+    } catch (e) {
+      console.error(e);
     }
   }
 }

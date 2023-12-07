@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Indexed } from '@types';
 import { EventBus } from '../event-bus';
 import { set } from './utils/set';

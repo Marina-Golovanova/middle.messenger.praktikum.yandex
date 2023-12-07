@@ -3,7 +3,6 @@ import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 import { IMessageInListProps } from '@pages/chat/types';
-// import { store } from '@modules/system/store/Store';
 
 export class MessageInList extends Block<IMessageInListProps, HTMLLIElement> {
   messageActiveBlur: Block;

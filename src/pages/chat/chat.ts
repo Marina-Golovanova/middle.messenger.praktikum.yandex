@@ -10,15 +10,15 @@ import { MainLayout } from '@layouts/main-layout/MainLayout';
 import { PopupLayout } from '@layouts/popup-layout';
 import { Block } from '@modules/system/block';
 import { store } from '@modules/system/store/Store';
-import { IComponentProps, IStoreState } from '@types';
+import { IStoreState } from '@types';
 import { ChatController } from './ChatController';
-import { ChatBlock } from './modules/chat-block';
+import { chatBlockConnector } from './modules/chat-block';
 import { messageListConnector } from './modules/message-list';
 import { MessageListHeader } from './modules/message-list-header';
 
 const chatController = new ChatController();
 
-const chatBlock = new ChatBlock({});
+const chatBlock = new chatBlockConnector({ tagName: 'div' });
 
 const emptyChatBlock = new SimpleElement({
   props: { text: 'Select a chat to start a conversation' },
@@ -31,21 +31,27 @@ const messageListElement = new messageListConnector({
     messages: (store.getState() as IStoreState)?.user?.messages || [],
     onMessageClick: (id: string) => {
       if (id === (store.getState() as IStoreState)?.user?.activeChatId) {
+        chatController.connectToSocket(id);
+
         const currentChat = (
           store.getState() as IStoreState
         )?.user?.messages?.find((it) => it.id === id);
 
         emptyChatBlock.hide();
+
         chatBlock.setProps({
           imgSrc: currentChat?.avatar || avatarDefaultUrl,
           chatName: currentChat?.title || '',
-          messages: [],
-          onSendMessage: (message) => {
+          onSendMessage: (message: string) => {
             if (message.length) {
-              console.log(message);
+              chatController.sendMessage(message);
             }
           },
+          onDeleteChat: (id: string) => {
+            chatController.deleteChat(id);
+          },
         });
+
         chatBlock.show();
       }
     },
@@ -184,64 +190,51 @@ const userSearchPopup: Block = new PopupLayout({
   ],
 });
 
-export class Chat extends MainLayout {
-  chatBlock: ChatBlock;
-  emptyChatBlock: SimpleElement<HTMLElement>;
-
-  constructor(
-    data: IComponentProps<Record<string, never>, Partial<HTMLElement>>,
-  ) {
-    super({
-      ...data,
+export const chat = new MainLayout({
+  children: [
+    new Sidebar({
+      attributes: { className: 'sidebar--s' },
       children: [
-        new Sidebar({
-          attributes: { className: 'sidebar--s' },
+        new SimpleElement({
+          attributes: {
+            className: 'chat__sidebar__content-layout',
+          },
           children: [
-            new SimpleElement({
-              attributes: {
-                className: 'chat__sidebar__content-layout',
+            new MessageListHeader({
+              props: {
+                onSearchUser: () => {
+                  chat.addChildren([userSearchPopup]);
+                },
               },
-              children: [
-                new MessageListHeader({
-                  props: {
-                    onSearchUser: () => {
-                      this.addChildren([userSearchPopup]);
-                    },
+            }),
+            messageListElement,
+            new ButtonIcon({
+              props: {
+                template: plusIconTemplate,
+                iconProps: {
+                  className: 'chat__sidebar__create-chat-button__icon',
+                  title: 'create new chat',
+                },
+              },
+              attributes: {
+                className: 'chat__sidebar__create-chat-button',
+              },
+              listeners: [
+                {
+                  event: 'click',
+                  callback: () => {
+                    chat.addChildren([createChatPopup]);
                   },
-                }),
-                messageListElement,
-                new ButtonIcon({
-                  props: {
-                    template: plusIconTemplate,
-                    iconProps: {
-                      className: 'chat__sidebar__create-chat-button__icon',
-                      title: 'create new chat',
-                    },
-                  },
-                  attributes: {
-                    className: 'chat__sidebar__create-chat-button',
-                  },
-                  listeners: [
-                    {
-                      event: 'click',
-                      callback: () => {
-                        this.addChildren([createChatPopup]);
-                      },
-                    },
-                  ],
-                }),
+                },
               ],
             }),
           ],
         }),
-        chatBlock,
-        emptyChatBlock,
       ],
-    });
+    }),
+    chatBlock,
+    emptyChatBlock,
+  ],
+});
 
-    this.chatBlock = chatBlock;
-    this.emptyChatBlock = emptyChatBlock;
-
-    this.chatBlock.hide();
-  }
-}
+chatBlock.hide();

@@ -1,6 +1,6 @@
 import { Avatar } from '@components/avatar';
 import { ButtonIcon } from '@components/button-icon';
-import { burgerMenuIconTemplate } from '@components/icons-templates/burgerMenuIconTemplate';
+import { deleteIconTemplate } from '@components/icons-templates/deleteIconTemplate';
 import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
@@ -8,6 +8,7 @@ import { IComponentProps } from '@types';
 type IChatBlockHeaderProps = {
   imgSrc: string;
   chatName: string;
+  onDelete: () => void;
 };
 
 export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
@@ -39,16 +40,22 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
         title,
 
         new SimpleElement({
-          attributes: { className: 'chat-block-header__burger-menu' },
+          attributes: { className: 'chat-block-header__delete' },
           children: [
             new ButtonIcon({
               props: {
-                template: burgerMenuIconTemplate,
+                template: deleteIconTemplate,
                 iconProps: {
                   title: 'settings',
-                  className: 'chat-block-header__burger-menu__icon',
+                  className: 'chat-block-header__delete__icon',
                 },
               },
+              listeners: [
+                {
+                  event: 'click',
+                  callback: () => this.props?.onDelete(),
+                },
+              ],
             }),
           ],
         }),

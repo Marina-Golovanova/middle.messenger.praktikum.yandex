@@ -33,7 +33,6 @@ export class Avatar extends Block<IAvatarProps, HTMLDivElement> {
   }
 
   setProps(props: IAvatarProps) {
-    console.log(this.props, props);
     this.imgRef.setAttributes({
       ...this.imgRef.attributes,
       src: props.imgSrc,

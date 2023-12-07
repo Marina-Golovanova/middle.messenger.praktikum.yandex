@@ -36,8 +36,9 @@ export class Router {
         return;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const target = event.currentTarget as any;
+      const target = event.currentTarget as unknown as {
+        location: { pathname: string };
+      };
 
       this._onRoute(target.location.pathname);
     };

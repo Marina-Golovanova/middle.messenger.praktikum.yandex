@@ -15,12 +15,13 @@
     margin-left: 10px;
   }
 
-  &__burger-menu {
+  &__delete {
     margin-left: auto;
 
     &__icon {
-      color: var(--c3-po);
-      width: 3px;
+      width: 24px;
+      height: 24px;
+      color: var(--leia-organa);
     }
   }
 }

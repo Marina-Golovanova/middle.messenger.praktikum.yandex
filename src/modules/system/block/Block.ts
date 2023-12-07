@@ -23,6 +23,7 @@ export abstract class Block<
   props?: Props;
   attributes?: Partial<TypeElement>;
   listeners?: IListener[];
+  propsChildren?: Block[];
   children?: Block[];
   private _eventBus: () => EventBus;
 
@@ -54,7 +55,7 @@ export abstract class Block<
     }
 
     if (children) {
-      this.children = children;
+      this.propsChildren = children;
     }
 
     this._eventBus = () => eventBus;
@@ -104,7 +105,7 @@ export abstract class Block<
   _componentDidMount() {
     this.setAttributes(this.attributes);
     this.setListeners();
-    this.addChildren(this.children);
+    this.addChildren(this.propsChildren);
     this.componentDidMount();
   }
 
@@ -235,6 +236,7 @@ export abstract class Block<
     children.forEach((child) => {
       render(this.getContent(), child);
     });
+    this.children = children;
   }
 
   destroy() {

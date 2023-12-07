@@ -1,1 +1,1 @@
-export { ChatBlock } from './ChatBlock';
+export { chatBlockConnector } from './chatBlockConnector';
