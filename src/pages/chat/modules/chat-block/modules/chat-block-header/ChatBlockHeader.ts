@@ -1,6 +1,10 @@
 import { Avatar } from '@components/avatar';
+import { BurgerMenu } from '@components/burger-menu';
 import { ButtonIcon } from '@components/button-icon';
+import { addUserTemplate } from '@components/icons-templates/addUserTemplate';
+import { burgerMenuIconTemplate } from '@components/icons-templates/burgerMenuIconTemplate';
 import { deleteIconTemplate } from '@components/icons-templates/deleteIconTemplate';
+import { usersGroupIconTemplate } from '@components/icons-templates/usersGroupIconTemplate';
 import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
@@ -18,6 +22,46 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
   constructor(
     data: IComponentProps<IChatBlockHeaderProps, Partial<HTMLDivElement>>,
   ) {
+    const burgerMenu = new BurgerMenu({
+      props: {
+        burgerMenuItems: [
+          {
+            text: 'Add user',
+            icon: new ButtonIcon({
+              props: { template: addUserTemplate, iconProps: {} },
+              attributes: {
+                className: 'chat-block-header__burger-menu-block__icon',
+              },
+            }),
+            onClick: () => console.log('add user'),
+          },
+          {
+            text: 'Users',
+            icon: new ButtonIcon({
+              props: { template: usersGroupIconTemplate, iconProps: {} },
+              attributes: {
+                className: 'chat-block-header__burger-menu-block__icon',
+              },
+            }),
+            onClick: () => console.log('show users'),
+          },
+          {
+            text: 'Delete chat',
+            icon: new ButtonIcon({
+              props: { template: deleteIconTemplate, iconProps: {} },
+              attributes: {
+                className: 'chat-block-header__burger-menu-block__icon',
+              },
+            }),
+            onClick: () => console.log('delete chat'),
+          },
+        ],
+      },
+      attributes: {
+        className: 'chat-block-header__burger-menu-block',
+      },
+    });
+
     const avatar = new Avatar({
       attributes: { className: 'avatar--xs' },
       props: { imgSrc: data.props?.imgSrc || '' },
@@ -40,20 +84,22 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
         title,
 
         new SimpleElement({
-          attributes: { className: 'chat-block-header__delete' },
+          attributes: { className: 'chat-block-header__burger-menu' },
           children: [
+            burgerMenu,
+
             new ButtonIcon({
               props: {
-                template: deleteIconTemplate,
+                template: burgerMenuIconTemplate,
                 iconProps: {
                   title: 'settings',
-                  className: 'chat-block-header__delete__icon',
+                  className: 'chat-block-header__burger-menu__icon',
                 },
               },
               listeners: [
                 {
                   event: 'click',
-                  callback: () => this.props?.onDelete(),
+                  callback: () => burgerMenu.show(),
                 },
               ],
             }),
@@ -64,6 +110,8 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
 
     this.avatar = avatar;
     this.title = title;
+
+    burgerMenu.hide();
   }
 
   setProps(props: IChatBlockHeaderProps) {
