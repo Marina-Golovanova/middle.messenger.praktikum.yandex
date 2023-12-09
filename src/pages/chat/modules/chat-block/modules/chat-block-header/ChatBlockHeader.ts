@@ -13,6 +13,8 @@ type IChatBlockHeaderProps = {
   imgSrc: string;
   chatName: string;
   onDelete: () => void;
+  onAddUser: () => void;
+  onShowUsers: () => void;
 };
 
 export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
@@ -33,7 +35,7 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
                 className: 'chat-block-header__burger-menu-block__icon',
               },
             }),
-            onClick: () => console.log('add user'),
+            onClick: () => data?.props?.onAddUser(),
           },
           {
             text: 'Users',
@@ -43,7 +45,7 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
                 className: 'chat-block-header__burger-menu-block__icon',
               },
             }),
-            onClick: () => console.log('show users'),
+            onClick: () => data?.props?.onShowUsers(),
           },
           {
             text: 'Delete chat',

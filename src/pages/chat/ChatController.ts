@@ -7,7 +7,7 @@ import { store } from '@modules/system/store/Store';
 import { IStoreState, IUserData } from '@types';
 import { IMessageInListProps } from './types';
 
-export type ICreateChatHandleProps = {
+export type IHandleProps = {
   onSuccess: () => void;
   onError: () => void;
 };
@@ -82,7 +82,33 @@ export class ChatController {
     }
   }
 
-  async createChat(title: string, handleProps?: ICreateChatHandleProps) {
+  async getChatUsers() {
+    try {
+      const activeChatId = (store.getState() as IStoreState)?.user
+        ?.activeChatId;
+
+      if (!activeChatId) {
+        console.error('something went wrong');
+
+        return [];
+      }
+      const getChatUsersRes = await api.getChatUsers(activeChatId);
+      console.log(getChatUsersRes);
+      if (getChatUsersRes.status !== 200) {
+        console.error('something went wrong');
+
+        return [];
+      }
+
+      return JSON.parse(getChatUsersRes.responseText);
+    } catch (e) {
+      console.error(e);
+
+      return [];
+    }
+  }
+
+  async createChat(title: string, handleProps?: IHandleProps) {
     if (!title.length) {
       console.error('Empty name');
 
@@ -196,6 +222,61 @@ export class ChatController {
     }
   }
 
+  async addUserToChatByLogin(
+    userLogin: string,
+    handleProps: ISearchHandleProps,
+  ) {
+    try {
+      if (!userLogin.length) {
+        handleProps.onEmptyValue();
+
+        return;
+      }
+
+      const getUserByLoginRes = await api.getUserByLogin(userLogin);
+
+      if (getUserByLoginRes.status !== 200) {
+        handleProps.onError();
+
+        return;
+      }
+
+      const users = JSON.parse(getUserByLoginRes.responseText);
+
+      if (!users.length) {
+        handleProps.onUserAbsent();
+
+        return;
+      }
+
+      const user = users[0] as IUserData;
+
+      if (!user.id) {
+        console.error('something went wrong');
+
+        return;
+      }
+
+      const activeChatId = (store.getState() as IStoreState)?.user
+        ?.activeChatId;
+
+      if (!activeChatId) {
+        console.error('something went wrong');
+
+        return;
+      }
+
+      const addUserToChatRes = await api.addUserToChat([user.id], activeChatId);
+
+      if (addUserToChatRes.status === 200) {
+        handleProps.onSuccess();
+      }
+    } catch (e) {
+      console.error(e);
+      handleProps.onError();
+    }
+  }
+
   sendMessage(message: string) {
     if (!this.socket) {
       return;
@@ -223,6 +304,42 @@ export class ChatController {
       store.set('user.chatMessages', null);
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  async deleteUserFromChat(userId: string, handleProps: IHandleProps) {
+    try {
+      if (!userId) {
+        console.error('Something went wrong');
+
+        return;
+      }
+
+      const activeChatId = (store.getState() as IStoreState)?.user
+        ?.activeChatId;
+
+      if (!activeChatId) {
+        console.error('something went wrong');
+
+        return;
+      }
+
+      const deleteUserFromChatRes = await api.deleteUserFromChat(
+        [userId],
+        activeChatId,
+      );
+
+      if (deleteUserFromChatRes.status !== 200) {
+        console.error('Something went wrong');
+        handleProps.onError();
+
+        return;
+      }
+
+      handleProps.onSuccess();
+    } catch (e) {
+      console.error(e);
+      handleProps.onError();
     }
   }
 }

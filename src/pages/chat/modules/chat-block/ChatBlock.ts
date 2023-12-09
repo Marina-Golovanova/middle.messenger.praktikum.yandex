@@ -13,6 +13,8 @@ type IChatBlockProps = {
   chatMessages: IMessageInChat[];
   onSendMessage: (message: string) => void;
   onDeleteChat: (chatId: string) => void;
+  onAddUser: () => void;
+  onShowUsers?: () => void;
 };
 
 const getMessages = (messages: IMessageInChat[]) =>
@@ -31,6 +33,8 @@ export class ChatBlock extends Block<IChatBlockProps> {
           data.props?.onDeleteChat(
             (store.getState() as IStoreState)?.user?.activeChatId,
           ),
+        onAddUser: () => data?.props?.onAddUser?.(),
+        onShowUsers: () => data?.props?.onShowUsers?.(),
       },
     });
 
@@ -78,6 +82,12 @@ export class ChatBlock extends Block<IChatBlockProps> {
         this.props?.onDeleteChat(
           (store.getState() as IStoreState)?.user?.activeChatId,
         );
+      },
+      onAddUser: () => {
+        this.props?.onAddUser?.();
+      },
+      onShowUsers: () => {
+        this.props?.onShowUsers?.();
       },
     });
 

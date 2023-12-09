@@ -1,5 +1,7 @@
+import { Block } from '@modules/system/block';
+
 export const deepCopy = <T>(obj: T) => {
-  if (typeof obj !== 'object' || obj === null) {
+  if (obj instanceof Block || typeof obj !== 'object' || obj === null) {
     return obj;
   }
 

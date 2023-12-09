@@ -15,10 +15,106 @@ import { ChatController } from './ChatController';
 import { chatBlockConnector } from './modules/chat-block';
 import { messageListConnector } from './modules/message-list';
 import { MessageListHeader } from './modules/message-list-header';
+import { UserList } from './modules/user-list';
+import { UserSearchPopup } from './modules/user-search-popup/UserSearchPopup';
 
 const chatController = new ChatController();
 
-const chatBlock = new chatBlockConnector({ tagName: 'div' });
+const handleOnSearchUser = (value: string) => {
+  chatController.addUserByLogin(value, {
+    onSuccess: () => {
+      userSearchPopup.destroy();
+    },
+    onUserAbsent: () => console.error('User absents'),
+    onError: () => console.error('Something went wrong'),
+    onEmptyValue: () => console.error('type valut'),
+    onUserAlreadyExists: () => console.error('chat already exists'),
+  });
+};
+
+const handleOnAddUserToChat = (value: string) => {
+  chatController.addUserToChatByLogin(value, {
+    onSuccess: () => {
+      userSearchPopup.destroy();
+    },
+    onUserAbsent: () => console.error('User absents'),
+    onError: () => console.error('Something went wrong'),
+    onEmptyValue: () => console.error('type valut'),
+    onUserAlreadyExists: () => console.error('chat already exists'),
+  });
+};
+
+const userSearchPopup = new PopupLayout({
+  children: [
+    new UserSearchPopup({
+      props: {
+        onSearch: (value: string) => {
+          handleOnSearchUser(value);
+        },
+        onCancel: () => {
+          userSearchPopup.destroy();
+        },
+      },
+    }),
+  ],
+});
+
+const userAddPopup = new PopupLayout({
+  children: [
+    new UserSearchPopup({
+      props: {
+        onSearch: (value: string) => {
+          handleOnAddUserToChat(value);
+        },
+        onCancel: () => {
+          userAddPopup.destroy();
+        },
+      },
+    }),
+  ],
+});
+
+const userListPopupLayout = new PopupLayout({});
+
+const userListPopup = new UserList({
+  props: {
+    onClose: () => {
+      userListPopupLayout.destroy();
+    },
+    onDeleteUser: (id) => {
+      chatController.deleteUserFromChat(id, {
+        onSuccess: () => {
+          userListPopup.setProps({
+            users: (userListPopup?.props?.users || []).filter(
+              (user) => user.id !== id,
+            ),
+          });
+        },
+        onError: () => {
+          console.error('Something went wrong');
+        },
+      });
+    },
+  },
+});
+
+userListPopupLayout.addChildren([userListPopup]);
+
+const chatBlock = new chatBlockConnector({
+  tagName: 'div',
+  props: {
+    onAddUser: () => {
+      chatBlock.addChildren([userAddPopup]);
+    },
+    onShowUsers: async () => {
+      const users = await chatController.getChatUsers();
+
+      chat.addChildren([userListPopupLayout]);
+
+      userListPopup.setProps({ users });
+    },
+  },
+});
 
 const emptyChatBlock = new SimpleElement({
   props: { text: 'Select a chat to start a conversation' },
@@ -109,75 +205,6 @@ const createChatPopup: Block = new PopupLayout({
                         createChatPopup.destroy();
                       },
                       onError: () => console.error('Something went wrong'),
-                    });
-                  },
-                },
-              ],
-            }),
-          ],
-        }),
-      },
-    }),
-  ],
-});
-
-const userSearchPopupInput = new LabelInput({
-  attributes: { className: 'input--stretched' },
-  props: { label: 'Type user login' },
-  listeners: [
-    {
-      event: 'blur',
-      callback: (e) => {
-        const target = e.target as HTMLInputElement;
-        userSearchPopupInput.inputRef.setAttributes({ value: target.value });
-      },
-    },
-  ],
-});
-
-const userSearchPopup: Block = new PopupLayout({
-  children: [
-    new Popup({
-      props: {
-        header: userSearchPopupInput,
-        footer: new SimpleElement({
-          attributes: {
-            className: 'chat__create-popup__controls',
-          },
-          children: [
-            new Button({
-              props: { text: 'cancel' },
-              attributes: { className: 'button--dark button--s' },
-              listeners: [
-                {
-                  event: 'click',
-                  callback: () => userSearchPopup.destroy(),
-                },
-              ],
-            }),
-
-            new Button({
-              props: { text: 'search' },
-              attributes: { className: 'button--accent button--s' },
-              listeners: [
-                {
-                  event: 'click',
-                  callback: () => {
-                    const userLogin =
-                      userSearchPopupInput.inputRef.attributes?.value || '';
-
-                    chatController.addUserByLogin(userLogin, {
-                      onSuccess: () => {
-                        userSearchPopupInput.inputRef.setAttributes({
-                          value: '',
-                        });
-                        userSearchPopup.destroy();
-                      },
-                      onUserAbsent: () => console.error('User absents'),
-                      onError: () => console.error('Something went wrong'),
-                      onEmptyValue: () => console.log('type valut'),
-                      onUserAlreadyExists: () =>
-                        console.log('chat already exists'),
                     });
                   },
                 },

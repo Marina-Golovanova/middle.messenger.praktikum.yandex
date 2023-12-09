@@ -21,6 +21,7 @@
 @import url('./pages/chat/modules/chat-block/modules/chat-block-header/chat-block-header.css');
 @import url('./pages/chat/modules/chat-block/modules/message-area/message-area.css');
 @import url('./pages/chat/modules/chat-block/modules/message-in-chat/message-in-chat.css');
+@import url('./pages/chat/modules/user-list/user-list.css');
 
 :root {
   font-family: Roboto, sans-serif;
