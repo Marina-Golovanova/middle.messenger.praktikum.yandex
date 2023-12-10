@@ -21,17 +21,23 @@ export type IChangePasswordHandleProps = {
 
 export class ProfileController {
   async logOut() {
-    const logOutRes = await api.logOut();
+    try {
+      const logOutRes = await api.logOut();
 
-    if (logOutRes.status !== 200) {
-      console.error('something went wrong');
+      if (logOutRes.status !== 200) {
+        console.error('something went wrong');
+        appRouter.go(paths.error);
+
+        return;
+      }
+
+      store.removeState();
+      appRouter.go(paths.signIn);
+    } catch (e) {
+      console.error(e);
+
       appRouter.go(paths.error);
-
-      return;
     }
-
-    store.removeState();
-    appRouter.go(paths.signIn);
   }
 
   getAvatarUrl() {
@@ -75,15 +81,19 @@ export class ProfileController {
   }
 
   async editUser(userData: IUserData, handleProps: IHandleProps) {
-    const editUserRes = await api.editUser(userData);
+    try {
+      const editUserRes = await api.editUser(userData);
 
-    if (editUserRes.status !== 200) {
-      handleProps.onError();
+      if (editUserRes.status !== 200) {
+        handleProps.onError();
 
-      return;
+        return;
+      }
+      handleProps.onSuccess();
+      store.set('user.userData', userData);
+    } catch (e) {
+      console.error(e);
     }
-    handleProps.onSuccess();
-    store.set('user.userData', userData);
   }
 
   async changePassword(

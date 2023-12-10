@@ -24,61 +24,67 @@ export class ChatController {
   socket?: Socket;
 
   async setChats() {
-    const chatsRes = await api.getChats();
+    try {
+      const chatsRes = await api.getChats();
 
-    if (chatsRes.status === 200) {
-      const chats = JSON.parse(chatsRes.responseText);
-      const currentUserData = (store.getState() as IStoreState)?.user?.userData;
+      if (chatsRes.status === 200) {
+        const chats = JSON.parse(chatsRes.responseText);
+        const currentUserData = (store.getState() as IStoreState)?.user
+          ?.userData;
 
-      if (!currentUserData) {
-        console.error('something went wrong');
+        if (!currentUserData) {
+          console.error('something went wrong');
 
-        return;
-      }
-
-      const currentUserId = currentUserData.id;
-
-      for (const chat of chats) {
-        console.log(chat);
-        const { id, last_message, unread_count } = chat;
-        chat.message = last_message?.content || '';
-        chat.date = last_message?.time;
-        chat.numberNewMessages = unread_count;
-
-        chat.isUserMessage =
-          last_message?.user?.login === currentUserData.login;
-
-        const chatUsersRes = await api.getChatUsers(id);
-        if (chatUsersRes.status === 200) {
-          const chatUsers = JSON.parse(chatUsersRes.responseText);
-
-          if (chatUsers.length <= 1) {
-            continue;
-          }
-
-          const externUsers = chatUsers.filter(
-            (user: IUserData) => user.id !== currentUserId,
-          );
-
-          const chatName = externUsers
-            .map((user: IUserData) => `${user.first_name} ${user.second_name}`)
-            .join();
-
-          const chatAvatar = externUsers.map((user: IUserData) => {
-            return user.avatar;
-          })[0];
-
-          if (!(chat as IMessageInListProps).avatar && chatAvatar) {
-            chat.avatar = `${avatarBasePath}${chatAvatar}`;
-          }
-
-          chat.title = chatName;
+          return;
         }
-      }
 
-      store.set('user.messages', chats);
-    } else {
-      appRouter.go(paths.error);
+        const currentUserId = currentUserData.id;
+
+        for (const chat of chats) {
+          const { id, last_message, unread_count } = chat;
+          chat.message = last_message?.content || '';
+          chat.date = last_message?.time;
+          chat.numberNewMessages = unread_count;
+
+          chat.isUserMessage =
+            last_message?.user?.login === currentUserData.login;
+
+          const chatUsersRes = await api.getChatUsers(id);
+          if (chatUsersRes.status === 200) {
+            const chatUsers = JSON.parse(chatUsersRes.responseText);
+
+            if (chatUsers.length <= 1) {
+              continue;
+            }
+
+            const externUsers = chatUsers.filter(
+              (user: IUserData) => user.id !== currentUserId,
+            );
+
+            const chatName = externUsers
+              .map(
+                (user: IUserData) => `${user.first_name} ${user.second_name}`,
+              )
+              .join();
+
+            const chatAvatar = externUsers.map((user: IUserData) => {
+              return user.avatar;
+            })[0];
+
+            if (!(chat as IMessageInListProps).avatar && chatAvatar) {
+              chat.avatar = `${avatarBasePath}${chatAvatar}`;
+            }
+
+            chat.title = chatName;
+          }
+        }
+
+        store.set('user.messages', chats);
+      } else {
+        appRouter.go(paths.error);
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 
@@ -115,22 +121,26 @@ export class ChatController {
       return;
     }
 
-    const createChatRes = await api.createChat(title);
+    try {
+      const createChatRes = await api.createChat(title);
 
-    if (createChatRes.status !== 200) {
-      handleProps?.onError?.();
-      return;
+      if (createChatRes.status !== 200) {
+        handleProps?.onError?.();
+        return;
+      }
+      const { id } = JSON.parse(createChatRes.responseText);
+      const updatedMessages = [
+        { id, title },
+        ...((store.getState() as IStoreState)?.user?.messages || []),
+      ];
+
+      store.set('user.messages', updatedMessages);
+      handleProps?.onSuccess?.();
+
+      return id;
+    } catch (e) {
+      console.error(e);
     }
-    const { id } = JSON.parse(createChatRes.responseText);
-    const updatedMessages = [
-      { id, title },
-      ...((store.getState() as IStoreState)?.user?.messages || []),
-    ];
-
-    store.set('user.messages', updatedMessages);
-    handleProps?.onSuccess?.();
-
-    return id;
   }
 
   async connectToSocket(chatId: string) {
@@ -208,7 +218,7 @@ export class ChatController {
         `${user.first_name} ${user.second_name}`,
       );
 
-      if (!user.id) {
+      if (!user.id || !id) {
         return;
       }
 
