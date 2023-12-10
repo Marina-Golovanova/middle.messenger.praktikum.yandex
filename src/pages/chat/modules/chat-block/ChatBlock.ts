@@ -77,7 +77,6 @@ export class ChatBlock extends Block<IChatBlockProps> {
 
   setProps(props: IChatBlockProps) {
     super.setProps(props);
-    console.log(props);
 
     this.chatBlockHeader.setProps({
       imgSrc: this?.props?.imgSrc || '',

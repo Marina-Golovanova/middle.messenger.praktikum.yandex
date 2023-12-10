@@ -57,7 +57,7 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
                 className: 'chat-block-header__burger-menu-block__icon',
               },
             }),
-            onClick: () => console.log('delete chat'),
+            onClick: () => data?.props?.onDelete(),
           },
           {
             text: 'Change chat image',
@@ -143,7 +143,6 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
   }
 
   setProps(props: IChatBlockHeaderProps) {
-    console.log(props);
     super.setProps(props);
 
     this.avatar.setProps({ imgSrc: props.imgSrc });

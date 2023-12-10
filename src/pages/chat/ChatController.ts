@@ -5,7 +5,7 @@ import { api } from '@modules/system/api';
 import { Socket } from '@modules/system/api/Socket';
 import { store } from '@modules/system/store/Store';
 import { IStoreState, IUserData } from '@types';
-import { IMessageInListProps } from './types';
+// import { IMessageInListProps } from './types';
 
 export type IHandleProps = {
   onSuccess: () => void;
@@ -45,6 +45,9 @@ export class ChatController {
           chat.message = last_message?.content || '';
           chat.date = last_message?.time;
           chat.numberNewMessages = unread_count;
+          chat.avatar = chat.avatar
+            ? `${avatarBasePath}/${chat.avatar}`
+            : '/chat-avatar.png';
 
           chat.isUserMessage =
             last_message?.user?.login === currentUserData.login;
@@ -60,20 +63,14 @@ export class ChatController {
             const externUsers = chatUsers.filter(
               (user: IUserData) => user.id !== currentUserId,
             );
-
-            const chatName = externUsers
-              .map(
-                (user: IUserData) => `${user.first_name} ${user.second_name}`,
-              )
-              .join();
-
-            const chatAvatar = externUsers.map((user: IUserData) => {
-              return user.avatar;
-            })[0];
-
-            if (!(chat as IMessageInListProps).avatar && chatAvatar) {
-              chat.avatar = `${avatarBasePath}${chatAvatar}`;
-            }
+            console.log(chat);
+            const chatName =
+              chat.title ||
+              externUsers
+                .map(
+                  (user: IUserData) => `${user.first_name} ${user.second_name}`,
+                )
+                .join();
 
             chat.title = chatName;
           }
@@ -99,7 +96,7 @@ export class ChatController {
         return [];
       }
       const getChatUsersRes = await api.getChatUsers(activeChatId);
-      console.log(getChatUsersRes);
+
       if (getChatUsersRes.status !== 200) {
         console.error('something went wrong');
 
