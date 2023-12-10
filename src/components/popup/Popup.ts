@@ -1,14 +1,14 @@
 import { Block } from '@modules/system/block';
 import { IComponentProps } from '@types';
 
-type IPopupProps = {
+export type IPopupProps<T> = {
   header?: Block;
   body?: Block;
   footer?: Block;
-};
+} & T;
 
-export class Popup extends Block<IPopupProps> {
-  constructor(data: IComponentProps<IPopupProps, Partial<HTMLElement>>) {
+export class Popup<T = Record<string, never>> extends Block<IPopupProps<T>> {
+  constructor(data: IComponentProps<IPopupProps<T>, Partial<HTMLElement>>) {
     const { header, body, footer } = data.props || {};
     const children: Block[] = [];
 
@@ -39,7 +39,7 @@ export class Popup extends Block<IPopupProps> {
     super({
       tagName: 'div',
       ...data,
-      attributes: { className: 'popup' },
+      attributes: { className: `popup ${data?.attributes?.className || ''}` },
       children,
     });
   }

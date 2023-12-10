@@ -121,4 +121,22 @@ export const api = {
       },
     }) as Promise<XMLHttpRequest>;
   },
+
+  deleteUserFromChat: (users: string[], chatId: string) => {
+    return httpTransport.delete(`${baseUrl}/chats/users`, {
+      data: JSON.stringify({
+        users,
+        chatId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }) as Promise<XMLHttpRequest>;
+  },
+
+  changeChatAvatar: (avatar: FormData) => {
+    return httpTransport.put(`${baseUrl}/chats/avatar`, {
+      data: avatar,
+    }) as Promise<XMLHttpRequest>;
+  },
 };

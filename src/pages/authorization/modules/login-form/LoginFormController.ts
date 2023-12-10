@@ -43,16 +43,20 @@ export class LoginFormController {
   }
 
   async checkIsUserAuthorized() {
-    if ((store.getState() as IStoreState)?.user?.userData?.id) {
-      appRouter.go(paths.messenger);
+    try {
+      if ((store.getState() as IStoreState)?.user?.userData?.id) {
+        appRouter.go(paths.messenger);
 
-      return;
-    }
+        return;
+      }
 
-    const userDataRes = await api.getUserData();
-    if (userDataRes.status === 200) {
-      store.set('user.userData', JSON.parse(userDataRes.responseText));
-      appRouter.go(paths.messenger);
+      const userDataRes = await api.getUserData();
+      if (userDataRes.status === 200) {
+        store.set('user.userData', JSON.parse(userDataRes.responseText));
+        appRouter.go(paths.messenger);
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 }

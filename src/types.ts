@@ -12,6 +12,7 @@ export type IComponentProps<Props, Attributes> = {
   attributes?: Attributes;
   listeners?: IListener[];
   children?: Block[];
+  propsChildren?: Block[];
 };
 
 export type IFormField = {
@@ -64,5 +65,6 @@ export type IStoreState = {
     users: IUserData[];
     activeChatId: string;
     chatMessages: IMessageInChat[];
+    imgSrc: string;
   };
 };

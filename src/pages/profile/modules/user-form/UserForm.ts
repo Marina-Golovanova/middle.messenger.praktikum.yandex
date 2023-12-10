@@ -182,7 +182,7 @@ export class UserForm extends FormLayout<IUserFormProps> {
     this.editableFormButtons = editableButton;
     this.notEditableFormButtons = notEditableFormButtons;
 
-    if (this.props?.isEditable) {
+    if (data.props?.isEditable) {
       this.notEditableFormButtons.hide();
     } else {
       this.editableFormButtons.hide();
@@ -192,11 +192,19 @@ export class UserForm extends FormLayout<IUserFormProps> {
   setProps(props: IUserFormProps) {
     super.setProps(props);
 
-    if (this.props?.isEditable) {
+    if (props?.isEditable) {
       this.editableFormButtons.show();
-      this.notEditableFormButtons.hide();
+
+      if (
+        !this.notEditableFormButtons.attributes?.className?.includes('hidden')
+      ) {
+        this.notEditableFormButtons.hide();
+      }
     } else {
-      this.editableFormButtons.hide();
+      if (!this.editableFormButtons.attributes?.className?.includes('hidden')) {
+        this.editableFormButtons.hide();
+      }
+
       this.notEditableFormButtons.show();
     }
 
