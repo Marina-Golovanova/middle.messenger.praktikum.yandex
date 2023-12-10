@@ -133,4 +133,10 @@ export const api = {
       },
     }) as Promise<XMLHttpRequest>;
   },
+
+  changeChatAvatar: (avatar: FormData) => {
+    return httpTransport.put(`${baseUrl}/chats/avatar`, {
+      data: avatar,
+    }) as Promise<XMLHttpRequest>;
+  },
 };

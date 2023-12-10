@@ -352,4 +352,47 @@ export class ChatController {
       handleProps.onError();
     }
   }
+
+  async changeAvatar(file: File) {
+    try {
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      const activeChatId = (store.getState() as IStoreState)?.user
+        ?.activeChatId;
+
+      if (!activeChatId) {
+        console.error('something went wrong');
+
+        return;
+      }
+
+      formData.append('chatId', activeChatId);
+
+      const changeAvatarRes = await api.changeChatAvatar(formData);
+
+      if (changeAvatarRes.status !== 200) {
+        console.error('Something went wrong');
+
+        return;
+      }
+
+      const chatData = JSON.parse(changeAvatarRes.responseText);
+
+      const updatedMessages = (
+        (store.getState() as IStoreState)?.user?.messages || []
+      ).map((it) => {
+        if (it.id === chatData.id) {
+          return { ...it, avatar: `${avatarBasePath}/${chatData.avatar}` };
+        }
+
+        return it;
+      });
+
+      store.set('user.messages', updatedMessages);
+      store.set('user.imgSrc', `${avatarBasePath}/${chatData.avatar}`);
+    } catch (e) {
+      console.error('Something went wrong');
+    }
+  }
 }

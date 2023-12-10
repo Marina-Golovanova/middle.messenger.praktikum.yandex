@@ -65,5 +65,6 @@ export type IStoreState = {
     users: IUserData[];
     activeChatId: string;
     chatMessages: IMessageInChat[];
+    imgSrc: string;
   };
 };

@@ -4,6 +4,7 @@ import { ButtonIcon } from '@components/button-icon';
 import { addUserTemplate } from '@components/icons-templates/addUserTemplate';
 import { burgerMenuIconTemplate } from '@components/icons-templates/burgerMenuIconTemplate';
 import { deleteIconTemplate } from '@components/icons-templates/deleteIconTemplate';
+import { imageIconTemplate } from '@components/icons-templates/imageIconTemplate';
 import { usersGroupIconTemplate } from '@components/icons-templates/usersGroupIconTemplate';
 import { SimpleElement } from '@components/simple-element';
 import { Block } from '@modules/system/block';
@@ -15,6 +16,7 @@ type IChatBlockHeaderProps = {
   onDelete: () => void;
   onAddUser: () => void;
   onShowUsers: () => void;
+  onChangeChatImage: (file: File) => void;
 };
 
 export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
@@ -56,6 +58,30 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
               },
             }),
             onClick: () => console.log('delete chat'),
+          },
+          {
+            text: 'Change chat image',
+            icon: new ButtonIcon({
+              props: {
+                template: imageIconTemplate,
+                iconProps: {},
+                isInputFile: true,
+                onLoadFile: (e) => {
+                  const target = e.target as HTMLInputElement;
+                  const blobFile = target.files?.[0];
+
+                  if (!blobFile) {
+                    return;
+                  }
+
+                  data?.props?.onChangeChatImage(blobFile);
+                },
+              },
+              attributes: {
+                className: 'chat-block-header__burger-menu-block__icon',
+              },
+            }),
+            onClick: () => {},
           },
         ],
       },
@@ -117,6 +143,7 @@ export class ChatBlockHeader extends Block<IChatBlockHeaderProps> {
   }
 
   setProps(props: IChatBlockHeaderProps) {
+    console.log(props);
     super.setProps(props);
 
     this.avatar.setProps({ imgSrc: props.imgSrc });

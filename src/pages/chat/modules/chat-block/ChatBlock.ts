@@ -15,6 +15,7 @@ type IChatBlockProps = {
   onDeleteChat: (chatId: string) => void;
   onAddUser: () => void;
   onShowUsers?: () => void;
+  onChangeChatImage?: (file: File) => void;
 };
 
 const getMessages = (messages: IMessageInChat[]) =>
@@ -35,6 +36,8 @@ export class ChatBlock extends Block<IChatBlockProps> {
           ),
         onAddUser: () => data?.props?.onAddUser?.(),
         onShowUsers: () => data?.props?.onShowUsers?.(),
+        onChangeChatImage: (file: File) =>
+          data?.props?.onChangeChatImage?.(file),
       },
     });
 
@@ -68,12 +71,13 @@ export class ChatBlock extends Block<IChatBlockProps> {
       ],
     });
 
-    this.chatBlockHeader = chatBlockHeader;
+    this.chatBlockHeader = chatBlockHeader as ChatBlockHeader;
     this.chatBlockContainer = chatBlockContainer;
   }
 
   setProps(props: IChatBlockProps) {
     super.setProps(props);
+    console.log(props);
 
     this.chatBlockHeader.setProps({
       imgSrc: this?.props?.imgSrc || '',
@@ -88,6 +92,9 @@ export class ChatBlock extends Block<IChatBlockProps> {
       },
       onShowUsers: () => {
         this.props?.onShowUsers?.();
+      },
+      onChangeChatImage: (file: File) => {
+        this.props?.onChangeChatImage?.(file);
       },
     });
 

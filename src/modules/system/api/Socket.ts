@@ -43,9 +43,8 @@ export class Socket {
       this.onMessage(event.data);
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    socket.addEventListener('error', (e: any) => {
-      console.log('Ошибка' + e.message);
+    socket.addEventListener('error', () => {
+      console.log('Something went wrong');
     });
 
     this.socket = socket;

@@ -113,6 +113,9 @@ const chatBlock = new chatBlockConnector({
 
       userListPopup.setProps({ users });
     },
+    onChangeChatImage: (file: File) => {
+      chatController.changeAvatar(file);
+    },
   },
 });
 
