@@ -6,36 +6,14 @@ import {
   checkPhone,
 } from '@utils/user-form/validations';
 
-type IUserData = {
-  id: string;
-  firstName: string;
-  secondName: string;
-  displayName: string;
-  login: string;
-  email: string;
-  phone: string;
-};
-
-const mockUser: IUserData = {
-  id: '1',
-  firstName: 'Ivan',
-  secondName: 'Ivanov',
-  displayName: 'ivanko',
-  login: 'ivanko545',
-  email: 'ivan@yandex.ru',
-  phone: '+79998887766',
-};
-
 export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'first name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
-      value: mockUser.firstName,
+      value: '',
       placeholder: 'Anna',
       name: 'first_name',
     },
@@ -44,12 +22,10 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'second name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
-      value: mockUser.secondName,
+      value: '',
       placeholder: 'Smith',
       name: 'second_name',
     },
@@ -58,27 +34,23 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'display name',
-      inputProps: {
-        errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
-      },
+      errorMessage: 'Use Latin or Cyrillic alphabet, capitalize first letter',
     },
     attributes: {
-      value: mockUser.displayName,
+      value: '',
       placeholder: 'anna',
       name: 'display_name',
     },
-    validate: checkLogin,
+    validate: () => true,
   },
   {
     props: {
       label: 'login',
-      inputProps: {
-        errorMessage:
-          'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
-      },
+      errorMessage:
+        'Use Latin alphabet, numbers, "-", "_" . 3 to 20 letters. One letter.',
     },
     attributes: {
-      value: mockUser.login,
+      value: '',
       placeholder: 'anna123',
       name: 'login',
     },
@@ -87,12 +59,10 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'email',
-      inputProps: {
-        errorMessage: 'Invalid email',
-      },
+      errorMessage: 'Invalid email',
     },
     attributes: {
-      value: mockUser.email,
+      value: '',
       placeholder: 'anna@yandex.ru',
       name: 'email',
     },
@@ -101,12 +71,10 @@ export const userFormFields: IFormField[] = [
   {
     props: {
       label: 'phone',
-      inputProps: {
-        errorMessage: 'Invalid phone number',
-      },
+      errorMessage: 'Invalid phone number',
     },
     attributes: {
-      value: mockUser.phone,
+      value: '',
       placeholder: '+79998887766',
       name: 'phone',
     },

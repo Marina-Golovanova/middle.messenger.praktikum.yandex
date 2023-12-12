@@ -1,12 +1,14 @@
 export type IMessageInListProps = {
-  isActiveChat?: boolean;
-  chatName: string;
-  isUserMessage: boolean;
+  id: string;
+  activeChatId?: string;
+  title: string;
+  isUserMessage?: boolean;
   chatUserName?: string;
-  message: string;
-  date: string;
+  message?: string;
+  date?: string;
   numberNewMessages?: number;
-  imageSrc: string;
+  avatar?: string;
+  onClick?: (id: string) => void;
 };
 
 export type IContentType = 'text' | 'image' | 'audio' | 'video';
@@ -17,6 +19,7 @@ export type IMessageInChat = {
   isRead: boolean;
   content: string;
   contentType: IContentType;
+  chatId: string;
 };
 
 export type IDialog = {

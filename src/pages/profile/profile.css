@@ -7,6 +7,28 @@
       position: absolute;
       top: 0;
       left: -175px;
+
+      &__avatar-error {
+        position: absolute;
+        top: calc(100% + 12px);
+        font-size: 12px;
+        color: var(--reva);
+      }
+    }
+
+    &__photo-icon {
+      position: absolute;
+      width: 87px;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      color: var(--darth-vader);
+    }
+
+    &__change-password__buttons {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
     }
   }
 

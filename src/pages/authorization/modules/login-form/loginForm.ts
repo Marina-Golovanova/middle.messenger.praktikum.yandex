@@ -2,6 +2,8 @@ import { Button } from '@components/button';
 import { FormLayout } from '@components/form-layout';
 import { LabelInput } from '@components/label-input';
 import { loginButtons, loginFields } from './constants';
+import { IUserSignInData } from '@types';
+import { LoginFormController } from './LoginFormController';
 
 const fields = loginFields.map((field) => {
   const inputField = new LabelInput({
@@ -23,8 +25,11 @@ const buttons = loginButtons.map(
         text: button.text,
       },
       attributes: button,
+      listeners: button.listeners,
     }),
 );
+
+const loginFormController = new LoginFormController();
 
 export const loginForm = new FormLayout({
   attributes: {
@@ -36,8 +41,6 @@ export const loginForm = new FormLayout({
       callback: (e) => {
         e.preventDefault();
 
-        let isError = false;
-
         const loginData: Record<string, string> = {};
 
         loginFields.forEach((field) => {
@@ -46,29 +49,28 @@ export const loginForm = new FormLayout({
           }
 
           const value = field.ref?.inputRef?.element?.value || '';
-          if (!field.validate(value)) {
-            field.ref?.setProps({
-              ...field.ref.props,
-              inputProps: field.props.inputProps,
-            });
-            isError = true;
-          } else {
-            field.ref?.setProps({
-              ...field.ref.props,
-              inputProps: { errorMessage: undefined },
-            });
-            isError = false;
-            loginData[field.attributes.name] = value;
-          }
+          loginData[field.attributes.name] = value;
         });
 
-        if (!isError) {
-          console.log(loginData);
-        } else {
-          console.error('Something is wrong');
-        }
+        loginFormController.login(loginData as IUserSignInData, {
+          onSuccess: () => {
+            fields.forEach((field) => {
+              field.inputRef.setAttributes({ value: '' });
+            });
+          },
+          onError: (errorMessage: string) => {
+            loginForm.setProps({ requestError: '' });
+            loginForm.setProps({
+              requestError: errorMessage,
+            });
+          },
+        });
       },
     },
   ],
   children: [...fields, ...buttons],
 });
+
+loginForm.componentDidMount = () => {
+  loginFormController.checkIsUserAuthorized();
+};

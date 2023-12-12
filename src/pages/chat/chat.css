@@ -19,11 +19,39 @@
         width: 20px;
         height: 20px;
         color: var(--chewbacca);
+
+        &--accent {
+          color: var(--leia-organa);
+        }
       }
     }
 
-    &__message-list {
-      /* margin-top: 24px; */
+    &__create-chat-button {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      color: var(--han-solo);
+
+      &__icon {
+        width: 48px;
+        height: 48px;
+      }
     }
+  }
+
+  &__create-popup {
+    &__controls {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__chat-block__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: var(--c3-po);
+    font-size: 12;
   }
 }

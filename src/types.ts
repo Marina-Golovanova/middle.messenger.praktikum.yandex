@@ -1,5 +1,6 @@
 import { ILabelInputProps, LabelInput } from '@components/label-input';
 import { Block } from '@modules/system/block';
+import { IMessageInChat, IMessageInListProps } from '@pages/chat/types';
 
 export type IListener = {
   event: keyof HTMLElementEventMap;
@@ -11,6 +12,7 @@ export type IComponentProps<Props, Attributes> = {
   attributes?: Attributes;
   listeners?: IListener[];
   children?: Block[];
+  propsChildren?: Block[];
 };
 
 export type IFormField = {
@@ -19,4 +21,50 @@ export type IFormField = {
   listeners?: IListener[];
   ref?: LabelInput;
   validate: (value: string) => boolean;
+};
+
+export type IUserSignUpData = {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+};
+
+export type IUserSignInData = {
+  login: string;
+  password: string;
+};
+
+export type IUserData = IUserSignUpData & {
+  id?: string;
+  display_name: string;
+  avatar: string | null;
+};
+
+export type IChangePasswordData = {
+  oldPassword: string;
+  newPassword: string;
+  repeatPassword: string;
+};
+
+export type IChangePasswordApiData = {
+  oldPassword: string;
+  newPassword: string;
+};
+
+export type Indexed<T = unknown> = {
+  [key in string]: T;
+};
+
+export type IStoreState = {
+  user: {
+    userData: IUserData;
+    messages: IMessageInListProps[];
+    users: IUserData[];
+    activeChatId: string;
+    chatMessages: IMessageInChat[];
+    imgSrc: string;
+  };
 };

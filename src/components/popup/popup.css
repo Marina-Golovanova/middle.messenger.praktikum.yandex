@@ -1,0 +1,26 @@
+.popup {
+  width: 486px;
+  height: 246px;
+  background-color: var(--c3-po);
+  padding: 40px 60px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    'header'
+    'body'
+    'footer';
+
+  &__header {
+    font-size: 16px;
+    grid-area: header;
+  }
+
+  &__body {
+    font-size: 24px;
+    grid-area: body;
+  }
+
+  &__footer {
+    grid-area: footer;
+  }
+}

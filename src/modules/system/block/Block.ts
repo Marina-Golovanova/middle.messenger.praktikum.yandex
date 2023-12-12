@@ -1,5 +1,5 @@
 import { deepCopy } from '@utils/deepCopy';
-import { isDeepEqual } from '@utils/isDeepEqual';
+import { isEqual } from '@utils/isEqual';
 import { EventBus } from '@modules/system/event-bus';
 
 import type { IComponentProps, IListener } from '@types';
@@ -23,6 +23,7 @@ export abstract class Block<
   props?: Props;
   attributes?: Partial<TypeElement>;
   listeners?: IListener[];
+  propsChildren?: Block[];
   children?: Block[];
   private _eventBus: () => EventBus;
 
@@ -54,7 +55,7 @@ export abstract class Block<
     }
 
     if (children) {
-      this.children = children;
+      this.propsChildren = children;
     }
 
     this._eventBus = () => eventBus;
@@ -104,7 +105,7 @@ export abstract class Block<
   _componentDidMount() {
     this.setAttributes(this.attributes);
     this.setListeners();
-    this.addChildren(this.children);
+    this.addChildren(this.propsChildren);
     this.componentDidMount();
   }
 
@@ -117,15 +118,16 @@ export abstract class Block<
   }
 
   componentDidUpdate(oldProps: Props, newProps: Props) {
-    const isEqual = isDeepEqual(oldProps, newProps);
-    if (!isEqual) {
+    const isPropsEqual = isEqual(oldProps, newProps);
+
+    if (!isPropsEqual) {
       this._removeListeners();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
       this.addChildren(this.children);
-      this.setAttributes();
+      this.setAttributes(this.attributes);
       this.setListeners();
     }
-    return isEqual;
+    return isPropsEqual;
   }
 
   private _render() {
@@ -156,7 +158,10 @@ export abstract class Block<
       this.props = this._makePropsProxy(nextProps);
     }
 
-    this._eventBus().emit(Block.EVENTS.FLOW_CDU, { oldProps, nextProps });
+    this._eventBus().emit(Block.EVENTS.FLOW_CDU, {
+      oldProps,
+      nextProps: this.props,
+    });
   }
 
   setAttributes(attributes?: Partial<TypeElement>) {
@@ -170,7 +175,12 @@ export abstract class Block<
       }
 
       this._element.setAttribute(key === 'className' ? 'class' : key, value);
+      if (!this.attributes) {
+        this.attributes = {};
+      }
     });
+
+    this.attributes = { ...this.attributes, ...attributes };
   }
 
   setListeners() {
@@ -226,6 +236,7 @@ export abstract class Block<
     children.forEach((child) => {
       render(this.getContent(), child);
     });
+    this.children = children;
   }
 
   destroy() {
@@ -234,5 +245,20 @@ export abstract class Block<
 
   render() {
     return '';
+  }
+
+  show() {
+    const className = this.attributes?.className?.replace('hidden', '');
+    this.setAttributes({
+      ...this.attributes,
+      className,
+    } as Partial<TypeElement>);
+  }
+
+  hide() {
+    this.setAttributes({
+      ...this.attributes,
+      className: `${this.attributes?.className || ''} hidden`,
+    } as Partial<TypeElement>);
   }
 }
