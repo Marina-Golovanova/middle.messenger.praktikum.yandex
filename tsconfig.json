@@ -32,5 +32,11 @@
       "@constants": ["src/constants.ts"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true,
+    "require": ["tsconfig-paths/register"]
+  }
 }
