@@ -1,9 +1,0 @@
-{
-  "extensions": ["ts"],
-  "spec": ["src/**/*.test.ts"],
-  "require": "tsconfig-paths/register",
-  "node-option": [
-    "experimental-specifier-resolution=node",
-    "loader=ts-node/esm"
-  ]
-}

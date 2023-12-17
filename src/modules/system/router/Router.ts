@@ -1,3 +1,4 @@
+import { paths } from '@app-router/paths';
 import { Block } from '../block';
 import { Route } from './Route';
 
@@ -62,6 +63,13 @@ export class Router {
   }
 
   go(pathname: string) {
+    if (!Object.values(paths).includes(pathname)) {
+      this.history.pushState({}, '', paths.notFound);
+      this._onRoute(paths.notFound);
+
+      return;
+    }
+
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
