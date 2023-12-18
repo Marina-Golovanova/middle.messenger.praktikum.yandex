@@ -47,7 +47,11 @@ export class MessageInChat extends Block<IMessageInChat> {
             }),
             new SimpleElement({
               tagName: 'span',
-              props: { text: data.props?.time },
+              props: {
+                text: new Date(
+                  Date.parse(data.props?.time || Date.now().toLocaleString()),
+                ).toLocaleDateString(),
+              },
             }),
           ],
         }),
