@@ -63,7 +63,7 @@ export class ChatController {
             const externUsers = chatUsers.filter(
               (user: IUserData) => user.id !== currentUserId,
             );
-            console.log(chat);
+
             const chatName =
               chat.title ||
               externUsers
