@@ -12,7 +12,8 @@
     "lint": "eslint src && stylelint 'src/**/*.{css,scss}' && tsc --noEmit",
     "preview": "vite preview",
     "start": "tsc && vite build && node server.js",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.23.3",
