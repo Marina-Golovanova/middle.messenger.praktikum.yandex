@@ -2,6 +2,7 @@ import { HTTPTransport } from './HTTPTransport';
 
 describe('Test HTTPTransport', () => {
   let httpTransport: HTTPTransport | null = null;
+  const TEST_URL = 'https://www.example.com/';
 
   beforeEach(() => {
     httpTransport = new HTTPTransport();
@@ -16,7 +17,7 @@ describe('Test HTTPTransport', () => {
       return;
     }
 
-    httpTransport.get('https://www.example.com/');
+    httpTransport.get(TEST_URL);
 
     expect(httpTransport.get).toHaveBeenCalled();
   });
@@ -26,7 +27,7 @@ describe('Test HTTPTransport', () => {
       return;
     }
 
-    httpTransport.post('https://www.example.com/', {
+    httpTransport.post(TEST_URL, {
       data: JSON.stringify({
         a: 1,
         b: 2,
@@ -41,7 +42,7 @@ describe('Test HTTPTransport', () => {
       return;
     }
 
-    httpTransport.put('https://www.example.com/', {
+    httpTransport.put(TEST_URL, {
       data: JSON.stringify({
         a: 1,
         b: 2,
@@ -56,7 +57,7 @@ describe('Test HTTPTransport', () => {
       return;
     }
 
-    httpTransport.delete('https://www.example.com/', {
+    httpTransport.delete(TEST_URL, {
       data: JSON.stringify({
         id: 5,
       }),
