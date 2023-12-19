@@ -111,24 +111,8 @@ export class ChangePasswordForm extends FormLayout<IChangePasswordProps> {
         text: 'save',
       },
       attributes: {
-        type: 'submit',
         className: 'button--accent button--s',
       },
-      listeners: [
-        {
-          event: 'click',
-          callback: (e) => {
-            handleSubmitNewPassword({
-              event: e,
-              onSuccess: () => data.props?.onSuccess(),
-              onError: (message: string) =>
-                (this as unknown as FormLayout).setProps({
-                  requestError: message,
-                }),
-            });
-          },
-        },
-      ],
     });
 
     super({
@@ -154,6 +138,15 @@ export class ChangePasswordForm extends FormLayout<IChangePasswordProps> {
           event: 'submit',
           callback: (e) => {
             e.preventDefault();
+
+            handleSubmitNewPassword({
+              event: e,
+              onSuccess: () => data.props?.onSuccess(),
+              onError: (message: string) =>
+                (this as unknown as FormLayout).setProps({
+                  requestError: message,
+                }),
+            });
           },
         },
       ],
