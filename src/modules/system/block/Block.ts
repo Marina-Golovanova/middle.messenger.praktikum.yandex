@@ -248,7 +248,7 @@ export abstract class Block<
   }
 
   show() {
-    const className = this.attributes?.className?.replace('hidden', '');
+    const className = this.attributes?.className?.replace(/hidden/g, '');
     this.setAttributes({
       ...this.attributes,
       className,

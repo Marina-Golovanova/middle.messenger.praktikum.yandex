@@ -9,6 +9,12 @@ import { paths } from './paths';
 
 export const appRouter = new Router('#app');
 
+window.onload = function () {
+  if (!Object.values(paths).includes(window.location.pathname)) {
+    appRouter.go(paths.notFound);
+  }
+};
+
 appRouter.use(paths.signIn, authorizationPage);
 appRouter.use(paths.signUp, registrationPage);
 appRouter.use(paths.settings, profile);

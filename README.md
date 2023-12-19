@@ -20,6 +20,9 @@ Builds the app and runs it on the port 3000
 `npm run lint`  
 Runs the eslint, stylelint and types-checking
 
+`npm run test`  
+Runs the tests
+
 ---
 
 Prototype - [figma](<https://www.figma.com/file/oQ3kyUDR4I6AhTo28O2TUq/chat-(Community)?type=design&node-id=3%3A570&mode=design&t=XPxmtvdhzisHF4EZ-1>)
@@ -32,4 +35,6 @@ Prototype - [figma](<https://www.figma.com/file/oQ3kyUDR4I6AhTo28O2TUq/chat-(Com
 
 #### What doesn't work
 
-If you have been added to the chat, you will only be able to see this by logging out and logging in again. The same problem with receiving new messages.
+If you have been added to the chat, you will only be able to see this by updating the page. The same problem with receiving new messages.
+
+You can see only your last 20 chats and last 20 messages in chat.
